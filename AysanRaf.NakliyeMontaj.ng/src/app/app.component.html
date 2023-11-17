@@ -1,0 +1,168 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAKLİYE-MONTAJ</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #e0f2f1; /* Açık mavi arka plan rengi */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+
+
+
+
+    /* Flexbox kullanarak div'leri yan yana getirme */
+    .flex-container {
+      display: flex;
+    }
+
+      .flex-container div {
+        margin: 10px;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: center;
+      }
+    /*AS*/
+    header {
+      padding: 0px;
+      background-color: #0094ff;
+      text-align: start;
+    }
+
+    .main-container {
+      width: 80%;
+      display: flex;
+      flex: 1;
+    }
+
+    .time-show {
+      width: 10%;
+      display: flex;
+      background-color: white;
+      /*flex: 1;
+      height: 20%;*/
+    }
+
+    .sidebar {
+      width: 23%;
+      background-color: #f0f0f0;
+      padding: 20px;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .content {
+      flex: 1;
+      padding: 20px;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    #date-time {
+      background-color: white;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography">
+  <header>
+
+
+    <div class="flex-container">
+      <h2> <div>  <img width="50%" height="20%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlf7tKlr0p6561tbtdr-6YRNIm73xIK3srwQ&usqp=CAU" alt="AYSAN RAF LOGO"> </div></h2>
+
+      <div style="width:75% ">
+
+        <h1><b> AYSAN RAF SİSTEMLERİ AŞ.</b></h1>
+        <h3><b>NAKLİYE-MONTAJ TAKİBİ</b></h3>
+      </div>
+      <!--<h2> <div class="time-show" style="width:65% "> <label id="date-time"></label> </div></h2>-->
+    </div>
+
+
+  </header>
+
+
+
+
+  <div class="main-container">
+    <div class="sidebar">
+
+
+
+      <button onclick="showTable('button3')" style="display: flex; align-items: center;">
+        <mat-icon style="height: 40px; width: 25%;">toc</mat-icon>
+        <p style="margin: 0; margin-left: 10px;">PLANLANMIŞ NAKLİYE-MONTAJ FORMU</p>
+      </button>
+      <button onclick="showTable('button3')" style="display: flex; align-items: center;">
+        <mat-icon style="height: 40px; width: 25%;">reorder</mat-icon>
+        <p style="margin: 0; margin-left: 10px;">GERÇEKLEŞEN NAKLİYE-MONTAJ FORMU</p>
+      </button> <button onclick="showTable('button3')" style="display: flex; align-items: center; ">
+        <mat-icon style="height: 40px; width: 25%;">import_contacts</mat-icon>
+        <p style="margin: 0; margin-left: 10px;">PLANLANAN-GERÇEKLEŞEN KARŞILAŞTIRMA FORMU</p>
+      </button>
+      <!-- <button onclick="showTable('button4')">Button 4</button>-->
+    </div>
+    <!--deneme-->
+
+  </div>
+
+  <script>
+    function showTable(buttonName) {
+      // Burada istediğiniz butona göre tablo içeriğini değiştirebilirsiniz.
+      // Örneğin, farklı bir API'den veri çekebilir veya statik bir veri setini kullanabilirsiniz.
+      var tableContent = '<tr><td>Data 1</td><td>Data 2</td><td>Data 3</td></tr>';
+      document.getElementById('myTable').getElementsByTagName('tbody')[0].innerHTML = tableContent;
+    }
+
+      // Tarih ve saat bilgisini gösteren fonksiyon
+      //function showDateTime() {
+      //  var currentDate = new Date();
+      //  var formattedDate = currentDate.toLocaleDateString();
+      //  var formattedTime = currentDate.toLocaleTimeString();
+
+      //  var dateTimeElement = document.getElementById('date-time');
+      //  dateTimeElement.innerHTML = '<p>' + formattedTime + "  " + formattedDate + '</p>';
+
+      //  setTimeout(showDateTime, 1000); // 1 saniye sonra tekrar çağır
+      //}
+
+      //showDateTime(); // Fonksiyonu başlat
+  </script>
+</body>
+</html>
+<!--<aysanraf-shippingInstallation-plannedofform-list-all></aysanraf-shippingInstallation-plannedofform-list-all>-->
