@@ -1,6 +1,6 @@
 import { Component, NgModule, OnInit } from "@angular/core";
 
-import {  PlannedModule } from "../../../shared/modules/plannedform/planned.module";
+
 
 @Component({
   selector: 'aysanraf-shippingInstallation-plannedofform-list-all',
@@ -8,6 +8,11 @@ import {  PlannedModule } from "../../../shared/modules/plannedform/planned.modu
   styleUrls: ['./list.component.scss']
 })
 export class ShippinInstallationPlannedofFormComponent implements OnInit {
+
+  constructor() {
+
+  } 
+
     ngOnInit(): void {
         throw new Error("Method not implemented.");
     }

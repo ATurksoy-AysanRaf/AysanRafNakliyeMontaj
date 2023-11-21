@@ -54,7 +54,7 @@
     }
 
     .sidebar {
-      width: 23%;
+      width: 22%;
       background-color: #f0f0f0;
       padding: 20px;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -103,9 +103,9 @@
 
 
     <div class="flex-container">
-      <h2> <div>  <img width="50%" height="20%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlf7tKlr0p6561tbtdr-6YRNIm73xIK3srwQ&usqp=CAU" alt="AYSAN RAF LOGO"> </div></h2>
+      <h2> <div>  <img width="50%" height="0%" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlf7tKlr0p6561tbtdr-6YRNIm73xIK3srwQ&usqp=CAU" alt="AYSAN RAF LOGO"> </div></h2>
 
-      <div style="width:75% ">
+      <div style="width:65% ">
 
         <h1><b> AYSAN RAF SİSTEMLERİ AŞ.</b></h1>
         <h3><b>NAKLİYE-MONTAJ TAKİBİ</b></h3>
@@ -122,13 +122,11 @@
   <div class="main-container">
     <div class="sidebar">
 
-
-
-      <button onclick="showTable('button3')" style="display: flex; align-items: center;">
-        <mat-icon style="height: 40px; width: 25%;">toc</mat-icon>
+      <button onclick="showTable('button1')" style="display: flex; align-items: center;">
+        <mat-icon style="height: 40px; width: 23%;">toc</mat-icon>
         <p style="margin: 0; margin-left: 10px;">PLANLANMIŞ NAKLİYE-MONTAJ FORMU</p>
       </button>
-      <button onclick="showTable('button3')" style="display: flex; align-items: center;">
+      <button onclick="showTable('button2')" style="display: flex; align-items: center;">
         <mat-icon style="height: 40px; width: 25%;">reorder</mat-icon>
         <p style="margin: 0; margin-left: 10px;">GERÇEKLEŞEN NAKLİYE-MONTAJ FORMU</p>
       </button> <button onclick="showTable('button3')" style="display: flex; align-items: center; ">
@@ -137,32 +135,43 @@
       </button>
       <!-- <button onclick="showTable('button4')">Button 4</button>-->
     </div>
-    <!--deneme-->
+    <div>
+      <div style="width:132%">
+        <!--deneme-->
+
+        <aysanraf-shippingInstallation-plannedofform-list-all></aysanraf-shippingInstallation-plannedofform-list-all>
+
+      </div>
+    </div>
 
   </div>
-
+  
   <script>
-    function showTable(buttonName) {
-      // Burada istediğiniz butona göre tablo içeriğini değiştirebilirsiniz.
-      // Örneğin, farklı bir API'den veri çekebilir veya statik bir veri setini kullanabilirsiniz.
-      var tableContent = '<tr><td>Data 1</td><td>Data 2</td><td>Data 3</td></tr>';
-      document.getElementById('myTable').getElementsByTagName('tbody')[0].innerHTML = tableContent;
-    }
+    //function showTable(buttonName) {
+    //  // Burada istediğiniz butona göre tablo içeriğini değiştirebilirsiniz.
+    //  // Örneğin, farklı bir API'den veri çekebilir veya statik bir veri setini kullanabilirsiniz.
+    //  var tableContent = '<tr><td>Data 1</td><td>Data 2</td><td>Data 3</td></tr>';
+    //  document.getElementById('myTable').getElementsByTagName('tbody')[0].innerHTML = tableContent;
+    //}
 
-      // Tarih ve saat bilgisini gösteren fonksiyon
-      //function showDateTime() {
-      //  var currentDate = new Date();
-      //  var formattedDate = currentDate.toLocaleDateString();
-      //  var formattedTime = currentDate.toLocaleTimeString();
+          // Tarih ve saat bilgisini gösteren fonksiyon
+          //function showDateTime() {
+          //  var currentDate = new Date();
+          //  var formattedDate = currentDate.toLocaleDateString();
+          //  var formattedTime = currentDate.toLocaleTimeString();
 
-      //  var dateTimeElement = document.getElementById('date-time');
-      //  dateTimeElement.innerHTML = '<p>' + formattedTime + "  " + formattedDate + '</p>';
+          //  var dateTimeElement = document.getElementById('date-time');
+          //  dateTimeElement.innerHTML = '<p>' + formattedTime + "  " + formattedDate + '</p>';
 
-      //  setTimeout(showDateTime, 1000); // 1 saniye sonra tekrar çağır
-      //}
+          //  setTimeout(showDateTime, 1000); // 1 saniye sonra tekrar çağır
+          //}
 
-      //showDateTime(); // Fonksiyonu başlat
+          //showDateTime(); // Fonksiyonu başlat
   </script>
+
+  <!-- Örneğin, eğer "aysanraf-" ön eki kullanılıyorsa -->
+ 
+ 
+
 </body>
 </html>
-<!--<aysanraf-shippingInstallation-plannedofform-list-all></aysanraf-shippingInstallation-plannedofform-list-all>-->
