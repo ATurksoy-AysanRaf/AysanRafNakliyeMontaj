@@ -14,23 +14,6 @@ export class AppComponent {
 
   }
   ngOnInit(): void {
-    // GET isteği örneği
-    this.dataService.getData().subscribe(
-      (data) => {
-        console.log('Alınan Veri:', data);
-      },
-      (error) => {
-        console.error('Hata:', error);
-      }
-    );
-    const postData = { title: 'Başlık', body: 'İçerik' };
-    this.dataService.postData(postData).subscribe(
-      (response) => {
-        console.log('İstek Başarılı:', response);
-      },
-      (error) => {
-        console.error('Hata:', error);
-      }
-    );
+   
   }
 }

@@ -1,88 +1,77 @@
 <!--Search alanı-->
-<mat-card>
-  <mat-card-content style="width:140%">
-    <mat-form-field style="width:200px; ">
-
-      <input matInput placeholder="TEKLİF NO" >
+<mat-card style="width:100%">
+  <mat-card-content style="width:100%">
+    <mat-form-field style="width:7% ; margin-right: 15px;">
+      <input matInput placeholder="TEKLİF NO">
     </mat-form-field>
-    <mat-form-field style="width: 200px; ">
+    <mat-form-field style="width:10%; margin-right: 15px;">
       <input matInput placeholder="MÜŞTERİ">
     </mat-form-field>
-    <mat-form-field style="width: 200px; ">
+    <mat-form-field style="width:7%; margin-right: 15px;">
       <input matInput placeholder="ŞEHİR">
     </mat-form-field>
-    <mat-form-field style="width: 200px; ">
-      <input matInput placeholder="OLUŞTURMA TARİHİ">
-    </mat-form-field>
-    <mat-form-field style="width:200px;">
-      <input matInput placeholder="GÜNCELLEME TARİHİ">
+
+    <mat-form-field style="width:12%; margin-right: 15px;">
+      <mat-label>Geçmiş</mat-label>
+      <select matNativeControl required>
+        <option value="oneMon"> Son 1 Ay</option>
+        <option value="threeMon">Son 3 Ay</option>
+        <option value="sixMon">Son 6 Ay</option>
+        <option value="oneYear">Son 12 Ay</option>
+      </select>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" style="width:5%; margin-right: 10px;">
+    <mat-form-field style=" margin-right: 15px;">
+      <mat-label>Zaman Aralığı Seç</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Başlangıç">
+        <input matEndDate placeholder="Bitiş">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+
+
+
+    <button mat-raised-button color="primary" style=" margin-right: 10px;">
       Ara
       <mat-icon>search</mat-icon>
     </button>
 
-    <button mat-raised-button color="primary" style="width:5%">
+    <button mat-raised-button color="primary" style="">
       Ekle
       <mat-icon>add</mat-icon>
     </button>
   </mat-card-content>
 
+</mat-card>
 
+<!--<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" 
+ Position Column 
+<ng-container matColumnDef="position">
+  <th mat-header-cell *matHeaderCellDef> No. </th>
+  <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+</ng-container>
+ Name Column 
+<ng-container matColumnDef="name">
+  <th mat-header-cell *matHeaderCellDef> Name </th>
+  <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+</ng-container>
+ Weight Column 
+<ng-container matColumnDef="weight">
+  <th mat-header-cell *matHeaderCellDef> Weight </th>
+  <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+</ng-container>
+ Symbol Column 
+<ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef> Symbol </th>
+    <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+  </ng-container>
 
-
-  <!-- planned-list.component.html -->
-  <!--<ngx-datatable class='material'
-                 [rows]="data"
-                 [columnMode]="'flex'">-->
-  <!-- Diğer ngx-datatable-column ayarları -->
-  <!--<ngx-datatable-column name="TEKLİF NO" [flexGrow]="0.4">
-      <ng-template ngx-datatable-cell-template let-row="row">
-        <span>{{ row.teklifNo  }}</span>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="MÜŞTERİ" [flexGrow]="0.3">
-      <ng-template ngx-datatable-cell-template let-row="row">
-        <span>{{ row.musteri  }}</span>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="ŞEHİR" [flexGrow]="0.6">
-      <ng-template ngx-datatable-cell-template let-row="row">
-        <span>{{ row.sehir  }}</span>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="OLUŞTURMA TARİHİ" [flexGrow]="1">
-      <ng-template ngx-datatable-cell-template let-row="row">
-        <span>{{ row.olusturmaTarihi }}</span>
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="GÜNCELLEME TARİHİ" [flexGrow]="1">
-      <ng-template ngx-datatable-cell-template let-row="row">
-        <span>{{ row.guncellemeTarihi }}</span>
-      </ng-template>
-    </ngx-datatable-column>
-  </ngx-datatable>-->
-
-<!--<table class="table table-striped table-bordered table-sm row-border hover" id="datatableexample">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Job Title</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let group of data">
-      <td>{{group.id}}</td>
-      <td>{{group.name}}</td>
-      <td>{{group.email}}</td>
-      <td>{{group.job_title}}</td>
-    </tr>
-  </tbody>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>-->
-
-
-
-

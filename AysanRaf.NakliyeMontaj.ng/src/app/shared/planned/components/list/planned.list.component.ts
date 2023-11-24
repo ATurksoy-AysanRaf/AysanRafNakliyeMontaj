@@ -48,29 +48,13 @@ export class PlannedListComponent implements OnInit {
   }
 
 
-  //rows = [
-  //  { teklifNo: '123', musteri: 'ABC Ltd.', sehir: 'İstanbul', olusturmaTarihi: '2023-11-21', guncellemeTarihi: '2023-11-22' },
-  //  { teklifNo: '456', musteri: 'XYZ Inc.', sehir: 'Ankara', olusturmaTarihi: '2023-11-20', guncellemeTarihi: '2023-11-23' },
-  //  // Diğer veriler
-  //];
-  title = 'table-tutorial';
-  rows = [
-    {
-      name: "mercy", age: 10, town: "Nairobi", country: "kenya"
-    },
-    {
-      name: "Vincent", age: 40, town: "Kampala", country: "Uganda"
-    },
-    {
-      name: "Wesley", age: 41, town: "Cairo", country: "Egypt"
-    }
-  ]
+ 
 
 
 
 
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
+      
     }
 
 }

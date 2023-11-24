@@ -7,14 +7,14 @@ import { Component, NgModule, OnInit } from "@angular/core";
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ShippinInstallationPlannedofFormComponent implements OnInit {
+export class ShippingInstallationPlannedofFormComponent implements OnInit {
 
   constructor() {
 
   } 
 
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
+       
     }
 
 }
