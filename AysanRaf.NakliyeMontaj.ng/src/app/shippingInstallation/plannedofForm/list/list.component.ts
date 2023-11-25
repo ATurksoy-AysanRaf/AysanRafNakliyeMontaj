@@ -3,11 +3,11 @@ import { Component, NgModule, OnInit } from "@angular/core";
 
 
 @Component({
-  selector: 'aysanraf-shippingInstallation-plannedofform-list-all',
+  selector: 'aysanraf-shippingInstallation-planned-list-all',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ShippingInstallationPlannedofFormComponent implements OnInit {
+export class ShippingInstallationPlannedListComponent implements OnInit {
 
   constructor() {
 

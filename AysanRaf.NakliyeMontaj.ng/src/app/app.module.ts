@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http'; // HttpClientModule'ı 
 
 
 import { FormsModule } from '@angular/forms';
-import { ShippingInstallationPlannedofFormComponent } from './shippingInstallation/plannedofForm/list/list.component';
+
 
 
 

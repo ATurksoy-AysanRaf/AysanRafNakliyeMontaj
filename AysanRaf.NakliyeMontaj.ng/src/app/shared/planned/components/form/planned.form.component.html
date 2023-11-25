@@ -1,0 +1,169 @@
+<form class="example-form">
+
+  <div class="head-info" style="border:double; width: 90%;background-color:aliceblue">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field style="">
+            <mat-label>TEKLİF NO</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style=" ">
+            <mat-label>MÜŞTERİ</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="">
+            <mat-label>ŞEHİR</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field style="">
+            <mat-label>TARİH</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="">
+            <mat-label>GÜNCEL KUR</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+
+
+
+  <div class="yevmiye-info" style="border:double; background-color:cadetblue; width: 90%">
+    <table class="example-full-width" cellspacing="0" style="margin: 0;">
+      <tr>
+        <td>
+          <mat-form-field style="">
+            <mat-label>TEKLİF TONAJI</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="">
+            <mat-label>ZAYİAT ORANI*</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field style="margin:0px;">
+            <mat-label>GERÇEK TONAJ</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="margin:0;">
+            <mat-label>GÜNLÜK TONAJ</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+
+        <td>
+          <mat-form-field style="margin:0;">
+            <mat-label>SAHA MÜH. ÜCRETİ</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+    <table class="example-full-width" cellspacing="0" style="margin: 0;">
+      <tr>
+        <td>
+          <mat-form-field style="">
+            <mat-label>BİRİM YEVMİYE TUTARI </mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="">
+            <mat-label>ÇALIŞAN SAYISI</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="">
+            <mat-label>GÜN SAYISI</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="">
+            <mat-label>İSG ÜCRETİ </mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+
+
+        <td>
+          <mat-form-field style="">
+            <mat-label>TOP. YEVMİYE MALİYETİ</mat-label>
+            <input matInput>
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+
+
+  </div>
+
+  <div>
+
+    <div class="demo-button-container">
+      <button mat-raised-button (click)="addData()" class="demo-button">
+        Add data
+      </button>
+      <button mat-raised-button
+              [disabled]="!dataSource.length"
+              (click)="removeData()"
+              class="demo-button">
+        Remove data
+      </button>
+
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+      <!-- Position Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element">{{element.position}}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef>Weight</th>
+        <td mat-cell *matCellDef="let element">{{element.weight}}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef>Symbol</th>
+        <td mat-cell *matCellDef="let element">{{element.symbol}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+</form>

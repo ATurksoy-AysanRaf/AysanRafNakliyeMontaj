@@ -1,7 +1,9 @@
 import { NgModule } from "@angular/core";
 
-import { ShippingInstallationPlannedofFormComponent } from "./plannedofForm/list/list.component";
+import { ShippingInstallationPlannedListComponent } from "./plannedofForm/list/list.component";
 import { SharedModule } from "../shared/shared.module";
+import { ShippingInstallationRealizedListComponent } from "./realizedofForm/list/list.component";
+import { PlannedFormCreateComponent } from "./plannedofForm/create/create.component";
 //import { PlannedModule } from "../shared/modules/plannedform/planned.module";
 
 
@@ -10,11 +12,15 @@ import { SharedModule } from "../shared/shared.module";
     SharedModule
     ],
   declarations: [
-    ShippingInstallationPlannedofFormComponent,
+    ShippingInstallationPlannedListComponent,
+    ShippingInstallationRealizedListComponent,
+    PlannedFormCreateComponent
     
   ],
   exports: [
-    ShippingInstallationPlannedofFormComponent
+    ShippingInstallationPlannedListComponent,
+    ShippingInstallationRealizedListComponent,
+    PlannedFormCreateComponent
   ],
   providers: []
 })

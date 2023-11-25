@@ -11,6 +11,8 @@ import { MatTableModule } from "@angular/material/table";
 import { MatDatepickerModule } from '@angular/material/datepicker'; // MatDatepickerModule eklenmiş
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
+import { RealizedListComponent } from "../realized/components/list/realized.list.component";
+import { PlannedFormComponent } from "./components/form/planned.form.component";
 
 
 @NgModule({
@@ -33,10 +35,14 @@ import { MatButtonModule } from "@angular/material/button";
     // ...
   ],
   declarations: [
-    PlannedListComponent
+    PlannedListComponent,
+    RealizedListComponent,
+    PlannedFormComponent
   ],
   exports: [
-    PlannedListComponent
+    PlannedListComponent,
+    RealizedListComponent,
+    PlannedFormComponent
   ]
 })
 export class PlannedModule { }
