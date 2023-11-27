@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { BaseEntity } from "../../common/BaseEntity";
 
 @Injectable()
-export class PlannedOfferForm extends BaseEntity {
+export class RealizedOfferForm extends BaseEntity {
 
 
 
@@ -31,10 +31,19 @@ export class PlannedOfferForm extends BaseEntity {
   FuelAmount: number = null!;
   FuelTotalCost: number = null!;
   StaffMealTotalPrice: number = null!;
-  RentedCarUnitTotalPrice: number = null!;
+
+
+  RentedCarUnitTotalPrice: number = null!;//?????
+
+
+
+
   ShippingInstallationCostumerId: string = null!;
   ShippingInstallationCostumerName: string = null!;
   ShippingInstallationCostumerCity: string = null!;
+
+
+
   RentedEquipmentId: string = null!;
   RentedEquipmentName: string = null!;
   RentedEquipmentDailyCost: number = 0;

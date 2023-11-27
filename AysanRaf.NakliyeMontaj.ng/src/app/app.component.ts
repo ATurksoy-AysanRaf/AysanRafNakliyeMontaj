@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PlannedService } from './shared/planned/services/planned.service';
+
 import { MatDialog } from '@angular/material/dialog';
-import { PlannedFormComponent } from './shared/planned/components/form/planned.form.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { PlannedService } from './shared/modules/planned/services/planned.service';
+import { PlannedFormComponent } from './shared/modules/planned/components/form/planned.form.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

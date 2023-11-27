@@ -29,7 +29,7 @@ namespace AysanRaf.NakliyeMontaj.app.Models
         public string RentedCarUnitPrice { get; set; } = null!;
         public string AccommodationTotalPrice { get; set; } = null!;
         public string InstallationTotalCost { get; set; } = null!;
-        public string[] NumberTrucksUsed { get; set; } = null!;
+        public string NumberTrucksUsed { get; set; } = null!;
         public string TruckUnitPrice { get; set; } = null!;
         public string ShippingTotalCost { get; set; } = null!;
         public string ShippingTotalCostCurrency { get; set; } = null!;

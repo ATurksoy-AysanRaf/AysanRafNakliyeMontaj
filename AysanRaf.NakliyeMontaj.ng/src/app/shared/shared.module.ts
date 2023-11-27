@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { PlannedListComponent } from "./planned/components/list/planned.list.component";
+
 import { CommonModule } from "@angular/common";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from '@angular/material/card';
@@ -11,9 +11,11 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { MatNativeDateModule } from "@angular/material/core";
-import { RealizedListComponent } from "./realized/components/list/realized.list.component";
-import { PlannedFormComponent } from "./planned/components/form/planned.form.component";
-import { RealizedFormComponent } from "./realized/components/form/realized.form.components";
+import { PlannedListComponent } from "./modules/planned/components/list/planned.list.component";
+import { RealizedListComponent } from "./modules/realized/components/list/realized.list.component";
+import { PlannedFormComponent } from "./modules/planned/components/form/planned.form.component";
+import { RealizedFormComponent } from "./modules/realized/components/form/realized.form.components";
+
 @NgModule({
   imports: [
     CommonModule,

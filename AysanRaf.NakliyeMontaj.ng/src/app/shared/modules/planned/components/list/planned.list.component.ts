@@ -4,6 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { PlannedService } from "../../services/planned.service";
 import { MatDialog } from "@angular/material/dialog";
 import { PlannedFormComponent } from "../form/planned.form.component";
+import { ApiService } from "../../../common/web.api.test.service";
 
 export interface PeriodicElement {
   name: string;
@@ -41,15 +42,11 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class PlannedListComponent implements OnInit {
   @ViewChild(DatatableComponent)
   table!: DatatableComponent;
+  items: any[] = [];
 
 
-  editRow(row: any) {
-    // Burada seçilen satırı düzenlemek için gerekli işlemleri yapabilirsiniz.
-    console.log('uu', row.name);
-  }
 
-
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol','hmm'];
+  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'hmm'];
   dataSource = ELEMENT_DATA;
   clickedRows = new Set<PeriodicElement>();
 
@@ -86,7 +83,7 @@ export class PlannedListComponent implements OnInit {
   @Input() loadDataFromService: boolean = true;
 
 
-  constructor( private dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private apiService: ApiService) {
 
 
   }
@@ -97,13 +94,19 @@ export class PlannedListComponent implements OnInit {
     });
   }
 
- 
 
 
 
 
-    ngOnInit(): void {
-      
-    }
 
+  ngOnInit() {
+    this.apiService.getAllData().subscribe(data => {
+      this.items = data;
+    });
+
+
+
+
+
+  }
 }
