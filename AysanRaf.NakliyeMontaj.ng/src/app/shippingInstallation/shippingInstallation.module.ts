@@ -4,6 +4,7 @@ import { ShippingInstallationPlannedListComponent } from "./plannedofForm/list/l
 import { SharedModule } from "../shared/shared.module";
 import { ShippingInstallationRealizedListComponent } from "./realizedofForm/list/list.component";
 import { PlannedFormCreateComponent } from "./plannedofForm/create/create.component";
+import { RealizedFormCreateComponent } from "./realizedofForm/create/create.component";
 //import { PlannedModule } from "../shared/modules/plannedform/planned.module";
 
 
@@ -14,13 +15,15 @@ import { PlannedFormCreateComponent } from "./plannedofForm/create/create.compon
   declarations: [
     ShippingInstallationPlannedListComponent,
     ShippingInstallationRealizedListComponent,
-    PlannedFormCreateComponent
+    PlannedFormCreateComponent,
+    RealizedFormCreateComponent
     
   ],
   exports: [
     ShippingInstallationPlannedListComponent,
     ShippingInstallationRealizedListComponent,
-    PlannedFormCreateComponent
+    PlannedFormCreateComponent,
+    RealizedFormCreateComponent
   ],
   providers: []
 })

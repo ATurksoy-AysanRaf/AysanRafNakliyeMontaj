@@ -13,6 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatNativeDateModule } from "@angular/material/core";
 import { RealizedListComponent } from "./realized/components/list/realized.list.component";
 import { PlannedFormComponent } from "./planned/components/form/planned.form.component";
+import { RealizedFormComponent } from "./realized/components/form/realized.form.components";
 @NgModule({
   imports: [
     CommonModule,
@@ -32,12 +33,14 @@ import { PlannedFormComponent } from "./planned/components/form/planned.form.com
   declarations: [
     PlannedListComponent,
     RealizedListComponent,
-    PlannedFormComponent
+    PlannedFormComponent,
+    RealizedFormComponent
   ],
   exports: [
     PlannedListComponent,
     RealizedListComponent,
-    PlannedFormComponent
+    PlannedFormComponent,
+    RealizedFormComponent
     
   ]
 })

@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { MatTableModule } from '@angular/material/table';
+import { MatDialog } from "@angular/material/dialog";
+import { RealizedFormComponent } from "../form/realized.form.components";
 
 export interface PeriodicElement {
   name: string;
@@ -86,9 +88,16 @@ export class RealizedListComponent implements OnInit {
   @Input() loadDataFromService: boolean = true;
 
 
-  constructor() {
-  }
+  constructor(private dialog: MatDialog) {
 
+
+  }
+  openDialog() {
+    this.dialog.open(RealizedFormComponent, {
+      width: '4000px', // Genişlik
+      height: '3000px', // Yükseklik
+    });
+  }
 
 
 

@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { MatTableModule } from '@angular/material/table';
+import { PlannedService } from "../../services/planned.service";
+import { MatDialog } from "@angular/material/dialog";
+import { PlannedFormComponent } from "../form/planned.form.component";
 
 export interface PeriodicElement {
   name: string;
@@ -83,9 +86,16 @@ export class PlannedListComponent implements OnInit {
   @Input() loadDataFromService: boolean = true;
 
 
-  constructor() {
-  }
+  constructor( private dialog: MatDialog) {
 
+
+  }
+  openDialog() {
+    this.dialog.open(PlannedFormComponent, {
+      width: '4000px', // Genişlik
+      height: '3000px', // Yükseklik
+    });
+  }
 
  
 

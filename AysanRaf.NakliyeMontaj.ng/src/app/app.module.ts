@@ -7,9 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
 import { ShippingInstallationModule } from './shippingInstallation/shippingInstallation.module';
 import { HttpClientModule } from '@angular/common/http'; // HttpClientModule'ı içe aktarın
-
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -26,13 +26,16 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
 
     HttpClientModule, // HttpClientModule'ı içe aktarın
     
     MatIconModule,
     ShippingInstallationModule,
     FormsModule,
-
+    MatDialogModule,
+    MatButtonModule,
   
   ],
   providers: [],

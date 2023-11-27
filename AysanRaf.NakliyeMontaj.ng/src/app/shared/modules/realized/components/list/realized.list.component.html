@@ -1,0 +1,102 @@
+<!--Search alanı-->
+<mat-card style="width:100%">
+  <h1 style="text-align:center; background-color:forestgreen"> GERÇEKLEŞEN NAKLİYE - MONTAJ LİSTESİ</h1>
+  <mat-card-content style="width:100%">
+ 
+   
+
+   
+ 
+
+
+    <mat-form-field style="width:9% ; margin-right: 15px;">
+      <mat-label>TEKLİF NO</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field style="width:10%; margin-right: 15px;">
+      <mat-label>MÜŞTERİ</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field style="width:7%; margin-right: 15px;">
+      <mat-label>ŞEHİR</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field style="width:12%; margin-right: 15px;">
+      <mat-label>Geçmiş</mat-label>
+      <select matNativeControl required>
+        <option value="oneMon"> Son 1 Ay</option>
+        <option value="threeMon">Son 3 Ay</option>
+        <option value="sixMon">Son 6 Ay</option>
+        <option value="oneYear">Son 12 Ay</option>
+      </select>
+    </mat-form-field>
+
+    <mat-form-field style=" margin-right: 15px;">
+      <mat-label>Zaman Aralığı Seç</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Başlangıç">
+        <input matEndDate placeholder="Bitiş">
+      </mat-date-range-input>
+      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+
+
+
+
+    <button mat-raised-button color="primary" style=" margin-right: 10px;">
+      Ara
+      <mat-icon>search</mat-icon>
+    </button>
+
+    <button mat-raised-button color="primary"  (click)=openDialog()>
+      Ekle
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-card-content>
+
+</mat-card>
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef>No.</th>
+    <td mat-cell *matCellDef="let element" style="background-color: #99FFCC ">{{element.position}}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element" style="background-color: #99FFCC">{{element.name}}</td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="weight">
+    <th mat-header-cell *matHeaderCellDef>Weight</th>
+    <td mat-cell *matCellDef="let element" style="background-color: #99FFCC">{{element.weight}}</td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="symbol">
+    <th mat-header-cell *matHeaderCellDef>Symbol</th>
+    <td mat-cell *matCellDef="let element" style="background-color:#99FFCC">{{element.symbol}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="hmm">
+    <th mat-header-cell *matHeaderCellDef>sw</th>
+    <td mat-cell *matCellDef="let element" style="background-color: #99FFCC">{{element.hmm}}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row
+      (click)=" openDialog()"
+      [class.demo-row-is-clicked]="clickedRows.has(row)"
+      *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+
+

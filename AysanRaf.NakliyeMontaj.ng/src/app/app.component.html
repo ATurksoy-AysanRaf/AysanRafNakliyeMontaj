@@ -14,7 +14,7 @@
       background-color: #e0f2f1; /* Açık mavi arka plan rengi */
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      min-height: 160vh;
     }
 
 
@@ -41,6 +41,7 @@
 
     .main-container {
       width: 80%;
+      
       display: flex;
       flex: 1;
     }
@@ -148,6 +149,8 @@
 
           <ng-container *ngIf="isButtonClicked3">
             <app-plannedform-create></app-plannedform-create>
+
+            <app-realizedform-create></app-realizedform-create>
           </ng-container>
         </div>
       </div>

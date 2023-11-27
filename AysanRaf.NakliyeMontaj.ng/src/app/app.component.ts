@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PlannedService } from './shared/planned/services/planned.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PlannedFormComponent } from './shared/planned/components/form/planned.form.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,10 +36,14 @@ export class AppComponent {
     this.isButtonClicked2 = false;
   }
 
-  constructor(private dataService: PlannedService) {
+  constructor(private dataService: PlannedService, private dialog: MatDialog) {
 
 
   }
+  openDialog() {
+    this.dialog.open(PlannedFormComponent);
+  }
+
   ngOnInit(): void {
    
   }

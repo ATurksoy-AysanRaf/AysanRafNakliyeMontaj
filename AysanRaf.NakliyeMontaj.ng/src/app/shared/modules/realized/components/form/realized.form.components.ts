@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import {  ViewChild } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogRef } from "@angular/material/dialog";
 
 export interface PeriodicElement {
   name: string;
@@ -24,36 +25,29 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'aysanraf-planned-form',
-  templateUrl: './planned.form.component.html',
-  styleUrls: ['./planned.form.component.scss']
+  selector: 'aysanraf-realized-form',
+  templateUrl: './realized.form.component.html',
+  styleUrls: ['./realized.form.component.scss']
 })
 
-export class PlannedFormComponent implements OnInit{
+export class RealizedFormComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = [...ELEMENT_DATA];
 
   @ViewChild(MatTable)
-    table!: MatTable<PeriodicElement>;
+  table!: MatTable<PeriodicElement>;
 
-  addData() {
-    const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
-    this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
-    this.table.renderRows();
+  constructor(private dialogRef: MatDialogRef<RealizedFormComponent>) { }
+
+  close() {
+    this.dialogRef.close();
   }
 
-  removeData() {
-    this.dataSource.pop();
-    this.table.renderRows();
+
+
+
+  ngOnInit(): void {
+
   }
-
- 
-
-
-
-
-    ngOnInit(): void {
-        
-    }
 
 }
