@@ -14,6 +14,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+});////CORCS
+
+
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 
@@ -36,6 +45,8 @@ builder.Services.AddScoped<IBaseService<RealizedOfferForm>, BaseService<Realized
 builder.Services.AddDbContext<aysanrafpopsepdevelopment_2023_09_10_05_45Context>();
 
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,6 +55,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowOrigin");////CORCS
 
 app.UseHttpsRedirection();
 
