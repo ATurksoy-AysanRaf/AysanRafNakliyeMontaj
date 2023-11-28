@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from "@angular/core";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { PlannedService } from "../../services/planned.service";
 import { MatDialog } from "@angular/material/dialog";
 import { ApiService } from "../../../common/web.api.test.service";
@@ -33,10 +33,10 @@ export class PlannedListComponent implements OnInit {
   table!: DatatableComponent;
   items: any[] = [];
 
+  dataSource: MatTableDataSource<any>;
 
-
-  displayedColumns: string[] = ['SalesOfferNumber', 'RevisionNumber', 'CustomerName', 'CreatedDate', 'UpdatedDate'];
-  dataSource: any;
+  displayedColumns: string[] = ['SalesOfferNumber', 'CustomerName', 'CreatedDate', 'UpdatedDate'];
+  
   clickedRows = new Set<PeriodicElement>();
 
 
@@ -72,9 +72,9 @@ export class PlannedListComponent implements OnInit {
   @Input() loadDataFromService: boolean = true;
 
 
-  constructor(private dialog: MatDialog, private apiService: ApiService) {
+  constructor(private dialog: MatDialog, private apiService: PlannedService) {
 
-
+    this.dataSource = new MatTableDataSource<any>();
   }
   openDialog() {
     this.dialog.open(PlannedFormComponent, {
@@ -91,6 +91,8 @@ export class PlannedListComponent implements OnInit {
   ngOnInit() {
     this.apiService.getAllData().subscribe(data => {
       this.items = data;
+      // MatTableDataSource'a veriyi ata
+      this.dataSource.data = this.items;
     });
 
 
@@ -98,4 +100,6 @@ export class PlannedListComponent implements OnInit {
 
 
   }
+
+
 }

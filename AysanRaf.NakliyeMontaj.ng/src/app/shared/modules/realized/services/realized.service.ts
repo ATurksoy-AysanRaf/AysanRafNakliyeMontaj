@@ -7,25 +7,25 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PlannedService {
+export class RealizedService {
   private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin
 
   constructor(private http: HttpClient) { }
 
   getAllData(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm/PlannedForms/List`);
+    return this.http.get<any>(`${this.apiUrl}/RealizedForms/List`);
   }
 
   createData(data: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/api/PlannedOfferForm`, data);
+    return this.http.post<any>(`${this.apiUrl}/api/RealizedOfferForm`, data);
   }
 
   updateData(id: number, data: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`, data);
+    return this.http.put<any>(`${this.apiUrl}/api/RealizedOfferForm/${id}`, data);
   }
 
   deleteData(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`);
+    return this.http.delete<any>(`${this.apiUrl}/api/RealizedOfferForm/${id}`);
   }
 }
 
@@ -35,5 +35,5 @@ export class PlannedService {
 
 
 
- 
+
 
