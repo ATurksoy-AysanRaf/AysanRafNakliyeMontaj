@@ -43,6 +43,8 @@ export class PlannedOfferForm extends BaseEntity {
   RentedEquipmentTotalCost: number = null!;
 
 
+  CasualtyRate: number = 0.96;//zahiyat oranı default değer
+
 
 
 
