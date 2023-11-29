@@ -1,8 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import {  ViewChild } from '@angular/core';
 import { MatTable, MatTableModule } from '@angular/material/table';
 
 import { MatDialogRef } from "@angular/material/dialog";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 
 export interface PeriodicElement {
@@ -21,13 +22,27 @@ export interface PeriodicElement {
 })
 
 export class PlannedFormComponent implements OnInit{
-
+  @Input() formData: any; // Giriş olarak alınan veri
+  @Output() formSubmitted = new EventEmitter<any>(); // Form gönderildiğinde tetiklenecek olay
+  form: FormGroup | undefined;
 
   @ViewChild(MatTable)
     table!: MatTable<PeriodicElement>;
 
 
-  constructor(private dialogRef: MatDialogRef<PlannedFormComponent>) { }
+  constructor(private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder) {
+
+    this.form = this.fb.group({
+      // Formunuzdaki alanları buraya ekleyin
+      // Örneğin:
+      teklifNo: [''],
+      musteri: [''],
+      // Diğer alanlar...
+    });
+
+
+
+  }
 
   close() {
     this.dialogRef.close();

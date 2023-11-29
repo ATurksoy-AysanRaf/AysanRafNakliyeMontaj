@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using AysanRaf.NakliyeMontaj.app.Models;
+
 using AysanRaf.NakliyeMontaj.Entites.DTOs;
 
 using System;

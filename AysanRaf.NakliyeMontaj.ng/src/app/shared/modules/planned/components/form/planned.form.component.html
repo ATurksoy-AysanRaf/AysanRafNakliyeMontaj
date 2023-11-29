@@ -10,42 +10,42 @@
     <table class="example-full-width" cellspacing="0">
       <tr>
         <td>
-          <mat-form-field style="">
-            <mat-label>TEKLİF NO</mat-label>
-            <input matInput>
-          </mat-form-field>
-
-
-          <!--ngModel ile bağlayıp boş halini nasıl kullancam?????-->
           <!--<mat-form-field style="">
             <mat-label>TEKLİF NO</mat-label>
-            <input matInput [(ngModel)]="PlannedOfferForm.SalesOfferNumber" name="teklifNo">
+            <input matInput>
           </mat-form-field>-->
+
+
+          ngModel ile bağlayıp boş halini nasıl kullancam?????
+          <mat-form-field style="">
+            <mat-label>TEKLİF NO</mat-label>
+            <input matInput [(ngModel)]="PlannedOfferForm.SalesOfferNumber" formControlName="teklifNo">
+          </mat-form-field>
 
         </td>
         <td>
           <mat-form-field style=" ">
             <mat-label>MÜŞTERİ</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.CustomerName" formControlName="musteri">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ŞEHİR</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.City" formControlName="sehir">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="">
             <mat-label>TARİH</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.CreatedDate" formControlName="tarih">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>GÜNCEL KUR</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.ExchangeRate" formControlName="kur">
           </mat-form-field>
         </td>
       </tr>
@@ -63,33 +63,33 @@
         <td>
           <mat-form-field style="">
             <mat-label>TEKLİF TONAJI</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.OfferTonnage" formControlName="teklifTonaj">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ZAYİAT ORANI*</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.CasualtyRate" formControlName="zayiatOranı">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="margin:0px;">
             <mat-label>GERÇEK TONAJ</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.ReallyTonnage" formControlName="gercekTonaj">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="margin:0;">
             <mat-label>GÜNLÜK TONAJ</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.DailyTonnage" formControlName="gunlukTonaj">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="margin:0;">
             <mat-label>SAHA MÜH. ÜCRETİ</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.FieldEngineerCost" formControlName="sahaMuhendisUcreti">
           </mat-form-field>
         </td>
       </tr>
@@ -100,25 +100,25 @@
         <td>
           <mat-form-field style="">
             <mat-label>BİRİM YEVMİYE TUTARI </mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.DailyWageCost" formControlName="birimYevmiyeUcreti">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ÇALIŞAN SAYISI</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.DailyWageAmount" formControlName="yevmiyeAdeti">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>GÜN SAYISI</mat-label>
-            <input matInput>
+            <input matInput  [(ngModel)]="PlannedOfferForm.NumberDays" formControlName="gunSayısı">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>İSG ÜCRETİ </mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.IsgexpertCost" formControlName="isgUcret" >
           </mat-form-field>
         </td>
 
@@ -126,7 +126,7 @@
         <td style="background-color:yellow">
           <mat-form-field>
             <mat-label>TOP. YEVMİYE MALİYETİ</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.WageTotalCost" formControlName="topYevmiyeUcret">
           </mat-form-field>
         </td>
       </tr>
@@ -142,7 +142,7 @@
         <td>
           <mat-form-field>
             <mat-label>KİRALANAN EKİPMAN</mat-label>
-            <select matNativeControl required>
+            <select matNativeControl [(ngModel)]="PlannedOfferForm.RentedEquipmentName" formControlName="kiralikEkipmanAdi" required>
               <option value="NONE">---</option>
               <option value="forklift">FORKLİFT</option>
               <option value="menlift">MENLİFT</option>
@@ -155,26 +155,26 @@
         <td>
           <mat-form-field style="">
             <mat-label>GÜNLÜK MALİYETİ</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentDailyCost" formControlName="kiralikGunlukUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>AYLIK MALİYETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentMonthlyCost" formControlName="kiralikAylikUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ADETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentAmount" formControlName="kiralikAdet">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="">
             <mat-label>TOP. MALİYET</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentTotalCost" formControlName="kiralıkTopUcret">
           </mat-form-field>
         </td>
 
@@ -187,7 +187,7 @@
         <td>
           <mat-form-field>
             <mat-label>KİRALANAN EKİPMAN</mat-label>
-            <select matNativeControl required>
+            <select matNativeControl [(ngModel)]="PlannedOfferForm.RentedEquipmentName" formControlName="kiralikEkipmanAdi" required>
               <option value="NONE">---</option>
               <option value="forklift">FORKLİFT</option>
               <option value="menlift">MENLİFT</option>
@@ -200,26 +200,26 @@
         <td>
           <mat-form-field style="">
             <mat-label>GÜNLÜK MALİYETİ</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentDailyCost" formControlName="kiralikGunlukUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>AYLIK MALİYETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentMonthlyCost" formControlName="kiralikAylikUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ADETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentAmount" formControlName="kiralikAdet">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="">
             <mat-label>TOP. MALİYET</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentTotalCost" formControlName="kiralıkTopUcret">
           </mat-form-field>
         </td>
 
@@ -232,7 +232,7 @@
         <td>
           <mat-form-field>
             <mat-label>KİRALANAN EKİPMAN</mat-label>
-            <select matNativeControl required>
+            <select matNativeControl [(ngModel)]="PlannedOfferForm.RentedEquipmentName" formControlName="kiralikEkipmanAdi" required>
               <option value="NONE">---</option>
               <option value="forklift">FORKLİFT</option>
               <option value="menlift">MENLİFT</option>
@@ -245,26 +245,26 @@
         <td>
           <mat-form-field style="">
             <mat-label>GÜNLÜK MALİYETİ</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentDailyCost" formControlName="kiralikGunlukUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>AYLIK MALİYETİ</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentMonthlyCost" formControlName="kiralikAylikUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ADETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentAmount" formControlName="kiralikAdet">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="">
             <mat-label>TOP. MALİYET</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentTotalCost" formControlName="kiralıkTopUcret">
           </mat-form-field>
         </td>
 
@@ -277,7 +277,7 @@
         <td>
           <mat-form-field>
             <mat-label>KİRALANAN EKİPMAN</mat-label>
-            <select matNativeControl required>
+            <select matNativeControl [(ngModel)]="PlannedOfferForm.RentedEquipmentName" formControlName="kiralikEkipmanAdi" required>
               <option value="NONE">---</option>
               <option value="forklift">FORKLİFT</option>
               <option value="menlift">MENLİFT</option>
@@ -290,26 +290,26 @@
         <td>
           <mat-form-field style="">
             <mat-label>GÜNLÜK MALİYETİ</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentDailyCost" formControlName="kiralikGunlukUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>AYLIK MALİYETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentMonthlyCost" formControlName="kiralikAylikUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ADETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentAmount" formControlName="kiralikAdet">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="">
             <mat-label>TOP. MALİYET</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.RentedEquipmentTotalCost" formControlName="kiralıkTopUcret">
           </mat-form-field>
         </td>
 
@@ -323,13 +323,13 @@
         <td>
           <mat-form-field style="">
             <mat-label> NAKLİYE MALİYETİ</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.EquipmentShipmentCost" formControlName="ekipmanTopUcret"  >
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="background-color:yellow">
             <mat-label>TOP. EKİPMAN MALİYET</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.EquipmentSumCost" formControlName="ekipmanTopUcret">
           </mat-form-field>
         </td>
       </tr>
@@ -342,32 +342,32 @@
         <td>
           <mat-form-field style="">
             <mat-label> KONAK. BR. MALİYET</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.AccommodationUnitPrice" formControlName="konaklamaBirimUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="background-color:yellow">
             <mat-label>TOP. KONAK. MALİYET</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.AccommodationTotalPrice" formControlName="konaklamaTopUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label> YEMEK BR.MALİYET</mat-label>
-            <input matInput>
+            <input matInput[(ngModel)]="PlannedOfferForm.StaffMealUnitPrice" formControlName="yemekBirimUcret">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="background-color:yellow">
             <mat-label>TOP. YEMEK MALİYET</mat-label>
-            <input matInput>
+            <input  matInput[(ngModel)]="PlannedOfferForm.StaffMealTotalPrice" formControlName="yemekTopUcret">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="background-color:yellow">
             <mat-label>ARABA YAKIT MALİYET</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.TotalCarFuelCost" formControlName="ArabaYakitUcret" >
           </mat-form-field>
         </td>
       </tr>
@@ -378,14 +378,14 @@
         <td>
           <mat-form-field style="width:100%; margin-right:40px;background-color:red;">
             <mat-label>TOP. MONTAJ MALİYET(TL)</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.InstallationTotalCost" formControlName="montajTopUcretTL">
           </mat-form-field>
         </td>
 
         <td>
           <mat-form-field style="width: 100%; margin-right: 40px; background-color: red;">
             <mat-label>TOP. MONTAJ MALİYET(USD)</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.InstallationTotalCostCurrency" formControlName="montajTopUcretUSD">
           </mat-form-field>
         </td>
       </tr>
@@ -399,25 +399,25 @@
         <td>
           <mat-form-field style="">
             <mat-label> TIR ADETİ</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.NumberTrucksUsed" formControlName="tirSayisi">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field>
             <mat-label>TIR BİRİM MALİYET</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.TruckUnitPrice" formControlName="tirBirimUcret" >
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="width: 100%; margin-right: 40px; background-color: red;">
             <mat-label>TOP. NAKLİYE MALİYET(TL)</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.ShippingTotalCost" formControlName="nakliyeTopUcretTL" >
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="width: 100%; margin-right: 40px; background-color: red;">
             <mat-label>TOP. NAKLİYE MALİYET(USD)</mat-label>
-            <input matInput>
+            <input matInput [(ngModel)]="PlannedOfferForm.ShippingTotalCostCurrency" formControlName="nakliyeTopUcretUSD">
           </mat-form-field>
         </td>
       </tr>

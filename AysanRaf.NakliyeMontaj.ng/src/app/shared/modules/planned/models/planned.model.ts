@@ -9,6 +9,7 @@ export class PlannedOfferForm extends BaseEntity {
   SalesOfferNumber: string = null!;
   RevisionNumber: number = null!;
   ExchangeRate: number = null!;
+  ReallyTonage: number = null!;
   OfferTonnage: number = null!;
   DailyTonnage: number = null!;
   NumberEmployees: number = null!;
@@ -35,6 +36,7 @@ export class PlannedOfferForm extends BaseEntity {
   ShippingInstallationCostumerId: string = null!;
   ShippingInstallationCostumerName: string = null!;
   ShippingInstallationCostumerCity: string = null!;
+  EquipmentSumCost: number = null!;
   RentedEquipmentId: string = null!;
   RentedEquipmentName: string = null!;
   RentedEquipmentDailyCost: number = 0;
