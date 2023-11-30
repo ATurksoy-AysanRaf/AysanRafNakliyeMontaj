@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 
 using AysanRaf.NakliyeMontaj.Entites.DTOs;
-
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using AysanRaf.NakliyeMontaj.app.Models;
+
 using AysanRaf.NakliyeMontaj.Entites.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace AysanRaf.NakliyeMontaj.app.Controllers
 {

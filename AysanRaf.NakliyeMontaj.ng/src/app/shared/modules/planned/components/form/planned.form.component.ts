@@ -25,7 +25,7 @@ export class PlannedFormComponent implements OnInit{
   @Input() formData: any; // Giriş olarak alınan veri
   @Output() formSubmitted = new EventEmitter<any>(); // Form gönderildiğinde tetiklenecek olay
   form: FormGroup | undefined;
-
+  PlannedOfferForm: FormGroup | undefined;
   @ViewChild(MatTable)
     table!: MatTable<PeriodicElement>;
 

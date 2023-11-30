@@ -1,8 +1,9 @@
-using AysanRaf.NakliyeMontaj.app.Models;
+
 using AysanRaf.NakliyeMontaj.Business.Mapping;
 using AysanRaf.NakliyeMontaj.Business.Services;
 using AysanRaf.NakliyeMontaj.DataAccess.Repositories;
-
+using deneme.Models;
+using Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,8 +1,9 @@
 ﻿using AutoMapper;
-using AysanRaf.NakliyeMontaj.app.Models;
+
 using AysanRaf.NakliyeMontaj.Entites.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 
 namespace AysanRaf.NakliyeMontaj.app.Controllers
 {
@@ -10,7 +11,7 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
     [ApiController]
     public class PlannedOfferFormController : ControllerBase
     {
-        private readonly Business.Services.IBaseService<PlannedOfferForm> _service;
+        private readonly Business.Services.IBaseService<Models.PlannedOfferForm> _service;
         private readonly IMapper _mapper;
 
 
