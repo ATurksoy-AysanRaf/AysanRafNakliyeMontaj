@@ -4,48 +4,44 @@ import { BaseEntity } from "../../common/BaseEntity";
 @Injectable()
 export class PlannedOfferForm extends BaseEntity {
 
+ 
+/*  SalesOfferNumber: number = null!;*/
+  revisionNumber: number = null!;
+/*  ExchangeRate: number = null!;*/
+  reallyTonage: number = null!;
+  offerTonnage: number = null!;
+  dailyTonnage: number = null!;
+  numberEmployees: number = null!;
+  isgexpertCost: number = null!;
+  fieldEngineerCost: number = null!;
+  dailyWageAmount: number = null!;
+  numberDays: number = null!;
+  accommodationUnitPrice: number = null!;
+  staffMealUnitPrice: number = null!;
+  rentedCarUnitPrice: number = null!;
+  accommodationTotalPrice: number = null!;
+  installationTotalCost: number = null!;
+  numberTrucksUsed: number = null!;
+  truckUnitPrice: number = null!;
+  shippingTotalCost: number = null!;
+  shippingTotalCostCurrency: number = null!;
+  installationTotalCostCurrency: number = null!;
+  city: string = null!;
+  staffMealTotalPrice: number = null!;
+  rentedCarUnitTotalPrice: number = null!;
+  shippingInstallationCostumerId: string = null!;
+  shippingInstallationCostumerName: string = null!;
+  shippingInstallationCostumerCity: string = null!;
+  equipmentSumCost: number = null!;
+  rentedEquipmentId: string = null!;
+  rentedEquipmentName: string = null!;
+  rentedEquipmentDailyCost: number = 0;
+  rentedEquipmentMonthlyCost: number = 0;
+  rentedEquipmentAmount: number = null!;
+  rentedEquipmentTotalCost: number = null!;
 
 
-  SalesOfferNumber: string = null!;
-  RevisionNumber: number = null!;
-  ExchangeRate: number = null!;
-  ReallyTonage: number = null!;
-  OfferTonnage: number = null!;
-  DailyTonnage: number = null!;
-  NumberEmployees: number = null!;
-  IsgexpertCost: number = null!;
-  FieldEngineerCost: number = null!;
-  DailyWageAmount: number = null!;
-  NumberDays: number = null!;
-  AccommodationUnitPrice: number = null!;
-  StaffMealUnitPrice: number = null!;
-  RentedCarUnitPrice: number = null!;
-  AccommodationTotalPrice: number = null!;
-  InstallationTotalCost: number = null!;
-  NumberTrucksUsed: number = null!;
-  TruckUnitPrice: number = null!;
-  ShippingTotalCost: number = null!;
-  ShippingTotalCostCurrency: number = null!;
-  InstallationTotalCostCurrency: number = null!;
-  RentedCarAmount: number = null!;
-  FuelUnitPrice: number = null!;
-  FuelAmount: number = null!;
-  FuelTotalCost: number = null!;
-  StaffMealTotalPrice: number = null!;
-  RentedCarUnitTotalPrice: number = null!;
-  ShippingInstallationCostumerId: string = null!;
-  ShippingInstallationCostumerName: string = null!;
-  ShippingInstallationCostumerCity: string = null!;
-  EquipmentSumCost: number = null!;
-  RentedEquipmentId: string = null!;
-  RentedEquipmentName: string = null!;
-  RentedEquipmentDailyCost: number = 0;
-  RentedEquipmentMonthlyCost: number = 0;
-  RentedEquipmentAmount: number = null!;
-  RentedEquipmentTotalCost: number = null!;
-
-
-  CasualtyRate: number = 0.96;//zahiyat oranı default değer
+  casualtyRate: number = 0.96;//zahiyat oranı default değer
 
 
 

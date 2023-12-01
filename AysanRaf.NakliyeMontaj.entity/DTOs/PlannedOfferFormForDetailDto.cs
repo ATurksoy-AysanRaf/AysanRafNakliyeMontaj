@@ -12,35 +12,68 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
         public int RevisionNumber { get; set; }
         public string? CreatedDate { get; set; }
         public string? UpdatedDate { get; set; }
-        public string ExchangeRate { get; set; } = null!;
+        public int ExchangeRate { get; set; }
+
+        public int CasualtyRate { get; set; }
+        public int DailyWageCost { get; set; } 
+        public int ReallyTonnage { get; set; }
+        public int OfferTonnage { get; set; } 
+        public int DailyTonnage { get; set; } 
+        public int NumberEmployees { get; set; }
+        public int IsgexpertCost { get; set; } 
+        public int FieldEngineerCost { get; set; } 
+
+
+
+
+
+        public int DailyWageAmount { get; set; }
+        public int WageTotalCost{ get; set; }
+        public int NumberDays { get; set; }
+
+
+
+        public int? EquipmentShipmentCost { get; set; }
+        public int? EquipmentSumtCost { get; set; }
+
+   
+       
+        public int AccommodationUnitPrice { get; set; } 
+        public int AccommodationTotalPrice { get; set; }
+
+
+
+        public int StaffMealTotalPrice { get; set; }
+        public int StaffMealUnitPrice { get; set; }
+
+
+        public int TotalCarFuelCost { get; set; }
+
+
+        public int InstallationTotalCost { get; set; }
+        public int InstallationTotalCostCurrency { get; set; }
+
+
+
+
+        public int NumberTrucksUsed { get; set; } 
+        public int TruckUnitPrice { get; set; } 
+
+
+
+        public int ShippingTotalCost { get; set; }
+        public int ShippingTotalCostCurrency { get; set; }
+     
+      
+      
+        
+
+
         public string CustomerId { get; set; } = null!;
         public string? CustomerName { get; set; }
-        public string DailyWageCost { get; set; } = null!;
-        public string OfferTonnage { get; set; } = null!;
-        public string DailyTonnage { get; set; } = null!;
-        public int NumberEmployees { get; set; }
-        public string IsgexpertCost { get; set; } = null!;
-        public string FieldEngineerCost { get; set; } = null!;
-        public int DailyWageAmount { get; set; }
-        public int NumberDays { get; set; }
+
+
         public string? RentedEquipmentId { get; set; }
         public string? RentedEquipmentName { get; set; }
-        public string? EquipmentShipmentCost { get; set; }
-        public string AccommodationUnitPrice { get; set; } = null!;
-        public string StaffMealUnitPrice { get; set; } = null!;
-        public string RentedCarUnitPrice { get; set; } = null!;
-        public string AccommodationTotalPrice { get; set; } = null!;
-        public string InstallationTotalCost { get; set; } = null!;
-        public string[] NumberTrucksUsed { get; set; } = null!;
-        public string TruckUnitPrice { get; set; } = null!;
-        public string ShippingTotalCost { get; set; } = null!;
-        public string ShippingTotalCostCurrency { get; set; } = null!;
-        public string InstallationTotalCostCurrency { get; set; } = null!;
-        public int RentedCarAmount { get; set; }
-        public string FuelUnitPrice { get; set; } = null!;
-        public string FuelAmount { get; set; } = null!;
-        public string FuelTotalCost { get; set; } = null!;
-        public string StaffMealTotalPrice { get; set; } = null!;
-        public string RentedCarUnitTotalPrice { get; set; } = null!;
     }
 }

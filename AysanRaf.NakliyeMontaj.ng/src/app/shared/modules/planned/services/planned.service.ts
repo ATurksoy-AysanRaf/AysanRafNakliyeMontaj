@@ -13,9 +13,11 @@ export class PlannedService {
   constructor(private http: HttpClient) { }
 
   getAllData(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm`);
+  }
+  getListData(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm/PlannedForms/List`);
   }
-
   createData(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/PlannedOfferForm`, data);
   }

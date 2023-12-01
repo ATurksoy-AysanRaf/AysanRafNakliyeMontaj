@@ -3,13 +3,14 @@ import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { PlannedService } from "../../services/planned.service";
 import { MatDialog } from "@angular/material/dialog";
-import { ApiService } from "../../../common/web.api.test.service";
+
 import { PlannedFormComponent } from "../form/planned.form.component";
 
 export interface PeriodicElement {
   SalesOfferNumber: number;
   RevisionNumber: string;
   CustomerName: string;
+  City: string;
   CreateDate: string;
   UpdatedDate: string;
 }
@@ -35,7 +36,7 @@ export class PlannedListComponent implements OnInit {
 
   dataSource: MatTableDataSource<any>;
 
-  displayedColumns: string[] = ['SalesOfferNumber', 'CustomerName', 'CreatedDate', 'UpdatedDate'];
+  displayedColumns: string[] = ['SalesOfferNumber', 'CustomerName', 'City', 'CreatedDate', 'UpdatedDate'];
   
   clickedRows = new Set<PeriodicElement>();
 
@@ -89,7 +90,7 @@ export class PlannedListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.apiService.getAllData().subscribe(data => {
+    this.apiService.getListData().subscribe(data => {
       this.items = data;
       // MatTableDataSource'a veriyi ata
       this.dataSource.data = this.items;
