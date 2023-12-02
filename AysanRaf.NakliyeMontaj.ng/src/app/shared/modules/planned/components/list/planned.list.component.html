@@ -45,7 +45,7 @@
       <mat-icon>search</mat-icon>
     </button>
 
-    <button mat-raised-button color="primary" (click)=openDialog()>
+    <button mat-raised-button color="primary" (click)=openAddDialog()>
       Ekle
       <mat-icon>add</mat-icon>
     </button>
@@ -91,7 +91,8 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row
-      (click)="openDialog()"
+       
+      (click)="openEditDialog({{item.id}})"
       [class.demo-row-is-clicked]="clickedRows.has(row)"
       *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

@@ -77,15 +77,20 @@ export class PlannedListComponent implements OnInit {
 
     this.dataSource = new MatTableDataSource<any>();
   }
-  openDialog() {
+
+
+  openAddDialog() {
     this.dialog.open(PlannedFormComponent, {
       width: '4000px', // Genişlik
       height: '3000px', // Yükseklik
     });
   }
-
-
-
+  //openEditDialog() {
+  //  this.dialog.open(PlannedFormComponent, {
+  //    width: '4000px', // Genişlik
+  //    height: '3000px', // Yükseklik
+  //  });
+  //}
 
 
 

@@ -11,7 +11,9 @@ export class PlannedService {
   private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin
 
   constructor(private http: HttpClient) { }
-
+  getByIdData(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm/{id}`);
+  }
   getAllData(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm`);
   }
