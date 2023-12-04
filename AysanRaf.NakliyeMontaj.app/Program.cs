@@ -2,7 +2,7 @@
 using AysanRaf.NakliyeMontaj.Business.Mapping;
 using AysanRaf.NakliyeMontaj.Business.Services;
 using AysanRaf.NakliyeMontaj.DataAccess.Repositories;
-using deneme.Models;
+
 using Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,8 +27,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 
-builder.Services.AddScoped<IBaseService<ShippingInstallationCustomer>, BaseService<ShippingInstallationCustomer>>();
-builder.Services.AddScoped<IBaseRepository<ShippingInstallationCustomer>, BaseRepository<ShippingInstallationCustomer>>();
+
 
 builder.Services.AddScoped<IBaseRepository<RentedEquipment>, BaseRepository<RentedEquipment>>();
 builder.Services.AddScoped<IBaseService<RentedEquipment>, BaseService<RentedEquipment>>();

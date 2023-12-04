@@ -3,12 +3,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlannedService {
   private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin
+
+  private selectedRowData = new BehaviorSubject<any>(null);
+  selectedRowData$ = this.selectedRowData.asObservable();
+
+  setSelectedRowData(data: any): void {
+    this.selectedRowData.next(data);
+  }
 
   constructor(private http: HttpClient) { }
   getByIdData(): Observable<any> {

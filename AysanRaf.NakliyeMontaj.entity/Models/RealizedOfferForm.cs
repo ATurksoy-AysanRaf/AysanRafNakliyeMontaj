@@ -5,11 +5,17 @@ namespace Models
 {
     public partial class RealizedOfferForm
     {
+        public RealizedOfferForm()
+        {
+            Plannedofferforms = new HashSet<PlannedOfferForm>();
+            RentedEquipments = new HashSet<RentedEquipment>();
+        }
+
         public string Id { get; set; } = null!;
         public string? SalesOfferNumber { get; set; }
         public int RevisionNumber { get; set; }
-        public string? CreatedDate { get; set; }
-        public string? UpdatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
         public string ExchangeRate { get; set; } = null!;
         public string CustomerId { get; set; } = null!;
         public string? CustomerName { get; set; }
@@ -39,5 +45,9 @@ namespace Models
         public int? ReallyTonnage { get; set; }
         public int? WageTotalCost { get; set; }
         public int? EquipmentSumCost { get; set; }
+        public string? CustomerCity { get; set; }
+
+        public virtual ICollection<PlannedOfferForm> Plannedofferforms { get; set; }
+        public virtual ICollection<RentedEquipment> RentedEquipments { get; set; }
     }
 }

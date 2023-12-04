@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace deneme.Models
+namespace Models
 {
     public partial class TaskActivityAsset
     {

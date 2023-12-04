@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using NpgsqlTypes;
 
-namespace deneme.Models
+namespace Models
 {
     public partial class Pss
     {

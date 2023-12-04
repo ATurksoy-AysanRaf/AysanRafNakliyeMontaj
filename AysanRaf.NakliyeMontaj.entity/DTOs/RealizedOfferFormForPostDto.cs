@@ -8,10 +8,11 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 {
     public class RealizedOfferFormForPostDto:BaseDto
     {
+        public Guid Id { get; set; } 
         public string SalesOfferNumber { get; set; } = null!;
         public int RevisionNumber { get; set; }
-        public string? CreatedDate { get; set; }
-        public string? UpdatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
         public int ExchangeRate { get; set; }
 
         public int CasualtyRate { get; set; }
@@ -68,7 +69,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 
 
 
-
+        public string? CustomerCity { get; set; }
         public string CustomerId { get; set; } = null!;
         public string? CustomerName { get; set; }
 

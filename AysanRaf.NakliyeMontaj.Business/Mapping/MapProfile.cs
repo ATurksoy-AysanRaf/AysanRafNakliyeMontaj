@@ -13,9 +13,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Mapping
     public class MapProfile:Profile
     {
         public MapProfile() {
-            CreateMap<ShippingInstallationCustomer, ShippingInstallationCustomerForDetailDto>().ReverseMap();
-            CreateMap<ShippingInstallationCustomer, ShippingInstallationCustomerForPostDto>().ReverseMap();
-            CreateMap<ShippingInstallationCustomer, ShippingInstallationCustomerForUpdateDto>().ReverseMap();
+        
 
 
             CreateMap<RentedEquipment, RentedEquipmentForPostDto>().ReverseMap();

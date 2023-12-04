@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Models;
 
-namespace deneme.Models
+namespace Models
 {
     public partial class aysanrafpopsepdevelopment_2023_09_10_05_45Context : DbContext
     {
@@ -109,7 +108,6 @@ namespace deneme.Models
         public virtual DbSet<ShipmentAmountBasedPlanItem> ShipmentAmountBasedPlanItems { get; set; } = null!;
         public virtual DbSet<ShipmentItem> ShipmentItems { get; set; } = null!;
         public virtual DbSet<ShipmentWayBillDocument> ShipmentWayBillDocuments { get; set; } = null!;
-        public virtual DbSet<ShippingInstallationCustomer> ShippingInstallationCustomers { get; set; } = null!;
         public virtual DbSet<StockCountingActivity> StockCountingActivities { get; set; } = null!;
         public virtual DbSet<StockCountingActivityItem> StockCountingActivityItems { get; set; } = null!;
         public virtual DbSet<Task> Tasks { get; set; } = null!;
@@ -1585,7 +1583,7 @@ namespace deneme.Models
 
                 entity.Property(e => e.CasualtyRate).HasDefaultValueSql("0.96");
 
-                entity.Property(e => e.CreatedDate).HasMaxLength(19);
+                entity.Property(e => e.CustomerCity).HasMaxLength(36);
 
                 entity.Property(e => e.CustomerId).HasMaxLength(36);
 
@@ -1611,7 +1609,39 @@ namespace deneme.Models
 
                 entity.Property(e => e.TotalCarFuelCost).HasColumnName("TotalCarFuelCost ");
 
-                entity.Property(e => e.UpdatedDate).HasMaxLength(19);
+                entity.HasMany(d => d.Realizedofferforms)
+                    .WithMany(p => p.Plannedofferforms)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "Plannedrealizedrelation",
+                        l => l.HasOne<RealizedOfferForm>().WithMany().HasForeignKey("RealizedofferformId").HasConstraintName("plannedrealizedrelation_realizedofferform_id_fkey"),
+                        r => r.HasOne<PlannedOfferForm>().WithMany().HasForeignKey("PlannedofferformId").HasConstraintName("plannedrealizedrelation_plannedofferform_id_fkey"),
+                        j =>
+                        {
+                            j.HasKey("PlannedofferformId", "RealizedofferformId").HasName("plannedrealizedrelation_pkey");
+
+                            j.ToTable("plannedrealizedrelation");
+
+                            j.IndexerProperty<string>("PlannedofferformId").HasMaxLength(255).HasColumnName("plannedofferform_id");
+
+                            j.IndexerProperty<string>("RealizedofferformId").HasMaxLength(255).HasColumnName("realizedofferform_id");
+                        });
+
+                entity.HasMany(d => d.RentedEquipments)
+                    .WithMany(p => p.Plannedofferforms)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "PlannedofferformRentedequipment",
+                        l => l.HasOne<RentedEquipment>().WithMany().HasForeignKey("RentedEquipmentId").HasConstraintName("plannedofferform_rentedequipment_rentedEquipment_id_fkey"),
+                        r => r.HasOne<PlannedOfferForm>().WithMany().HasForeignKey("PlannedofferformId").HasConstraintName("plannedofferform_rentedequipment_plannedofferform_id_fkey"),
+                        j =>
+                        {
+                            j.HasKey("PlannedofferformId", "RentedEquipmentId").HasName("plannedofferform_rentedequipment_pkey");
+
+                            j.ToTable("plannedofferform_rentedequipment");
+
+                            j.IndexerProperty<string>("PlannedofferformId").HasMaxLength(255).HasColumnName("plannedofferform_id");
+
+                            j.IndexerProperty<string>("RentedEquipmentId").HasMaxLength(255).HasColumnName("rentedEquipment_id");
+                        });
             });
 
             modelBuilder.Entity<ProcurementPurchaseOrder>(entity =>
@@ -2939,7 +2969,7 @@ namespace deneme.Models
 
                 entity.Property(e => e.CasualtyRate).HasDefaultValueSql("0.96");
 
-                entity.Property(e => e.CreatedDate).HasMaxLength(19);
+                entity.Property(e => e.CustomerCity).HasMaxLength(36);
 
                 entity.Property(e => e.CustomerId).HasMaxLength(36);
 
@@ -2963,7 +2993,22 @@ namespace deneme.Models
 
                 entity.Property(e => e.TotalCarFuelCost).HasColumnName("TotalCarFuelCost ");
 
-                entity.Property(e => e.UpdatedDate).HasMaxLength(19);
+                entity.HasMany(d => d.RentedEquipments)
+                    .WithMany(p => p.Realizedofferforms)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "RealizedofferformRentedequipment",
+                        l => l.HasOne<RentedEquipment>().WithMany().HasForeignKey("RentedEquipmentId").HasConstraintName("realizedofferform_rentedequipment_rentedEquipment_id_fkey"),
+                        r => r.HasOne<RealizedOfferForm>().WithMany().HasForeignKey("RealizedofferformId").HasConstraintName("realizedofferform_rentedequipment_realizedofferform_id_fkey"),
+                        j =>
+                        {
+                            j.HasKey("RealizedofferformId", "RentedEquipmentId").HasName("realizedofferform_rentedequipment_pkey");
+
+                            j.ToTable("realizedofferform_rentedequipment");
+
+                            j.IndexerProperty<string>("RealizedofferformId").HasMaxLength(255).HasColumnName("realizedofferform_id");
+
+                            j.IndexerProperty<string>("RentedEquipmentId").HasMaxLength(255).HasColumnName("rentedEquipment_id");
+                        });
             });
 
             modelBuilder.Entity<RelationCustomer>(entity =>
@@ -5373,17 +5418,6 @@ namespace deneme.Models
                 entity.HasOne(d => d.Shipment)
                     .WithMany(p => p.ShipmentWayBillDocuments)
                     .HasForeignKey(d => d.ShipmentId);
-            });
-
-            modelBuilder.Entity<ShippingInstallationCustomer>(entity =>
-            {
-                entity.ToTable("ShippingInstallationCustomer");
-
-                entity.Property(e => e.Id).HasMaxLength(36);
-
-                entity.Property(e => e.City).HasColumnType("character varying");
-
-                entity.Property(e => e.Name).HasColumnType("character varying");
             });
 
             modelBuilder.Entity<StockCountingActivity>(entity =>

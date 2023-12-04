@@ -10,8 +10,8 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
     {
         public string SalesOfferNumber { get; set; } = null!;
         public int RevisionNumber { get; set; }
-        public string? CreatedDate { get; set; }
-        public string? UpdatedDate { get; set; }
+       
+        public DateTime? UpdatedDate { get; set; }
         public int ExchangeRate { get; set; }
 
         public int CasualtyRate { get; set; }
@@ -71,7 +71,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 
         public string CustomerId { get; set; } = null!;
         public string? CustomerName { get; set; }
-
+        public string? CustomerCity { get; set; }
 
         public string? RentedEquipmentId { get; set; }
         public string? RentedEquipmentName { get; set; }

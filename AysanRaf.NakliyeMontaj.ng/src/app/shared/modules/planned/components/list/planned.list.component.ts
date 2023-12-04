@@ -80,18 +80,40 @@ export class PlannedListComponent implements OnInit {
 
 
   openAddDialog() {
+
     this.dialog.open(PlannedFormComponent, {
+      
       width: '4000px', // Genişlik
       height: '3000px', // Yükseklik
     });
   }
-  //openEditDialog() {
-  //  this.dialog.open(PlannedFormComponent, {
-  //    width: '4000px', // Genişlik
-  //    height: '3000px', // Yükseklik
-  //  });
-  //}
 
+
+  
+
+  openEditDialog(dataArray: any[], rowIndex: number): number {
+    const ids: number[] = [];
+    const clickedRowData = dataArray[rowIndex];
+
+    for (const data of dataArray) {
+      const id = data.id;
+      ids.push(id);
+    }
+    this.apiService.setSelectedRowData(ids[rowIndex]);
+    this.dialog.open(PlannedFormComponent, {
+      width: '4000px',
+      height: '3000px',
+      data: { ids: ids, clickedRowData: clickedRowData, rowIndex: rowIndex },
+    });
+
+
+   // console.log(ids[rowIndex]);
+
+    return ids[rowIndex];
+  }
+
+
+ 
 
 
   ngOnInit() {

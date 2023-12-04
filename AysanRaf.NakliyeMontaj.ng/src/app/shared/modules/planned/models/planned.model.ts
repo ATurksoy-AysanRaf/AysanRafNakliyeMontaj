@@ -5,9 +5,9 @@ import { BaseEntity } from "../../common/BaseEntity";
 export class PlannedOfferForm extends BaseEntity {
 
  
-/*  SalesOfferNumber: number = null!;*/
+  SalesOfferNumber: number = null!;
   revisionNumber: number = null!;
-/*  ExchangeRate: number = null!;*/
+  ExchangeRate: number = null!;
   reallyTonage: number = null!;
   offerTonnage: number = null!;
   dailyTonnage: number = null!;

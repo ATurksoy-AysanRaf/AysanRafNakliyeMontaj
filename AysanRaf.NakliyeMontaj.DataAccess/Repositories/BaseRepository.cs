@@ -1,9 +1,10 @@
 ﻿
-using deneme.Models;
 using Microsoft.EntityFrameworkCore;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,9 +30,26 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
             return await _dbSet.ToListAsync();
         }
 
+        //public async Task<T> AddAsync(T entity)
+        //{
+
+
+
+        //    await _dbSet.AddAsync(entity);
+
+        //    return entity;
+        //}
         public async Task<T> AddAsync(T entity)
         {
+            PropertyInfo idProperty = entity.GetType().GetProperty("id");
+
+            if (idProperty != null && idProperty.PropertyType == typeof(Guid))
+            {
+                idProperty.SetValue(entity, Guid.NewGuid());
+            }
+
             await _dbSet.AddAsync(entity);
+
             return entity;
         }
 
