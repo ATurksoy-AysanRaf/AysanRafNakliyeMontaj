@@ -8,7 +8,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 {
     public class RealizedOfferFormForPostDto:BaseDto
     {
-        public Guid Id { get; set; } 
+      //  public Guid Id { get; set; } 
         public string SalesOfferNumber { get; set; } = null!;
         public int RevisionNumber { get; set; }
         public DateTime? CreatedDate { get; set; }

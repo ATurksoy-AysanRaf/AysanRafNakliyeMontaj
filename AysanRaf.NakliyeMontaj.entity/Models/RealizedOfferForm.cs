@@ -5,13 +5,7 @@ namespace Models
 {
     public partial class RealizedOfferForm
     {
-        public RealizedOfferForm()
-        {
-            Plannedofferforms = new HashSet<PlannedOfferForm>();
-            RentedEquipments = new HashSet<RentedEquipment>();
-        }
-
-        public string Id { get; set; } = null!;
+        public Guid Id { get; set; }
         public string? SalesOfferNumber { get; set; }
         public int RevisionNumber { get; set; }
         public DateTime? CreatedDate { get; set; }
@@ -46,8 +40,5 @@ namespace Models
         public int? WageTotalCost { get; set; }
         public int? EquipmentSumCost { get; set; }
         public string? CustomerCity { get; set; }
-
-        public virtual ICollection<PlannedOfferForm> Plannedofferforms { get; set; }
-        public virtual ICollection<RentedEquipment> RentedEquipments { get; set; }
     }
 }

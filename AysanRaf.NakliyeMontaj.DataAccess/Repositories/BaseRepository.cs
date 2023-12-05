@@ -30,28 +30,25 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
             return await _dbSet.ToListAsync();
         }
 
-        //public async Task<T> AddAsync(T entity)
-        //{
-
-
-
-        //    await _dbSet.AddAsync(entity);
-
-        //    return entity;
-        //}
+  
         public async Task<T> AddAsync(T entity)
         {
-            PropertyInfo idProperty = entity.GetType().GetProperty("id");
+            // Entity'nin Id özelliğini kontrol et
+            PropertyInfo idProperty = typeof(T).GetProperty("Id");
 
             if (idProperty != null && idProperty.PropertyType == typeof(Guid))
             {
+                // Eğer Id özelliği var ve tipi string ise yeni bir GUID oluştur
                 idProperty.SetValue(entity, Guid.NewGuid());
             }
 
+            // DbSet'e ekleyerek veritabanına kaydet
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
 
             return entity;
         }
+
 
         public async Task<bool> SaveAllAsync()
         {

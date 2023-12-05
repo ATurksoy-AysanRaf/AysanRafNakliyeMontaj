@@ -13,6 +13,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { RealizedListComponent } from "../realized/components/list/realized.list.component";
 import { PlannedFormComponent } from "./components/form/planned.form.component";
+import { AlertDialogComponent } from "./components/error/planned.error.componenet";
 
 
 @NgModule({
@@ -37,12 +38,14 @@ import { PlannedFormComponent } from "./components/form/planned.form.component";
   declarations: [
     PlannedListComponent,
     RealizedListComponent,
-    PlannedFormComponent
+    PlannedFormComponent,
+    AlertDialogComponent
   ],
   exports: [
     PlannedListComponent,
     RealizedListComponent,
-    PlannedFormComponent
+    PlannedFormComponent,
+    AlertDialogComponent
   ]
 })
 export class PlannedModule { }

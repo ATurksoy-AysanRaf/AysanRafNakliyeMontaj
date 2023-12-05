@@ -48,6 +48,7 @@ namespace Models
         public virtual DbSet<OrganizationDetail> OrganizationDetails { get; set; } = null!;
         public virtual DbSet<Party> Parties { get; set; } = null!;
         public virtual DbSet<PlannedOfferForm> PlannedOfferForms { get; set; } = null!;
+        public virtual DbSet<Plannedrealizedrelation> Plannedrealizedrelations { get; set; } = null!;
         public virtual DbSet<ProcurementPurchaseOrder> ProcurementPurchaseOrders { get; set; } = null!;
         public virtual DbSet<ProcurementPurchaseOrderItem> ProcurementPurchaseOrderItems { get; set; } = null!;
         public virtual DbSet<ProcurementPurchaseOrderWayBillDocument> ProcurementPurchaseOrderWayBillDocuments { get; set; } = null!;
@@ -1579,7 +1580,7 @@ namespace Models
             {
                 entity.ToTable("PlannedOfferForm");
 
-                entity.Property(e => e.Id).HasMaxLength(36);
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CasualtyRate).HasDefaultValueSql("0.96");
 
@@ -1608,40 +1609,17 @@ namespace Models
                 entity.Property(e => e.StaffMealUnitPrice).HasColumnName("StaffMealUnitPrice ");
 
                 entity.Property(e => e.TotalCarFuelCost).HasColumnName("TotalCarFuelCost ");
+            });
 
-                entity.HasMany(d => d.Realizedofferforms)
-                    .WithMany(p => p.Plannedofferforms)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "Plannedrealizedrelation",
-                        l => l.HasOne<RealizedOfferForm>().WithMany().HasForeignKey("RealizedofferformId").HasConstraintName("plannedrealizedrelation_realizedofferform_id_fkey"),
-                        r => r.HasOne<PlannedOfferForm>().WithMany().HasForeignKey("PlannedofferformId").HasConstraintName("plannedrealizedrelation_plannedofferform_id_fkey"),
-                        j =>
-                        {
-                            j.HasKey("PlannedofferformId", "RealizedofferformId").HasName("plannedrealizedrelation_pkey");
+            modelBuilder.Entity<Plannedrealizedrelation>(entity =>
+            {
+                entity.HasNoKey();
 
-                            j.ToTable("plannedrealizedrelation");
+                entity.ToTable("plannedrealizedrelation");
 
-                            j.IndexerProperty<string>("PlannedofferformId").HasMaxLength(255).HasColumnName("plannedofferform_id");
+                entity.Property(e => e.PlannedofferformId).HasColumnName("plannedofferform_id");
 
-                            j.IndexerProperty<string>("RealizedofferformId").HasMaxLength(255).HasColumnName("realizedofferform_id");
-                        });
-
-                entity.HasMany(d => d.RentedEquipments)
-                    .WithMany(p => p.Plannedofferforms)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "PlannedofferformRentedequipment",
-                        l => l.HasOne<RentedEquipment>().WithMany().HasForeignKey("RentedEquipmentId").HasConstraintName("plannedofferform_rentedequipment_rentedEquipment_id_fkey"),
-                        r => r.HasOne<PlannedOfferForm>().WithMany().HasForeignKey("PlannedofferformId").HasConstraintName("plannedofferform_rentedequipment_plannedofferform_id_fkey"),
-                        j =>
-                        {
-                            j.HasKey("PlannedofferformId", "RentedEquipmentId").HasName("plannedofferform_rentedequipment_pkey");
-
-                            j.ToTable("plannedofferform_rentedequipment");
-
-                            j.IndexerProperty<string>("PlannedofferformId").HasMaxLength(255).HasColumnName("plannedofferform_id");
-
-                            j.IndexerProperty<string>("RentedEquipmentId").HasMaxLength(255).HasColumnName("rentedEquipment_id");
-                        });
+                entity.Property(e => e.RealizedofferformId).HasColumnName("realizedofferform_id");
             });
 
             modelBuilder.Entity<ProcurementPurchaseOrder>(entity =>
@@ -2965,7 +2943,7 @@ namespace Models
             {
                 entity.ToTable("RealizedOfferForm");
 
-                entity.Property(e => e.Id).HasMaxLength(36);
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.CasualtyRate).HasDefaultValueSql("0.96");
 
@@ -2992,23 +2970,6 @@ namespace Models
                 entity.Property(e => e.StaffMealUnitPrice).HasColumnName("StaffMealUnitPrice ");
 
                 entity.Property(e => e.TotalCarFuelCost).HasColumnName("TotalCarFuelCost ");
-
-                entity.HasMany(d => d.RentedEquipments)
-                    .WithMany(p => p.Realizedofferforms)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "RealizedofferformRentedequipment",
-                        l => l.HasOne<RentedEquipment>().WithMany().HasForeignKey("RentedEquipmentId").HasConstraintName("realizedofferform_rentedequipment_rentedEquipment_id_fkey"),
-                        r => r.HasOne<RealizedOfferForm>().WithMany().HasForeignKey("RealizedofferformId").HasConstraintName("realizedofferform_rentedequipment_realizedofferform_id_fkey"),
-                        j =>
-                        {
-                            j.HasKey("RealizedofferformId", "RentedEquipmentId").HasName("realizedofferform_rentedequipment_pkey");
-
-                            j.ToTable("realizedofferform_rentedequipment");
-
-                            j.IndexerProperty<string>("RealizedofferformId").HasMaxLength(255).HasColumnName("realizedofferform_id");
-
-                            j.IndexerProperty<string>("RentedEquipmentId").HasMaxLength(255).HasColumnName("rentedEquipment_id");
-                        });
             });
 
             modelBuilder.Entity<RelationCustomer>(entity =>

@@ -14,6 +14,13 @@ export class PlannedService {
   private selectedRowData = new BehaviorSubject<any>(null);
   selectedRowData$ = this.selectedRowData.asObservable();
 
+
+
+
+ 
+
+
+
   setSelectedRowData(data: any): void {
     this.selectedRowData.next(data);
   }

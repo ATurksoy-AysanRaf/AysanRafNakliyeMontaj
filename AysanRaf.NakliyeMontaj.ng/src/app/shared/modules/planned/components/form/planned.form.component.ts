@@ -6,6 +6,8 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PlannedService } from "../../services/planned.service";
 import { DataSource } from "@angular/cdk/collections";
+import { AlertDialogComponent } from "../error/planned.error.component";
+import { Observable, catchError, map, of } from "rxjs";
 
 
 
@@ -20,6 +22,7 @@ import { DataSource } from "@angular/cdk/collections";
 
 export class PlannedFormComponent implements OnInit {
 
+
   selectedRowData: any;
 
   PlannedOfferForm!: FormGroup;
@@ -31,6 +34,18 @@ export class PlannedFormComponent implements OnInit {
 
 
   }
+  closeWithDelay(): void {
+    // 5 saniye sonra close fonksiyonunu çağır
+    setTimeout(() => {
+      window.location.reload();
+      this.PlannedOfferForm.reset();
+      this.dialogRef.close();
+    }, 200000); // 5000 milisaniye (5 saniye)
+  }
+  onCloseButtonClick(): void {
+    this.closeWithDelay();
+  }
+
  
 
   close() {
@@ -60,7 +75,7 @@ export class PlannedFormComponent implements OnInit {
       customerCity:[''],
       accommodationTotalPrice: [''],
       accommodationUnitPrice: [''],
-      casualtyRate: ['0.96'],
+      casualtyRate: [''],
       createdDate: [''],
       customerId: [''],
       customerName: [''],
@@ -94,6 +109,104 @@ export class PlannedFormComponent implements OnInit {
     });
   }
 
+  checkData(): Observable<number> {
+    const formSalesOfferNumber = this.PlannedOfferForm.get('salesOfferNumber')?.value;
+   
+    // Verileri servisten al ve formu doldur
+    return this.dataService.getAllData().pipe(
+      map((data: any[]) => {
+        const isSalesOfferNumberExists = data.some((item: any) => item.salesOfferNumber === formSalesOfferNumber);
+
+        if (isSalesOfferNumberExists) {
+          this.openAlertDialog('Hata', `SalesOfferNumber "${formSalesOfferNumber}" zaten var.`);
+          return 1; // Eğer kayıt varsa 1 döndür
+        } else {
+          // SalesOfferNumber değeri benzersiz, formu doldurabilirsiniz
+          this.mapApiDataToForm(data, this.selectedRowData);
+          return 0; // Eğer kayıt yoksa 0 döndür
+        }
+      }),
+      catchError((error) => {
+        console.error('Veri alınamadı:', error);
+        return of(-1); // Hata durumunda -1 döndür
+      })
+    );
+  }
+
+  findIdBySalesOfferNumber(salesOfferNumber: any): Observable<number | null> {
+    return this.dataService.getAllData().pipe(
+      map(data => {
+       
+        const matchedData = data.find((item: { salesOfferNumber: any; }) => item.salesOfferNumber === salesOfferNumber);
+        return matchedData ? matchedData.id : null;
+      })
+    );
+  }
+
+  openAlertDialog(title: string, message: string): void {
+    const dialogRef = this.dialog.open(AlertDialogComponent, {
+      data: { title, message },
+      width: '600px',
+   
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
+  onSubmit(): void {
+    // FormGroup'u düz JavaScript nesnesine dönüştür
+    const formData = this.PlannedOfferForm.getRawValue();
+
+    // CreatedDate ve UpdatedDate özelliklerini UTC'ye dönüştür
+    formData.CreatedDate = this.convertToUtc(formData.CreatedDate);
+    formData.UpdatedDate = this.convertToUtc(formData.UpdatedDate);
+
+    // checkData fonksiyonunu çağır ve dönüş değerine göre işlem yap
+    this.checkData().subscribe(
+      (result) => {
+     if (result === 0) {
+          // Kayıt yok, createData fonksiyonunu çağır
+          this.dataService.createData(formData).subscribe(
+            (response) => {
+              console.log('Entity added successfully:', response);
+            },
+            (error) => {
+              console.error('Error adding entity:', error);
+            }
+          );
+        }
+        else  {
+        const ids =this.findIdBySalesOfferNumber(formData.salesOfferNumber);
+          // Kayıt var, updateData fonksiyonunu çağır
+          this.dataService.updateData(formData, ids).subscribe(
+            (response) => {
+              console.log('Entity updated successfully:', response);
+            },
+            (error) => {
+              console.error('Error updating entity:', error);
+            }
+          );
+        }
+      }
+    );
+    this.onCloseButtonClick();
+  }
+
+
+ 
+
+  private areDatesEqual(date1: Date, date2: Date): boolean {
+    // İki tarihin eşit olup olmadığını kontrol et
+    return date1 && date2 && date1.getTime() === date2.getTime();
+  }
+
+  private convertToUtc(date: Date): Date {
+    return date ? new Date(date.toISOString()) : new Date();
+  }
+
 
 
   loadData(): void {
@@ -113,23 +226,18 @@ export class PlannedFormComponent implements OnInit {
 
   mapApiDataToForm(data: any[], id: number): void {
 
-
-
-    if (this.PlannedOfferForm.dirty || this.PlannedOfferForm.touched) {
-      this.PlannedOfferForm.reset(); // Formu sıfırla
-    }
-    /* Formdaki kontrol adlarıyla API'den gelen veriyi eşleştir */
-
     const matchedData = data.find(item => item.id === id);
 
     if (matchedData) {
+      let formattedCreatedDate: string;
 
-      const formattedCreatedDate = matchedData.createdDate.substring(0, 10);
+      formattedCreatedDate = matchedData.createdDate.substring(0, 10);
+     
 
       this.PlannedOfferForm.patchValue({
 
-
-        salesOfferNumber: matchedData.salesOfferNumber + "-" + matchedData.revisionNumber,
+        /*+ "-" + matchedData.revisionNumber,*/
+        salesOfferNumber: matchedData.salesOfferNumber ,
         accommodationTotalPrice: matchedData.accommodationTotalPrice,
         accommodationUnitPrice: matchedData.accommodationUnitPrice,
         casualtyRate: matchedData.casualtyRate,
@@ -161,25 +269,75 @@ export class PlannedFormComponent implements OnInit {
         updatedDate: matchedData.updatedDate,
         wageTotalCost: matchedData.wageTotalCost,
         customerCity: matchedData.customerCity,
+        numberTrucksUsed: matchedData.numberTrucksUsed,
         // Diğer alanları buraya ekleyin
         // ...
-
+        
 
         
       });
     } else {
       console.error(`Veri bulunamadı: ID ${id}`);
-      // Hata durumunda isteğe bağlı olarak bir mesaj gösterebilirsiniz
-      // this.toastr.error('Veri bulunamadı', 'Hata');
+
+ 
+    
+
+      // Formdan alınan verileri kullan
+      const formData = this.PlannedOfferForm.getRawValue();
+      let formattedCreatedDate: string;
+      let formattedUpdatedDate: string;
+     
+      if (formData.createdDate) {
+        formattedCreatedDate = formData.createdDate.substring(0, 10);
+        formattedUpdatedDate = formData.updatedDate.substring(0, 10);
+      } else {
+        formattedCreatedDate = new Date().toISOString().substring(0, 10);
+        formattedUpdatedDate = new Date().toISOString().substring(0, 10);
+      }
+
+      this.PlannedOfferForm.patchValue({
+        salesOfferNumber: formData.salesOfferNumber,
+        accommodationTotalPrice: formData.accommodationTotalPrice,
+        accommodationUnitPrice: formData.accommodationUnitPrice,
+        casualtyRate: formData.casualtyRate,
+        createdDate: formattedCreatedDate,
+
+        customerId: formData.customerId,
+        customerName: formData.customerName,
+        dailyTonnage: formData.dailyTonnage,
+        dailyWageAmount: formData.dailyWageAmount,
+        dailyWageCost: formData.dailyWageCost,
+        equipmentShipmentCost: formData.equipmentShipmentCost,
+        equipmentSumtCost: typeof formData.equipmentSumtCost === 'number' ? formData.equipmentSumtCost : null,
+        exchangeRate: formData.exchangeRate,
+        fieldEngineerCost: formData.fieldEngineerCost,
+        installationTotalCost: formData.installationTotalCost,
+        installationTotalCostCurrency: formData.installationTotalCostCurrency,
+        isgexpertCost: formData.isgexpertCost,
+        numberDays: formData.numberDays,
+        numberEmployees: formData.numberEmployees,
+        offerTonnage: formData.offerTonnage,
+        reallyTonnage: formData.reallyTonnage,
+        rentedEquipmentId: formData.rentedEquipmentId,
+        rentedEquipmentName: formData.rentedEquipmentName,
+        shippingTotalCost: formData.shippingTotalCost,
+        shippingTotalCostCurrency: formData.shippingTotalCostCurrency,
+        staffMealTotalPrice: formData.staffMealTotalPrice,
+        staffMealUnitPrice: formData.staffMealUnitPrice,
+        totalCarFuelCost: formData.totalCarFuelCost,
+        truckUnitPrice: formData.truckUnitPrice,
+        updatedDate: formattedUpdatedDate,
+        wageTotalCost: formData.wageTotalCost,
+        customerCity: formData.customerCity,
+        numberTrucksUsed: formData.numberTrucksUsed,
+        // Diğer alanları buraya ekleyin
+        // ...
+      });
     }
+
    
   }
-  ngOnDestroy(): void {
-    // Sayfa ömrü sona erdiğinde formu temizle
-    if (this.PlannedOfferForm) {
-      this.PlannedOfferForm.reset();
-    }
-  }
+ 
 
 }
 

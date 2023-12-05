@@ -8,7 +8,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 {
     public class PlannedOfferFormForDetailDto: BaseDto
     {
-        //public Guid Id { get; set; }
+        public Guid Id { get; set; } 
         public string SalesOfferNumber { get; set; } = null!;
         public int RevisionNumber { get; set; }
         public DateTime? CreatedDate { get; set; }
@@ -22,10 +22,11 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
         public int DailyTonnage { get; set; } 
         public int NumberEmployees { get; set; }
         public int IsgexpertCost { get; set; } 
-        public int FieldEngineerCost { get; set; } 
+        public int FieldEngineerCost { get; set; }
 
 
 
+            
 
 
         public int DailyWageAmount { get; set; }

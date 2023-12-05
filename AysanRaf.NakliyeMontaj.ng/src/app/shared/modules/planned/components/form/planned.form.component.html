@@ -101,13 +101,19 @@
         <td>
           <mat-form-field style="">
             <mat-label>ÇALIŞAN SAYISI</mat-label>
-            <input matInput formControlName="dailyWageAmount">
+            <input matInput formControlName="numberEmployees">
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>GÜN SAYISI</mat-label>
             <input matInput formControlName="numberDays">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field style="">
+            <mat-label>TOP. YEVMİYE ADET</mat-label>
+            <input matInput formControlName="dailyWageAmount">
           </mat-form-field>
         </td>
         <td>
@@ -326,12 +332,12 @@
               <input matInput formControlName="equipmentShipmentCost">
             </mat-form-field>
           </td>
-          <!--<td>
+          <td>
             <mat-form-field style="background-color:yellow">
               <mat-label>TOP. EKİPMAN MALİYET</mat-label>
               <input matInput formControlName="equipmentSumCost">
             </mat-form-field>
-          </td>-->
+          </td>
         </tr>
       </table>
     </div>
@@ -431,7 +437,7 @@
   <div class="buttons" style=" width: 20%; margin-bottom: 30px; margin-left:900px">
 
     <button mat-raised-button color="warn" style="width:20%; margin-right: 40px; ">SİL</button>
-    <button mat-raised-button color="primary" style="width: 30%;">KAYDET</button>
+    <button mat-raised-button color="primary" style="width: 30%;" (click)="onSubmit()">KAYDET</button>
 
   </div>
 

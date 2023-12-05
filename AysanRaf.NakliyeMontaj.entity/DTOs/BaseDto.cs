@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 {
     public class BaseDto
-    {public Guid Id { get; set; }
+
+    {
+
+       
+        public Guid Id { get; set; } = Guid.NewGuid();
+
     }
 }
