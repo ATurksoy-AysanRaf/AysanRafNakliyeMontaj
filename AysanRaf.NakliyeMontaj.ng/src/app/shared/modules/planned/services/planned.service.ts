@@ -39,11 +39,11 @@ export class PlannedService {
     return this.http.post<any>(`${this.apiUrl}/api/PlannedOfferForm`, data);
   }
 
-  updateData(id: number, data: any): Observable<any> {
+  updateData(id: string, data: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`, data);
   }
 
-  deleteData(id: number): Observable<any> {
+  deleteData(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`);
   }
 }

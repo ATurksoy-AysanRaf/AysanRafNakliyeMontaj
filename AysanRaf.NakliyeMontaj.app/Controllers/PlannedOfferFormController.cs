@@ -22,7 +22,7 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(String id)
+        public async Task<IActionResult> GetById(Guid id)
         {
             var product = await _service.GetByIdAsync(id);
             return Ok(_mapper.Map<PlannedOfferFormForDetailDto>(product));
@@ -52,7 +52,7 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
 
         //  [ServiceFilter(typeof(NotFoundFilter))]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(String id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var product = await _service.GetByIdAsync(id);
             if (product == null)
@@ -63,7 +63,7 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(String id, PlannedOfferFormForUpdateDto PlannedOfferFormForUpdateDto)
+        public async Task<IActionResult> Update(Guid id, PlannedOfferFormForUpdateDto PlannedOfferFormForUpdateDto)
         {
             var product = await _service.GetByIdAsync(id);
             if (product == null)

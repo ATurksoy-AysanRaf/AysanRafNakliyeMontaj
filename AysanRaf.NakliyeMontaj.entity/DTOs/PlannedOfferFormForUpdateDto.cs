@@ -8,7 +8,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 {
     public class PlannedOfferFormForUpdateDto
     {
-        public string SalesOfferNumber { get; set; } 
+        public string? SalesOfferNumber { get; set; } 
         public int RevisionNumber { get; set; }
        
         public DateTime? UpdatedDate { get; set; }

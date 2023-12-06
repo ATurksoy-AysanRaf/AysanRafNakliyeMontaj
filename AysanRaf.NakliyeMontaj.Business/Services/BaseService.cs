@@ -15,7 +15,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
         {
             _repository = repository;
         }
-        public async Task<T?> GetByIdAsync(String id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _repository.GetByIdAsync(id);
         }
@@ -32,7 +32,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
             return entity;
         }
 
-        public async Task<bool> DeleteAsync(String id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             return await _repository.DeleteAsync(id);
         }

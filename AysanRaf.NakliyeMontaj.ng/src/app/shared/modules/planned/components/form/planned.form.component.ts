@@ -7,7 +7,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PlannedService } from "../../services/planned.service";
 import { DataSource } from "@angular/cdk/collections";
 import { AlertDialogComponent } from "../error/planned.error.component";
-import { Observable, catchError, map, of } from "rxjs";
+import { Observable, catchError, map, of, switchMap } from "rxjs";
+
 
 
 
@@ -30,7 +31,7 @@ export class PlannedFormComponent implements OnInit {
 
 
 
-  constructor(private dialog: MatDialog ,private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService) {
+  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService) {
 
 
   }
@@ -40,21 +41,19 @@ export class PlannedFormComponent implements OnInit {
       window.location.reload();
       this.PlannedOfferForm.reset();
       this.dialogRef.close();
-    }, 200000); // 5000 milisaniye (5 saniye)
+    }, 2500); // 5000 milisaniye (5 saniye)
   }
+
   onCloseButtonClick(): void {
     this.closeWithDelay();
   }
-
- 
 
   close() {
     window.location.reload();
     this.PlannedOfferForm.reset(); // Formu sıfırla
     this.dialogRef.close();
-    
-  }
 
+  }
 
   ngOnInit(): void {
 
@@ -64,7 +63,7 @@ export class PlannedFormComponent implements OnInit {
       this.selectedRowData = data;
 
     });
-  
+
     this.loadData();
 
   }
@@ -72,7 +71,7 @@ export class PlannedFormComponent implements OnInit {
   initializeForm(): void {
     this.PlannedOfferForm = this.fb.group({
       // Formunuzdaki alanları buraya ekleyin
-      customerCity:[''],
+      customerCity: [''],
       accommodationTotalPrice: [''],
       accommodationUnitPrice: [''],
       casualtyRate: [''],
@@ -111,7 +110,7 @@ export class PlannedFormComponent implements OnInit {
 
   checkData(): Observable<number> {
     const formSalesOfferNumber = this.PlannedOfferForm.get('salesOfferNumber')?.value;
-   
+
     // Verileri servisten al ve formu doldur
     return this.dataService.getAllData().pipe(
       map((data: any[]) => {
@@ -133,12 +132,21 @@ export class PlannedFormComponent implements OnInit {
     );
   }
 
-  findIdBySalesOfferNumber(salesOfferNumber: any): Observable<number | null> {
+  findIdBySalesOfferNumber(salesOfferNumber: number): Observable<string|null > {
     return this.dataService.getAllData().pipe(
-      map(data => {
-       
-        const matchedData = data.find((item: { salesOfferNumber: any; }) => item.salesOfferNumber === salesOfferNumber);
-        return matchedData ? matchedData.id : null;
+      switchMap(data => {
+        const matchedData = data.find((item: { salesOfferNumber: number; id: string; }) => item.salesOfferNumber === salesOfferNumber);
+
+        if (matchedData) {
+          return of(String(matchedData.id));
+        } else {
+          console.log("id yok");
+          return of(null); // veya başka bir değer döndürebilirsiniz
+        }
+      }),
+      catchError(error => {
+        console.error('Error fetching data:', error);
+        return of(null); // veya başka bir değer döndürebilirsiniz
       })
     );
   }
@@ -147,14 +155,13 @@ export class PlannedFormComponent implements OnInit {
     const dialogRef = this.dialog.open(AlertDialogComponent, {
       data: { title, message },
       width: '600px',
-   
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
     });
   }
-
 
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
@@ -167,7 +174,7 @@ export class PlannedFormComponent implements OnInit {
     // checkData fonksiyonunu çağır ve dönüş değerine göre işlem yap
     this.checkData().subscribe(
       (result) => {
-     if (result === 0) {
+        if (result === 0) {
           // Kayıt yok, createData fonksiyonunu çağır
           this.dataService.createData(formData).subscribe(
             (response) => {
@@ -178,10 +185,81 @@ export class PlannedFormComponent implements OnInit {
             }
           );
         }
-        else  {
-        const ids =this.findIdBySalesOfferNumber(formData.salesOfferNumber);
+
+      }
+    );
+    this.onCloseButtonClick();
+  }
+
+  onEdit(): void {
+    // FormGroup'u düz JavaScript nesnesine dönüştür
+    const formData = this.PlannedOfferForm.getRawValue();
+    // CreatedDate ve UpdatedDate özelliklerini UTC'ye dönüştür
+    formData.CreatedDate = this.convertToUtc(formData.CreatedDate);
+    formData.UpdatedDate = this.convertToUtc(formData.UpdatedDate);
+
+    this.findIdBySalesOfferNumber(formData.salesOfferNumber).subscribe(
+      result => {
+        if (result !== null) {
+          console.log('ID found:', result);
+       
+    
+   
+
+
+  
+    const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
+
+
+    console.log(formData.salesOfferNumber);
+    console.log(ids);
+    // Kayıt var, updateData fonksiyonunu çağır
+
+    this.dataService.getAllData()
+
+    this.dataService.updateData(result, formData).subscribe(
+      (response) => {
+        console.log('Entity updated successfully:', response);
+      },
+      (error) => {
+        console.error('Error updating entity:', error);
+      }
+          );
+
+        } else {
+          console.log('ID not found');
+        }
+      }
+     );
+
+  
+
+    this.onCloseButtonClick();
+  }
+
+  onDelete(): void {
+    const formData = this.PlannedOfferForm.getRawValue();
+
+    this.findIdBySalesOfferNumber(formData.salesOfferNumber).subscribe(
+      result => {
+        if (result !== null) {
+          console.log('ID found:', result);
+
+
+
+
+
+
+          const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
+
+
+          console.log(formData.salesOfferNumber);
+          console.log(ids);
           // Kayıt var, updateData fonksiyonunu çağır
-          this.dataService.updateData(formData, ids).subscribe(
+
+          this.dataService.getAllData()
+
+          this.dataService.deleteData(result).subscribe(
             (response) => {
               console.log('Entity updated successfully:', response);
             },
@@ -189,14 +267,16 @@ export class PlannedFormComponent implements OnInit {
               console.error('Error updating entity:', error);
             }
           );
+
+        } else {
+          console.log('ID not found');
         }
       }
     );
-    this.onCloseButtonClick();
-  }
 
 
- 
+
+    this.onCloseButtonClick(); }
 
   private areDatesEqual(date1: Date, date2: Date): boolean {
     // İki tarihin eşit olup olmadığını kontrol et
@@ -207,13 +287,11 @@ export class PlannedFormComponent implements OnInit {
     return date ? new Date(date.toISOString()) : new Date();
   }
 
-
-
   loadData(): void {
     // Verileri servisten al ve formu doldur
     this.dataService.getAllData().subscribe(
       (data) => {
-      //  console.log('Received Data from API:', data);
+        //  console.log('Received Data from API:', data);
         this.mapApiDataToForm(data, this.selectedRowData);
       },
       (error) => {
@@ -221,7 +299,7 @@ export class PlannedFormComponent implements OnInit {
       }
     );
 
-  
+
   }
 
   mapApiDataToForm(data: any[], id: number): void {
@@ -232,12 +310,12 @@ export class PlannedFormComponent implements OnInit {
       let formattedCreatedDate: string;
 
       formattedCreatedDate = matchedData.createdDate.substring(0, 10);
-     
+
 
       this.PlannedOfferForm.patchValue({
 
         /*+ "-" + matchedData.revisionNumber,*/
-        salesOfferNumber: matchedData.salesOfferNumber ,
+        salesOfferNumber: matchedData.salesOfferNumber,
         accommodationTotalPrice: matchedData.accommodationTotalPrice,
         accommodationUnitPrice: matchedData.accommodationUnitPrice,
         casualtyRate: matchedData.casualtyRate,
@@ -272,21 +350,21 @@ export class PlannedFormComponent implements OnInit {
         numberTrucksUsed: matchedData.numberTrucksUsed,
         // Diğer alanları buraya ekleyin
         // ...
-        
 
-        
+
+
       });
     } else {
       console.error(`Veri bulunamadı: ID ${id}`);
 
- 
-    
+
+
 
       // Formdan alınan verileri kullan
       const formData = this.PlannedOfferForm.getRawValue();
       let formattedCreatedDate: string;
       let formattedUpdatedDate: string;
-     
+
       if (formData.createdDate) {
         formattedCreatedDate = formData.createdDate.substring(0, 10);
         formattedUpdatedDate = formData.updatedDate.substring(0, 10);
@@ -335,9 +413,9 @@ export class PlannedFormComponent implements OnInit {
       });
     }
 
-   
+
   }
- 
+
 
 }
 

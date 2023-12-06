@@ -121,15 +121,17 @@
             <mat-label>İSG ÜCRETİ </mat-label>
             <input matInput formControlName="isgexpertCost">
           </mat-form-field>
-        </td>
-
-        <td style="background-color:yellow">
-          <mat-form-field>
-            <mat-label>TOP. YEVMİYE MALİYETİ</mat-label>
-            <input matInput formControlName="wageTotalCost">
-          </mat-form-field>
-        </td>
-      </tr>
+        </td></tr>
+    </table>
+    <table>
+      <tr>
+    <td style="background-color:yellow">
+      <mat-form-field>
+        <mat-label>TOP. YEVMİYE MALİYETİ</mat-label>
+        <input matInput formControlName="wageTotalCost">
+      </mat-form-field>
+    </td>
+    </tr>
     </table>
 
   </div>
@@ -434,10 +436,13 @@
 
 
 
-  <div class="buttons" style=" width: 20%; margin-bottom: 30px; margin-left:900px">
+  <div class="buttons" style=" width: 40%; margin-bottom: 30px; margin-left:700px">
 
-    <button mat-raised-button color="warn" style="width:20%; margin-right: 40px; ">SİL</button>
-    <button mat-raised-button color="primary" style="width: 30%;" (click)="onSubmit()">KAYDET</button>
+   
+    <button mat-raised-button color="accent" style="width: 5%; margin-right: 40px;" (click)="onSubmit()">YAZDIR</button>
+    <button mat-raised-button color="warn" style="width:5%; margin-right: 40px; "(click)="onDelete()">SİL</button>
+    <button mat-raised-button color="primary" style="width:15%; margin-right: 40px; " (click)="onEdit()">DÜZENLE</button>
+    <button mat-raised-button color="green" style="width: 5%;" (click)="onSubmit()">KAYDET</button>
 
   </div>
 

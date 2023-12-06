@@ -8,7 +8,7 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
 {
     public interface IBaseRepository<T> where T : class
     {
-        Task<T?> GetByIdAsync(String id);
+        Task<T?> GetByIdAsync(Guid id);
 
         Task<IEnumerable<T>> GetAllAsync();
 
@@ -16,7 +16,7 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
 
         Task<bool> SaveAllAsync();
 
-        Task<bool> DeleteAsync(String id);
+        Task<bool> DeleteAsync(Guid id);
         Task<T> UpdateAsync(T entity);
     }
 }

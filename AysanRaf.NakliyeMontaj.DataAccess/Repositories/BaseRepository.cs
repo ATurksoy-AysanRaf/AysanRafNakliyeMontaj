@@ -20,7 +20,7 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
             _context = context;
             _dbSet = _context.Set<T>();
         }
-        public async Task<T?> GetByIdAsync(String id)
+        public async Task<T?> GetByIdAsync(Guid id)
         {
             return await _dbSet.FindAsync(id);
         }
@@ -55,7 +55,7 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> DeleteAsync(String id)
+        public async Task<bool> DeleteAsync(Guid id)
         {
             var entity = await _dbSet.FindAsync(id);
             _dbSet.Remove(entity);
@@ -70,6 +70,6 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
             return entity;
         }
 
-       
+      
     }
 }
