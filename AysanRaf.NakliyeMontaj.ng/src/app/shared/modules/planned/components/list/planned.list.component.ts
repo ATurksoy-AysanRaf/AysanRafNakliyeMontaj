@@ -75,10 +75,6 @@ export class PlannedListComponent implements OnInit {
       height: '3000px', // Yükseklik
     });
   }
-
-
-
-
   openEditDialog(dataArray: any[], rowIndex: number): number {
     const ids: number[] = [];
     const clickedRowData = dataArray[rowIndex];
@@ -99,9 +95,6 @@ export class PlannedListComponent implements OnInit {
 
     return ids[rowIndex];
   }
-
-
-
   ngOnInit() {
 
     this.filterForm = this.formBuilder.group({
@@ -114,14 +107,61 @@ export class PlannedListComponent implements OnInit {
     });
 
     this.applyFilters();
-    
 
 
-  
+
+
 
 
   }
+  isWithinLastMonth(dateString: string): boolean {
+    const currentDate = new Date();
+    const itemDate = new Date(dateString);
+
+    // Son 1 ay içinde mi kontrol et
+    return (
+      itemDate >= new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, currentDate.getDate())
+    );
+  }
+  isWithinThreMonth(dateString: string): boolean {
+    const currentDate = new Date();
+    const itemDate = new Date(dateString);
+
+    // Son 3 ay içinde mi kontrol et
+    return (
+      itemDate >= new Date(currentDate.getFullYear(), currentDate.getMonth() - 3, currentDate.getDate())
+    );
+  }
+  isWithinSixMonth(dateString: string): boolean {
+    const currentDate = new Date();
+    const itemDate = new Date(dateString);
+
+    // Son 6 ay içinde mi kontrol et
+    return (
+      itemDate >= new Date(currentDate.getFullYear(), currentDate.getMonth() - 6, currentDate.getDate())
+    );
+  }
+  isWithinLastYear(dateString: string): boolean {
+    const currentDate = new Date();
+    const itemDate = new Date(dateString);
+
+    // Son 1 yıl içinde mi kontrol et
+    return (
+      itemDate >= new Date(currentDate.getFullYear() - 1, currentDate.getMonth(), currentDate.getDate())
+    );
+  }
+  isItemInFilteredList(item: any): boolean {
+    return this.filteredDataList.some(existingItem => {
+      // İki değeri karşılaştırırken tür uyumsuzluğunu önlemek için Number() kullanabilirsiniz
+      const existingSalesOfferNumber = Number(existingItem.salesOfferNumber);
+      const itemSalesOfferNumber = Number(item.salesOfferNumber);
+
+      return existingSalesOfferNumber === itemSalesOfferNumber;
+    });
+  }
   applyFilters(): void {
+
+
     const offerNumber = this.filterForm.get('offerNumber').value;
     const customer = this.filterForm.get('customer').value;
     const city = this.filterForm.get('city').value;
@@ -133,43 +173,35 @@ export class PlannedListComponent implements OnInit {
     this.apiService.getListData().subscribe(
       (data: any[]) => {
         // Gelen veriyi listeye ekle
+        this.dataList.splice(0, this.dataList.length);
         this.dataList = [...this.dataList, ...data];
-        console.log('Data List:', this.dataList);
+        // console.log('Data List:', this.dataList);
 
-        // Tüm uyan verileri bul
+        //// Tüm uyan verileri bul
         const matchedItems = this.dataList.filter(dataItem =>
           dataItem.salesOfferNumber === offerNumber ||
           dataItem.customerName === customer ||
           dataItem.customerCity === city
         );
 
-        //if (matchedItems.length > 0) {
-        //  // Eşleşen veri bulundu
-        //  console.log('Matches found:', matchedItems);
-        //  // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
-        //  console.log("errorrr1");
-         
-        //  // Eşleşen verileri filteredDataList'e ekle
-        //  this.filteredDataList.push(...matchedItems);
-      
-        //  console.log("burası rererer", this.filteredDataList);
-        //} else {
-        //  console.log("errorrr2");
-        //}
+
+
         if (matchedItems.length > 0) {
           // Eşleşen veri bulundu
           console.log('Matches found:', matchedItems);
           // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
-          console.log("errorrr1");
+
 
           // Sadece listede olmayan öğeleri filteredDataList'e ekle
-          const newMatches = matchedItems.filter(item => !this.filteredDataList.some(existingItem => existingItem.id === item.id));
+          const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
           this.filteredDataList.push(...newMatches);
 
-          console.log("burası rererer", this.filteredDataList);
+
         } else {
-          console.log("errorrr2");
+
         }
+
+
 
         // Kullanıcıya tüm eşleşen verileri göster
         this.dataSource.data = this.filteredDataList;
@@ -179,15 +211,14 @@ export class PlannedListComponent implements OnInit {
       }
     );
 
-
-
-
-       this.apiService.getListData().subscribe(data => {
+    this.apiService.getListData().subscribe(data => {
       if (this.filteredDataList.length > 0) {
         // Eğer filteredDataList doluysa, onu kullan
-        this.dataSource.data = this.filteredDataList;
+        this.dataSource.data = this.filteredDataList
+          .filter(item => this.isWithinLastMonth(item.createdDate));
 
         console.log("burası okey");
+        console.log(this.dataSource.data);
         this.filteredDataList.splice(0, this.filteredDataList.length);
 
       } else {
@@ -195,13 +226,44 @@ export class PlannedListComponent implements OnInit {
 
         // Eğer filteredDataList boşsa, items'ı kullan
         this.items = data;
-        this.dataSource.data = this.items;
+        console.log(history);
+        this.dataSource.data = this.items.sort((a, b) => {
+          // createDate özelliğine göre sıralama yap
+          return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
+        });
+
+        if (history == "oneMon") {
+          this.dataSource.data = this.items
+            .filter(item => this.isWithinLastMonth(item.createdDate));
+        }
+        else if (history == "threeMon") {
+          this.dataSource.data = this.items
+            .filter(item => this.isWithinThreMonth(item.createdDate));
+        }
+        else if (history == "sixMon") {
+          this.dataSource.data = this.items
+            .filter(item => this.isWithinSixMonth(item.createdDate));
+        }
+        else if (history == "oneYear") {
+          this.dataSource.data = this.items
+            .filter(item => this.isWithinLastYear(item.createdDate));
+        } else {
+         
+        }
+
+
+
+
         console.log("burası nnokey", this.filteredDataList);
       }
     });
-  }
+
+
   }
 
 
-  
+}
+
+
+
 

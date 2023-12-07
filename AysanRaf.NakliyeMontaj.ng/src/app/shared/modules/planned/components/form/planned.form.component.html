@@ -18,13 +18,13 @@
       <td>
         <mat-form-field style=" ">
           <mat-label>MÜŞTERİ</mat-label>
-          <input matInput formControlName="customerName">
+          <input matInput formControlName="customerName" uppercaseOnly>
         </mat-form-field>
       </td>
       <td>
         <mat-form-field style="">
           <mat-label>ŞEHİR</mat-label>
-          <input matInput formControlName="customerCity">
+          <input matInput formControlName="customerCity" uppercaseOnly>
         </mat-form-field>
       </td>
       <td>
@@ -113,7 +113,7 @@
         <td>
           <mat-form-field style="">
             <mat-label>TOP. YEVMİYE ADET</mat-label>
-            <input matInput formControlName="dailyWageAmount">
+            <input matInput formControlName="wageTotalAmount">
           </mat-form-field>
         </td>
         <td>
@@ -150,7 +150,7 @@
           <td>
             <mat-form-field>
               <mat-label>KİRALANAN EKİPMAN</mat-label>
-              <select matNativeControl formControlName="rentedEquipmentName" required>
+              <select matNativeControl formControlName="rentedEquipmentName1" required>
                 <option value="NONE">---</option>
                 <option value="forklift">FORKLİFT</option>
                 <option value="menlift">MENLİFT</option>
@@ -161,74 +161,75 @@
 
           </td>
           <td>
-            <!--<mat-form-field style="">
-              <mat-label>GÜNLÜK MALİYETİ</mat-label>
-              <input matInput formControlName="rentedEquipmentDailyCost">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>AYLIK MALİYETİ</mat-label>
-              <input matInput formControlName="rentedEquipmentMonthlyCost">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>ADETİ</mat-label>
-              <input matInput formControlName="rentedEquipmentAmount">
-            </mat-form-field>
-          </td>
+    <mat-form-field style="">
+      <mat-label>GÜNLÜK MALİYETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentDailyCost1">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>AYLIK MALİYETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentMonthlyCost1">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>ADETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentAmount1">
+    </mat-form-field>
+  </td>
 
-          <td>
-            <mat-form-field style="">
-              <mat-label>TOP. MALİYET</mat-label>
-              <input matInput formControlName="rentedEquipmentTotalCost">
-            </mat-form-field>
-          </td>-->
+  <td>
+    <mat-form-field style="">
+      <mat-label>TOP. MALİYET</mat-label>
+      <input matInput formControlName="rentedEquipmentTotalCost1">
+    </mat-form-field>
+  </td>
+          </tr>
+       </table>
+       <table>
+         <tr>
 
-        <!--</tr>
-      </table>
-      <table>
-        <tr>
-          <td>
-            <mat-form-field>
-              <mat-label>KİRALANAN EKİPMAN</mat-label>
-              <select matNativeControl formControlName="kiralikEkipmanAdi" required>
-                <option value="NONE">---</option>
-                <option value="forklift">FORKLİFT</option>
-                <option value="menlift">MENLİFT</option>
-                <option value="reachtruck">REACH TRUCK</option>
-                <option value="vinc">VİNÇ</option>
-              </select>
-            </mat-form-field>
 
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>GÜNLÜK MALİYETİ</mat-label>
-              <input matInput formControlName="kiralikGunlukUcret">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>AYLIK MALİYETİ</mat-label>
-              <input matInput formControlName="kiralikAylikUcret">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>ADETİ</mat-label>
-              <input matInput formControlName="kiralikAdet">
-            </mat-form-field>
-          </td>
+             <td>
+   <mat-form-field>
+     <mat-label>KİRALANAN EKİPMAN</mat-label>
+     <select matNativeControl formControlName="rentedEquipmentName2" required>
+       <option value="NONE">---</option>
+       <option value="forklift">FORKLİFT</option>
+       <option value="menlift">MENLİFT</option>
+       <option value="reachtruck">REACH TRUCK</option>
+       <option value="vinc">VİNÇ</option>
+     </select>
+   </mat-form-field>
 
-          <td>
-            <mat-form-field style="">
-              <mat-label>TOP. MALİYET</mat-label>
-              <input matInput formControlName="kiralıkTopUcret">
-            </mat-form-field>
-          </td>
+ </td>
+           <td>
+ 
+     <mat-form-field style="">
+       <mat-label>GÜNLÜK MALİYETİ</mat-label>
+       <input matInput formControlName="rentedEquipmentDailyCost2">
+     </mat-form-field>
+   </td>
+   <td>
+     <mat-form-field style="">
+       <mat-label>AYLIK MALİYETİ</mat-label>
+       <input matInput formControlName="rentedEquipmentMonthlyCost2">
+     </mat-form-field>
+   </td>
+   <td>
+     <mat-form-field style="">
+       <mat-label>ADETİ</mat-label>
+       <input matInput formControlName="rentedEquipmentAmount2">
+     </mat-form-field>
+   </td>
 
+   <td>
+     <mat-form-field style="">
+       <mat-label>TOP. MALİYET</mat-label>
+       <input matInput formControlName="rentedEquipmentTotalCost2">
+     </mat-form-field>
+   </td>
 
         </tr>
       </table>
@@ -237,7 +238,7 @@
           <td>
             <mat-form-field>
               <mat-label>KİRALANAN EKİPMAN</mat-label>
-              <select matNativeControl formControlName="kiralikEkipmanAdi" required>
+              <select matNativeControl formControlName="rentedEquipmentName3" required>
                 <option value="NONE">---</option>
                 <option value="forklift">FORKLİFT</option>
                 <option value="menlift">MENLİFT</option>
@@ -248,84 +249,83 @@
 
           </td>
           <td>
-            <mat-form-field style="">
-              <mat-label>GÜNLÜK MALİYETİ</mat-label>
-              <input matInput formControlName="kiralikGunlukUcret">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>AYLIK MALİYETİ</mat-label>
-              <input matInput formControlName="kiralikAylikUcret">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>ADETİ</mat-label>
-              <input matInput formControlName="kiralikAdet">
-            </mat-form-field>
-          </td>
+    <mat-form-field style="">
+      <mat-label>GÜNLÜK MALİYETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentDailyCost3">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>AYLIK MALİYETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentMonthlyCost3">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>ADETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentAmount3">
+    </mat-form-field>
+  </td>
 
-          <td>
-            <mat-form-field style="">
-              <mat-label>TOP. MALİYET</mat-label>
-              <input matInput formControlName="kiralıkTopUcret">
-            </mat-form-field>
-          </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>TOP. MALİYET</mat-label>
+      <input matInput formControlName="rentedEquipmentTotalCost3">
+    </mat-form-field>
+  </td>
 
 
         </tr>
       </table>
       <table>
         <tr>
-          <td>
-            <mat-form-field>
-              <mat-label>KİRALANAN EKİPMAN</mat-label>
-              <select matNativeControl formControlName="kiralikEkipmanAdi" required>
-                <option value="NONE">---</option>
-                <option value="forklift">FORKLİFT</option>
-                <option value="menlift">MENLİFT</option>
-                <option value="reachtruck">REACH TRUCK</option>
-                <option value="vinc">VİNÇ</option>
-              </select>
-            </mat-form-field>
+                <td>
+      <mat-form-field>
+        <mat-label>KİRALANAN EKİPMAN</mat-label>
+        <select matNativeControl formControlName="rentedEquipmentName4" required>
+          <option value="NONE">---</option>
+          <option value="forklift">FORKLİFT</option>
+          <option value="menlift">MENLİFT</option>
+          <option value="reachtruck">REACH TRUCK</option>
+          <option value="vinc">VİNÇ</option>
+        </select>
+      </mat-form-field>
 
-          </td>
+    </td>
           <td>
-            <mat-form-field style="">
-              <mat-label>GÜNLÜK MALİYETİ</mat-label>
-              <input matInput formControlName="kiralikGunlukUcret">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>AYLIK MALİYETİ</mat-label>
-              <input matInput formControlName="kiralikAylikUcret">
-            </mat-form-field>
-          </td>
-          <td>
-            <mat-form-field style="">
-              <mat-label>ADETİ</mat-label>
-              <input matInput formControlName="kiralikAdet">
-            </mat-form-field>
-          </td>
+    <mat-form-field style="">
+      <mat-label>GÜNLÜK MALİYETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentDailyCost4">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>AYLIK MALİYETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentMonthlyCost4">
+    </mat-form-field>
+  </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>ADETİ</mat-label>
+      <input matInput formControlName="rentedEquipmentAmount4">
+    </mat-form-field>
+  </td>
 
-          <td>
-            <mat-form-field style="">
-              <mat-label>TOP. MALİYET</mat-label>
-              <input matInput formControlName="kiralıkTopUcret">
-            </mat-form-field>
-          </td>
+  <td>
+    <mat-form-field style="">
+      <mat-label>TOP. MALİYET</mat-label>
+      <input matInput formControlName="rentedEquipmentTotalCost4">
+    </mat-form-field>
+  </td>
 
-
-        </tr>-->
+        </tr>
       </table>
 
 
 
 
 
-      <!-- Nakliye Maliyeti -->
+       <!--Nakliye Maliyeti--> 
       <table>
         <tr>
           <td>

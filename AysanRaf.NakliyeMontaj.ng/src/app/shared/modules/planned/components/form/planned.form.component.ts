@@ -23,16 +23,13 @@ import { Observable, catchError, map, of, switchMap } from "rxjs";
 
 export class PlannedFormComponent implements OnInit {
 
-
   selectedRowData: any;
 
   PlannedOfferForm!: FormGroup;
 
 
-
-
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService) {
-
+ 
 
   }
   closeWithDelay(): void {
@@ -72,29 +69,60 @@ export class PlannedFormComponent implements OnInit {
     this.PlannedOfferForm = this.fb.group({
       // Formunuzdaki alanları buraya ekleyin
       customerCity: [''],
-      accommodationTotalPrice: [''],
-      accommodationUnitPrice: [''],
-      casualtyRate: [''],
+      accommodationTotalPrice: ['0'],
+      accommodationUnitPrice: ['0'],
+      casualtyRate: ['96'],
       createdDate: [''],
       customerId: [''],
       customerName: [''],
       dailyTonnage: [''],
-      dailyWageAmount: [''],
-      dailyWageCost: [''],
+      dailyWageAmount: ['0'],
+      dailyWageCost: ['0'],
       equipmentShipmentCost: [''],
-      equipmentSumtCost: [''],
-      exchangeRate: [''],
-      fieldEngineerCost: [''],
+      equipmentSumCost: [''],
+      exchangeRate: ['1'],
+      fieldEngineerCost: ['0'],
       installationTotalCost: [''],
       installationTotalCostCurrency: [''],
-      isgexpertCost: [''],
-      numberDays: [''],
+      isgexpertCost: ['0'],
+      numberDays: ['0'],
       numberEmployees: [''],
       numberTrucksUsed: [''],
       offerTonnage: [''],
-      reallyTonnage: [''],
-      rentedEquipmentId: [''],
-      rentedEquipmentName: [''],
+      reallyTonnage: ['0'],
+      wageTotalAmount: ['0'],
+
+     
+      rentedEquipmentName1: ['---'],
+      rentedEquipmentDailyCost1:['0'],
+      rentedEquipmentMonthlyCost1: ['0'],
+      rentedEquipmentAmount1: ['0'],
+      rentedEquipmentTotalCost1:['0'],
+     
+
+      rentedEquipmentName2: ['---'],
+      rentedEquipmentDailyCost2: ['0'],
+      rentedEquipmentMonthlyCost2: ['0'],
+      rentedEquipmentAmount2: ['0'],
+      rentedEquipmentTotalCost2: ['0'],
+
+      rentedEquipmentName3: ['---'],
+      rentedEquipmentDailyCost3: ['0'],
+      rentedEquipmentMonthlyCost3:['0'],
+      rentedEquipmentAmount3: ['0'],
+      rentedEquipmentTotalCost3: ['0'],
+
+      rentedEquipmentName4: ['---'],
+      rentedEquipmentDailyCost4: ['0'],
+      rentedEquipmentMonthlyCost4: ['0'],
+      rentedEquipmentAmount4: ['0'],
+      rentedEquipmentTotalCost4: ['0'],
+
+
+
+
+
+
       salesOfferNumber: [''],
       shippingTotalCost: [''],
       shippingTotalCostCurrency: [''],
@@ -103,7 +131,7 @@ export class PlannedFormComponent implements OnInit {
       totalCarFuelCost: [''],
       truckUnitPrice: [''],
       updatedDate: [''],
-      wageTotalCost: [''],
+      wageTotalCost: ['0'],
 
     });
   }
@@ -313,43 +341,122 @@ export class PlannedFormComponent implements OnInit {
 
 
       this.PlannedOfferForm.patchValue({
+        // numberDays: (matchedData.numberDays),
+        // Eğer numberDays 1'den küçükse, 1 olarak ayarla
+        numberDays : Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1),
 
-        /*+ "-" + matchedData.revisionNumber,*/
-        salesOfferNumber: matchedData.salesOfferNumber,
-        accommodationTotalPrice: matchedData.accommodationTotalPrice,
+
+
+        /*reallyTonnage: matchedData.reallyTonnage,*/
+        reallyTonnage: (matchedData.offerTonnage * matchedData.casualtyRate / 100),
+      
+       /* wageTotalAmount: matchedData.wageTotalAmount,*/
+        wageTotalAmount: (matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage) * matchedData.numberEmployees,
+
+       /* wageTotalCost: matchedData.wageTotalCost,*/
+        wageTotalCost: (((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage) * matchedData.numberEmployees) * matchedData.dailyWageCost) + (Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) *(matchedData.isgexpertCost + matchedData.fieldEngineerCost)),
+
+        /*rentedEquipmentTotalCost1: matchedData.rentedEquipmentTotalCost1,*/
+        rentedEquipmentTotalCost1: (matchedData.rentedEquipmentDailyCost1 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount1) + (matchedData.rentedEquipmentMonthlyCost1 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount1),
+        /*rentedEquipmentTotalCost2: matchedData.rentedEquipmentTotalCost2,*/
+        rentedEquipmentTotalCost2: (matchedData.rentedEquipmentDailyCost2 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount2) + (matchedData.rentedEquipmentMonthlyCost2* Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount2),
+        /*rentedEquipmentTotalCost3: matchedData.rentedEquipmentTotalCost3,*/
+        rentedEquipmentTotalCost3: (matchedData.rentedEquipmentDailyCost3 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount3) + (matchedData.rentedEquipmentMonthlyCost3 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount3),
+        /*rentedEquipmentTotalCost4: matchedData.rentedEquipmentTotalCost4,*/
+        rentedEquipmentTotalCost4: (matchedData.rentedEquipmentDailyCost4 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount4) + (matchedData.rentedEquipmentMonthlyCost4 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount4),
+        /*equipmentSumCost: matchedData.equipmentSumCost,*/
+        equipmentSumCost:( matchedData.equipmentShipmentCost)
+         +( (matchedData.rentedEquipmentDailyCost4 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount4) + (matchedData.rentedEquipmentMonthlyCost4 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount4)
+         +  (matchedData.rentedEquipmentDailyCost3 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount3) + (matchedData.rentedEquipmentMonthlyCost3 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount3)
+         +  (matchedData.rentedEquipmentDailyCost2 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount2) + (matchedData.rentedEquipmentMonthlyCost2 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount2)
+         +  (matchedData.rentedEquipmentDailyCost1 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount1) + (matchedData.rentedEquipmentMonthlyCost1 * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1) * matchedData.rentedEquipmentAmount1)),
+
+        /*accommodationTotalPrice: matchedData.accommodationTotalPrice,*/
+        accommodationTotalPrice: matchedData.accommodationUnitPrice * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1),
+      /*  staffMealTotalPrice: matchedData.staffMealTotalPrice,*/
+        staffMealTotalPrice: matchedData.staffMealUnitPrice * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1),
+        /*installationTotalCost: matchedData.installationTotalCost,*/
+        installationTotalCost: ((matchedData.accommodationUnitPrice + matchedData.staffMealUnitPrice) * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1)) + matchedData.fieldEngineerCost,
+       /* installationTotalCostCurrency: matchedData.installationTotalCostCurrency,*/
+        installationTotalCostCurrency: (matchedData.exchangeRate *((matchedData.accommodationUnitPrice + matchedData.staffMealUnitPrice) * Math.max((matchedData.offerTonnage * matchedData.casualtyRate / 100) / (matchedData.numberEmployees * matchedData.dailyTonnage), 1)) + matchedData.fieldEngineerCost),
+        /*shippingTotalCost: matchedData.shippingTotalCost,*/
+        shippingTotalCost: matchedData.truckUnitPrice * matchedData.numberTrucksUsed ,
+        /*shippingTotalCostCurrency: matchedData.shippingTotalCostCurrency,*/
+        shippingTotalCostCurrency: (matchedData.truckUnitPrice * matchedData.numberTrucksUsed) * matchedData.exchangeRate,
+
+
+
+
+       
+       
+       
+
+        staffMealUnitPrice: matchedData.staffMealUnitPrice,
         accommodationUnitPrice: matchedData.accommodationUnitPrice,
+        salesOfferNumber: matchedData.salesOfferNumber,
+       
         casualtyRate: matchedData.casualtyRate,
         createdDate: formattedCreatedDate,
         customerId: matchedData.customerId,
-        customerName: matchedData.customerName,
+        customerName: matchedData.customerName.toUpperCase(),
         dailyTonnage: matchedData.dailyTonnage,
         dailyWageAmount: matchedData.dailyWageAmount,
         dailyWageCost: matchedData.dailyWageCost,
         equipmentShipmentCost: matchedData.equipmentShipmentCost,
-        equipmentSumtCost: matchedData.equipmentSumtCost,
+        
+       
         exchangeRate: matchedData.exchangeRate,
         fieldEngineerCost: matchedData.fieldEngineerCost,
-        installationTotalCost: matchedData.installationTotalCost,
-        installationTotalCostCurrency: matchedData.installationTotalCostCurrency,
+       
         isgexpertCost: matchedData.isgexpertCost,
-        numberDays: matchedData.numberDays,
+       
+
+        
+
+
+
         numberEmployees: matchedData.numberEmployees,
         offerTonnage: matchedData.offerTonnage,
-        reallyTonnage: matchedData.reallyTonnage,
-        rentedEquipmentId: matchedData.rentedEquipmentId,
-        rentedEquipmentName: matchedData.rentedEquipmentName,
-        shippingTotalCost: matchedData.shippingTotalCost,
-        shippingTotalCostCurrency: matchedData.shippingTotalCostCurrency,
-        staffMealTotalPrice: matchedData.staffMealTotalPrice,
-        staffMealUnitPrice: matchedData.staffMealUnitPrice,
+      
+        //rentedEquipmentId: matchedData.rentedEquipmentId,
+        //rentedEquipmentName: matchedData.rentedEquipmentName,
+
+        
+       
         totalCarFuelCost: matchedData.totalCarFuelCost,
         truckUnitPrice: matchedData.truckUnitPrice,
         updatedDate: matchedData.updatedDate,
-        wageTotalCost: matchedData.wageTotalCost,
-        customerCity: matchedData.customerCity,
+       
+        customerCity: matchedData.customerCity.toUpperCase(),
         numberTrucksUsed: matchedData.numberTrucksUsed,
         // Diğer alanları buraya ekleyin
         // ...
+        rentedEquipmentName1: matchedData.rentedEquipmentName1,
+        rentedEquipmentDailyCost1: matchedData.rentedEquipmentDailyCost1,
+        rentedEquipmentMonthlyCost1: matchedData.rentedEquipmentMonthlyCost1,
+        rentedEquipmentAmount1: matchedData.rentedEquipmentAmount1,
+       
+
+
+        rentedEquipmentName2: matchedData.rentedEquipmentName2,
+        rentedEquipmentDailyCost2: matchedData.rentedEquipmentDailyCost2,
+        rentedEquipmentMonthlyCost2: matchedData.rentedEquipmentMonthlyCost2,
+        rentedEquipmentAmount2: matchedData.rentedEquipmentAmount2,
+        
+
+        rentedEquipmentName3: matchedData.rentedEquipmentName3,
+        rentedEquipmentDailyCost3: matchedData.rentedEquipmentDailyCost3,
+        rentedEquipmentMonthlyCost3: matchedData.rentedEquipmentMonthlyCost3,
+        rentedEquipmentAmount3: matchedData.rentedEquipmentAmount3,
+       
+
+        rentedEquipmentName4: matchedData.rentedEquipmentName4,
+        rentedEquipmentDailyCost4: matchedData.rentedEquipmentDailyCost4,
+        rentedEquipmentMonthlyCost4: matchedData.rentedEquipmentMonthlyCost4,
+        rentedEquipmentAmount4: matchedData.rentedEquipmentAmount4,
+       
+
+
 
 
 
@@ -396,8 +503,8 @@ export class PlannedFormComponent implements OnInit {
         numberEmployees: formData.numberEmployees,
         offerTonnage: formData.offerTonnage,
         reallyTonnage: formData.reallyTonnage,
-        rentedEquipmentId: formData.rentedEquipmentId,
-        rentedEquipmentName: formData.rentedEquipmentName,
+        //rentedEquipmentId: formData.rentedEquipmentId,
+        //rentedEquipmentName: formData.rentedEquipmentName,
         shippingTotalCost: formData.shippingTotalCost,
         shippingTotalCostCurrency: formData.shippingTotalCostCurrency,
         staffMealTotalPrice: formData.staffMealTotalPrice,

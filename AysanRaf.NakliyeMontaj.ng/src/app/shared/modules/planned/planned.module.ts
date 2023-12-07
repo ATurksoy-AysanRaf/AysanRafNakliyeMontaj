@@ -14,6 +14,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { RealizedListComponent } from "../realized/components/list/realized.list.component";
 import { PlannedFormComponent } from "./components/form/planned.form.component";
 import { AlertDialogComponent } from "./components/error/planned.error.component";
+import { UppercaseOnlyDirective } from "./components/form/Directives";
+
 
 
 
@@ -40,13 +42,15 @@ import { AlertDialogComponent } from "./components/error/planned.error.component
     PlannedListComponent,
     RealizedListComponent,
     PlannedFormComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    UppercaseOnlyDirective,
   ],
   exports: [
     PlannedListComponent,
     RealizedListComponent,
     PlannedFormComponent,
-    AlertDialogComponent
+    AlertDialogComponent,
+    UppercaseOnlyDirective,
   ]
 })
 export class PlannedModule { }

@@ -1590,15 +1590,89 @@ namespace Models
 
                 entity.Property(e => e.CustomerName).HasMaxLength(36);
 
-                entity.Property(e => e.ExchangeRate).HasMaxLength(19);
-
                 entity.Property(e => e.InstallationTotalCost).HasColumnName("InstallationTotalCost ");
 
                 entity.Property(e => e.IsgexpertCost).HasColumnName("ISGExpertCost");
 
-                entity.Property(e => e.RentedEquipmentId).HasMaxLength(36);
+                entity.Property(e => e.RentedEquipmentAmount1)
+                    .HasColumnName("rentedEquipmentAmount1")
+                    .HasDefaultValueSql("0");
 
-                entity.Property(e => e.RentedEquipmentName).HasMaxLength(36);
+                entity.Property(e => e.RentedEquipmentAmount2)
+                    .HasColumnName("rentedEquipmentAmount2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentAmount3)
+                    .HasColumnName("rentedEquipmentAmount3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentAmount4)
+                    .HasColumnName("rentedEquipmentAmount4")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost1)
+                    .HasColumnName("rentedEquipmentDailyCost1")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost2)
+                    .HasColumnName("rentedEquipmentDailyCost2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost3)
+                    .HasColumnName("rentedEquipmentDailyCost3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost4)
+                    .HasColumnName("rentedEquipmentDailyCost4")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost1)
+                    .HasColumnName("rentedEquipmentMonthlyCost1")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost2)
+                    .HasColumnName("rentedEquipmentMonthlyCost2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost3)
+                    .HasColumnName("rentedEquipmentMonthlyCost3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost4)
+                    .HasColumnName("rentedEquipmentMonthlyCost4")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentName1)
+                    .HasMaxLength(36)
+                    .HasColumnName(" rentedEquipmentName1");
+
+                entity.Property(e => e.RentedEquipmentName2)
+                    .HasMaxLength(36)
+                    .HasColumnName("rentedEquipmentName2");
+
+                entity.Property(e => e.RentedEquipmentName3)
+                    .HasMaxLength(36)
+                    .HasColumnName("rentedEquipmentName3");
+
+                entity.Property(e => e.RentedEquipmentName4)
+                    .HasMaxLength(36)
+                    .HasColumnName("rentedEquipmentName4");
+
+                entity.Property(e => e.RentedEquipmentTotalCost1)
+                    .HasColumnName("rentedEquipmentTotalCost1")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentTotalCost2)
+                    .HasColumnName("rentedEquipmentTotalCost2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentTotalCost3)
+                    .HasColumnName("rentedEquipmentTotalCost3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentTotalCost4)
+                    .HasColumnName("rentedEquipmentTotalCost4")
+                    .HasDefaultValueSql("0");
 
                 entity.Property(e => e.RevisionNumber).HasColumnType("character varying");
 
@@ -1609,6 +1683,8 @@ namespace Models
                 entity.Property(e => e.StaffMealUnitPrice).HasColumnName("StaffMealUnitPrice ");
 
                 entity.Property(e => e.TotalCarFuelCost).HasColumnName("TotalCarFuelCost ");
+
+                entity.Property(e => e.TotalWageAmount).HasDefaultValueSql("0");
             });
 
             modelBuilder.Entity<Plannedrealizedrelation>(entity =>
@@ -2953,15 +3029,91 @@ namespace Models
 
                 entity.Property(e => e.CustomerName).HasMaxLength(36);
 
-                entity.Property(e => e.ExchangeRate).HasMaxLength(18);
-
                 entity.Property(e => e.InstallationTotalCost).HasColumnName("InstallationTotalCost ");
 
                 entity.Property(e => e.IsgexpertCost).HasColumnName("ISGExpertCost");
 
-                entity.Property(e => e.RentedEquipmentId).HasMaxLength(36);
+                entity.Property(e => e.RentedEquipmentAmount1)
+                    .HasColumnName("rentedEquipmentAmount1")
+                    .HasDefaultValueSql("0");
 
-                entity.Property(e => e.RentedEquipmentName).HasMaxLength(36);
+                entity.Property(e => e.RentedEquipmentAmount2)
+                    .HasColumnName("rentedEquipmentAmount2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentAmount3)
+                    .HasColumnName("rentedEquipmentAmount3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentAmount4)
+                    .HasColumnName("rentedEquipmentAmount4")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost1)
+                    .HasColumnName("rentedEquipmentDailyCost1")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost2)
+                    .HasColumnName("rentedEquipmentDailyCost2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost3)
+                    .HasColumnName("rentedEquipmentDailyCost3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentDailyCost4)
+                    .HasColumnName("rentedEquipmentDailyCost4")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost1)
+                    .HasColumnName("rentedEquipmentMonthlyCost1")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost2)
+                    .HasColumnName("rentedEquipmentMonthlyCost2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost3)
+                    .HasColumnName("rentedEquipmentMonthlyCost3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentMonthlyCost4)
+                    .HasColumnName("rentedEquipmentMonthlyCost4")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentName1)
+                    .HasMaxLength(36)
+                    .HasColumnName("rentedEquipmentName1");
+
+                entity.Property(e => e.RentedEquipmentName2)
+                    .HasMaxLength(36)
+                    .HasColumnName("rentedEquipmentName2");
+
+                entity.Property(e => e.RentedEquipmentName3)
+                    .HasMaxLength(36)
+                    .HasColumnName("rentedEquipmentName3");
+
+                entity.Property(e => e.RentedEquipmentName4)
+                    .HasMaxLength(36)
+                    .HasColumnName("rentedEquipmentName4");
+
+                entity.Property(e => e.RentedEquipmentTotalCost1)
+                    .HasColumnName("rentedEquipmentTotalCost1")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentTotalCost2)
+                    .HasColumnName("rentedEquipmentTotalCost2")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentTotalCost3)
+                    .HasColumnName("rentedEquipmentTotalCost3")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RentedEquipmentTotalCost4)
+                    .HasColumnName("rentedEquipmentTotalCost4")
+                    .HasDefaultValueSql("0");
+
+                entity.Property(e => e.RevisionNumber).HasColumnType("character varying");
 
                 entity.Property(e => e.SalesOfferNumber).HasMaxLength(18);
 
@@ -2970,6 +3122,8 @@ namespace Models
                 entity.Property(e => e.StaffMealUnitPrice).HasColumnName("StaffMealUnitPrice ");
 
                 entity.Property(e => e.TotalCarFuelCost).HasColumnName("TotalCarFuelCost ");
+
+                entity.Property(e => e.TotalWageAmount).HasDefaultValueSql("0");
             });
 
             modelBuilder.Entity<RelationCustomer>(entity =>
