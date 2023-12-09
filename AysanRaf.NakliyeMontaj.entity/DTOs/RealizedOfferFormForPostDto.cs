@@ -8,6 +8,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 {
     public class RealizedOfferFormForPostDto:BaseDto
     {
+        public float? TotalWageAmount { get; set; }
         public Guid Id { get; set; } = new Guid();
         public string SalesOfferNumber { get; set; } = null!;
         public string RevisionNumber { get; set; } = "1";
