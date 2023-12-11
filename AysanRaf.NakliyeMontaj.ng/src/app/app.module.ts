@@ -5,11 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatIconModule } from '@angular/material/icon';
-import { ShippingInstallationModule } from './shippingInstallation/shippingInstallation.module';
+
 import { HttpClientModule } from '@angular/common/http'; // HttpClientModule'ı içe aktarın
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { ShippingInstallationModule } from './shippingInstallation/shippingInstallation.module';
 
 
 
@@ -28,7 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
-
+   
     HttpClientModule, // HttpClientModule'ı içe aktarın
     
     MatIconModule,

@@ -15,13 +15,13 @@ import { PlannedListComponent } from "./modules/planned/components/list/planned.
 import { RealizedListComponent } from "./modules/realized/components/list/realized.list.component";
 import { PlannedFormComponent } from "./modules/planned/components/form/planned.form.component";
 import { RealizedFormComponent } from "./modules/realized/components/form/realized.form.components";
-import { ComparisonModule } from "./modules/plannedrealizedcomparison/plannedrealizedcomparison.module";
-import { ComparisonListComponent } from "./modules/plannedrealizedcomparison/components/list/plannedrealizedcomparison.list.component";
+import { PlannedRealizedComparisonComponent } from "./modules/plannedrealizedComparison/components/list/plannedrealizedComparison.list.component";
+
+
 
 @NgModule({
   imports: [
     CommonModule,
-    //MatDialogModule,
     MatFormFieldModule,
     MatCardModule,
     MatIconModule,
@@ -32,7 +32,7 @@ import { ComparisonListComponent } from "./modules/plannedrealizedcomparison/com
     MatInputModule,
     MatButtonModule,
     MatNativeDateModule,
-   
+    
   ],
  
   declarations: [
@@ -40,14 +40,14 @@ import { ComparisonListComponent } from "./modules/plannedrealizedcomparison/com
     RealizedListComponent,
     PlannedFormComponent,
     RealizedFormComponent,
-   ComparisonListComponent,
+    PlannedRealizedComparisonComponent
   ],
   exports: [
     PlannedListComponent,
     RealizedListComponent,
     PlannedFormComponent,
     RealizedFormComponent,
-    ComparisonListComponent,
+    PlannedRealizedComparisonComponent
     
   ]
 })

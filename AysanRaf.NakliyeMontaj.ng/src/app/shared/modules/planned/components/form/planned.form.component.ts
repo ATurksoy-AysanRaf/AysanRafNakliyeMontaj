@@ -47,7 +47,7 @@ export class PlannedFormComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
+   // window.location.reload();
     this.initializeForm();
     /*   this.subscribeToFormChanges();*/
 

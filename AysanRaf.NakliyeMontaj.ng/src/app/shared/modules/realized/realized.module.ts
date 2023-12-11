@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { PlannedListComponent } from "./components/list/planned.list.component";
+
 import { CommonModule } from "@angular/common";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
@@ -11,9 +11,10 @@ import { MatTableModule } from "@angular/material/table";
 import { MatDatepickerModule } from '@angular/material/datepicker'; // MatDatepickerModule eklenmiş
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
-import { RealizedListComponent } from "../realized/components/list/realized.list.component";
-import { PlannedFormComponent } from "./components/form/planned.form.component";
-import { AlertDialogComponent } from "./components/error/planned.error.component";
+import { RealizedListComponent } from "./components/list/realized.list.component";
+import { AlertDialogComponent } from "../planned/components/error/planned.error.component";
+import { RealizedFormComponent } from "./components/form/realized.form.components";
+
 
 
 
@@ -33,26 +34,26 @@ import { AlertDialogComponent } from "./components/error/planned.error.component
     MatDatepickerModule,
     MatInputModule,
     MatButtonModule,
-   
-  
-    
+
+
+
     // ...
   ],
   declarations: [
-    PlannedListComponent,
     RealizedListComponent,
-    PlannedFormComponent,
-    AlertDialogComponent,
-   
-   
-  ],
-  exports: [
-    PlannedListComponent,
     RealizedListComponent,
-    PlannedFormComponent,
+    RealizedFormComponent,
     AlertDialogComponent,
 
-   
+
+  ],
+  exports: [
+    RealizedListComponent,
+    RealizedListComponent,
+    RealizedFormComponent,
+    AlertDialogComponent,
+
+
   ]
 })
-export class PlannedModule { }
+export class RealizedModule { }

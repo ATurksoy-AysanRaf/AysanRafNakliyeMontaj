@@ -2,57 +2,66 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ComparisonService {
+export class PlannedRealizedConstainService {
   private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin
 
   private selectedRowData = new BehaviorSubject<any>(null);
   selectedRowData$ = this.selectedRowData.asObservable();
 
 
-
-
-
-
-
-
   setSelectedRowData(data: any): void {
     this.selectedRowData.next(data);
   }
 
+
   constructor(private http: HttpClient) { }
-  getByIdData(): Observable<any> {
+
+  getByIdDataR(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/RealizedOfferForm/{id}`);
+  }
+
+  getAllDataR(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/api/RealizedOfferForm`);
+  }
+  getListDataR(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/RealizedForms/List`);
+  }
+  createDataR(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/api/RealizedOfferForm`, data);
+  }
+
+  updateDataR(id: string, data: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/api/RealizedOfferForm/${id}`, data);
+  }
+
+  deleteDataR(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/api/RealizedOfferForm/${id}`);
+  }
+  getByIdDataP(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm/{id}`);
   }
-  getAllData(): Observable<any> {
+  getAllDataP(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm`);
   }
-  getListData(): Observable<any> {
+  getListDataP(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/api/PlannedOfferForm/PlannedForms/List`);
   }
-  createData(data: any): Observable<any> {
+  createDataP(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/PlannedOfferForm`, data);
   }
 
-  updateData(id: string, data: any): Observable<any> {
+  updateDataP(id: string, data: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`, data);
   }
 
-  deleteData(id: string): Observable<any> {
+  deleteDataP(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`);
   }
 }
-
-
-
-
-
-
-
 
 

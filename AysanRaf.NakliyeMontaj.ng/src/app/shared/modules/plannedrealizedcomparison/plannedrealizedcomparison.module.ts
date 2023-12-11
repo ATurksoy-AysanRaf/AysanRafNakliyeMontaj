@@ -1,20 +1,25 @@
 import { NgModule } from "@angular/core";
-import { ComparisonListComponent } from "./components/list/plannedrealizedcomparison.list.component";
-import { MatButtonModule } from "@angular/material/button";
-import { MatInputModule } from "@angular/material/input";
-import { MatTableModule } from "@angular/material/table";
-import { NgxDatatableModule } from "@swimlane/ngx-datatable";
-import { MatCardModule } from "@angular/material/card";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { CommonModule } from "@angular/common";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from "@angular/material/icon";
 import { MatNativeDateModule } from "@angular/material/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatIconModule } from "@angular/material/icon";
-import { CommonModule } from "@angular/common";
+import { MatCardModule } from '@angular/material/card';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { MatTableModule } from "@angular/material/table";
+import { MatDatepickerModule } from '@angular/material/datepicker'; // MatDatepickerModule eklenmiş
+import { MatInputModule } from "@angular/material/input";
+import { MatButtonModule } from "@angular/material/button";
+import { PlannedRealizedComparisonComponent } from "./components/list/plannedrealizedComparison.list.component";
+
+
+
+
+
+
 
 @NgModule({
   imports: [
-  
     CommonModule,
     MatIconModule,
     FormsModule,
@@ -28,14 +33,23 @@ import { CommonModule } from "@angular/common";
     MatInputModule,
     MatButtonModule,
 
+
+
     // ...
   ],
   declarations: [
-    ComparisonListComponent
+  
+  
+    PlannedRealizedComparisonComponent
+
+
   ],
   exports: [
+    
+   
+    PlannedRealizedComparisonComponent
 
-    ComparisonListComponent
+
   ]
 })
-export class ComparisonModule { }
+export class PlannedRealizedComparisonModule { }

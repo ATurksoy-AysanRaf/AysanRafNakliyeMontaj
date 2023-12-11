@@ -1,97 +1,98 @@
 <!--Search alanı-->
 <mat-card style="width:100%">
   <h1 style="text-align:center; background-color:forestgreen"> GERÇEKLEŞEN NAKLİYE - MONTAJ LİSTESİ</h1>
-  <mat-card-content style="width:100%">
-
-
-
-
-
-
-
-    <mat-form-field style="width:9% ; margin-right: 15px;">
+  <form [formGroup]="filterForm" class="your-form-class">
+    <mat-form-field style="width: 9%; margin-right: 15px;">
       <mat-label>TEKLİF NO</mat-label>
-      <input matInput>
-    </mat-form-field>
-    <mat-form-field style="width:10%; margin-right: 15px;">
-      <mat-label>MÜŞTERİ</mat-label>
-      <input matInput>
-    </mat-form-field>
-    <mat-form-field style="width:7%; margin-right: 15px;">
-      <mat-label>ŞEHİR</mat-label>
-      <input matInput>
+      <input matInput formControlName="offerNumber">
     </mat-form-field>
 
-    <mat-form-field style="width:12%; margin-right: 15px;">
+    <mat-form-field style="width: 10%; margin-right: 15px;">
+      <mat-label>MÜŞTERİ</mat-label>
+      <input matInput formControlName="customer">
+    </mat-form-field>
+
+    <mat-form-field style="width: 7%; margin-right: 15px;">
+      <mat-label>ŞEHİR</mat-label>
+      <input matInput formControlName="city">
+    </mat-form-field>
+
+    <mat-form-field style="width: 12%; margin-right: 15px;">
       <mat-label>Geçmiş</mat-label>
-      <select matNativeControl required>
+      <select matNativeControl formControlName="history" required>
+
         <option value="oneMon"> Son 1 Ay</option>
         <option value="threeMon">Son 3 Ay</option>
         <option value="sixMon">Son 6 Ay</option>
         <option value="oneYear">Son 12 Ay</option>
+        <option value="noon"> Tümü</option>
       </select>
     </mat-form-field>
 
-    <mat-form-field style=" margin-right: 15px;">
-      <mat-label>Zaman Aralığı Seç</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Başlangıç">
-        <input matEndDate placeholder="Bitiş">
-      </mat-date-range-input>
-      <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
+    <mat-form-field style="width: 15%; margin-right: 15px;">
+      <mat-label>Başlangıç Tarihi</mat-label>
+      <input matInput [matDatepicker]="startPicker" formControlName="startDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
     </mat-form-field>
 
+    <mat-form-field style="width: 15%; margin-right: 15px;">
+      <mat-label>Bitiş Tarihi</mat-label>
+      <input matInput [matDatepicker]="endPicker" formControlName="endDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" style="margin-right: 10px;" (click)="applyFilters()">Ara</button>
+
+    <button mat-raised-button color="primary" (click)="openAddDialog()">Ekle</button>
+  </form>
 
 
 
-
-    <button mat-raised-button color="primary" style=" margin-right: 10px;">
-      Ara
-      <mat-icon>search</mat-icon>
-    </button>
-
-    <button mat-raised-button color="primary" (click)=openDialog()>
-      Ekle
-      <mat-icon>add</mat-icon>
-    </button>
-  </mat-card-content>
-
-</mat-card>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+    <!-- Position Column -->
+    <ng-container matColumnDef="SalesOfferNumber">
+      <th mat-header-cell *matHeaderCellDef>SİPARİŞ NO</th>
+      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;"> {{item.salesOfferNumber +"-"+item.revisionNumber}}</td>
+    </ng-container>
 
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
-  <!-- Position Column -->
-  <ng-container matColumnDef="SalesOfferNumber">
-    <th mat-header-cell *matHeaderCellDef>SİPARİŞ NO</th>
-    <td mat-cell *matCellDef="let item" style="background-color: #00FF99;"> {{item.salesOfferNumber +"-"+item.revisionNumber}}</td>
-  </ng-container>
+    <ng-container matColumnDef="CustomerName">
+      <th mat-header-cell *matHeaderCellDef>MÜŞTERİ</th>
+      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">  {{item.customerName}}</td>
+    </ng-container>
 
+    <ng-container matColumnDef="City">
+      <th mat-header-cell *matHeaderCellDef>ŞEHİR</th>
+      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">  {{item.customerCity}}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="CustomerName">
-    <th mat-header-cell *matHeaderCellDef>MÜŞTERİ</th>
-    <td mat-cell *matCellDef="let item" style="background-color: #00FF99;">  {{item.customerName}}</td>
-  </ng-container>
-  <!-- Weight Column -->
-  <ng-container matColumnDef="CreatedDate">
-    <th mat-header-cell *matHeaderCellDef>OLUŞTURMA TARİHİ</th>
-    <td mat-cell *matCellDef="let item" style="background-color: #00FF99;">  {{item.createdDate}}</td>
-  </ng-container>
-
-  <!-- Symbol Column -->
-  <ng-container matColumnDef="UpdatedDate">
-    <th mat-header-cell *matHeaderCellDef>GÜNCELLEME TARİHİ</th>
-    <td mat-cell *matCellDef="let item" style="background-color: #00FF99;">  {{item.updatedDate}}</td>
-  </ng-container>
+    <ng-container matColumnDef="CreatedDate">
+      <th mat-header-cell *matHeaderCellDef>OLUŞTURMA TARİHİ</th>
+      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">
+        {{ item.createdDate | date:'dd.MM.yyyy HH:mm:ss' }}
+      </td>
+    </ng-container>
 
 
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row
-      (click)="openDialog()"
-      [class.demo-row-is-clicked]="clickedRows.has(row)"
-      *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+    <ng-container matColumnDef="UpdatedDate">
+      <th mat-header-cell *matHeaderCellDef>GÜNCELLEME TARİHİ</th>
+      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">
+        {{ item.updatedDate | date:'dd.MM.yyyy HH:mm:ss' }}
+      </td>
+    </ng-container>
+
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row
+        (click)="openEditDialog(items,i)"
+        [class.demo-row-is-clicked]="clickedRows.has(row)"
+        *matRowDef="let row; index as i; columns: displayedColumns;"></tr>
+  </table>
 
 
