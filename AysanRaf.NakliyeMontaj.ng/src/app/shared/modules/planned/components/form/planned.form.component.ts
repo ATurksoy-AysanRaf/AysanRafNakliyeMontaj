@@ -9,7 +9,7 @@ import { DataSource } from "@angular/cdk/collections";
 import { AlertDialogComponent } from "../error/planned.error.component";
 import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUntil } from "rxjs";
 
-
+import * as XLSX from 'xlsx';
 
 
 
@@ -23,19 +23,20 @@ import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUnti
 })
 
 export class PlannedFormComponent implements OnInit {
-
+  receivedDataList: any[] = []; // receivedDataList adında bir dizi tanımlanıyor
   selectedRowData: any;
   isInputDisabled: boolean = true;
   PlannedOfferForm!: FormGroup;
   formBuilder: any;
   destroy$: Subject<void> = new Subject();
+    
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService) {
 
 
   }
 
-
+ 
   onCloseButtonClick(): void {
     // this.closeWithDelay();
   }
@@ -342,7 +343,7 @@ export class PlannedFormComponent implements OnInit {
     // Verileri servisten al ve formu doldur
     this.dataService.getAllData().subscribe(
       (data) => {
-        console.log('Received Data from API:', data);
+      //  console.log('Received Data from API:', data);
         this.mapApiDataToForm(data, this.selectedRowData);
         this.PlannedOfferForm.setValue(data);
       },
@@ -353,7 +354,118 @@ export class PlannedFormComponent implements OnInit {
 
 
   }
+  fileName = 'ExcelSheet.xlsx';
 
+
+ 
+
+exportToExcel(): void {
+  const formData = this.PlannedOfferForm.getRawValue();
+
+  // Form verilerini Excel dosyasına çevir
+  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([formData]);
+
+  // Workbook oluştur ve worksheet'i ekle
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  // Dosyayı kaydet
+  XLSX.writeFile(wb, 'exported_data.xlsx');
+}
+
+
+
+
+
+
+
+
+  //exportExcel(): void {
+
+  //  // API'den verileri al
+  //  this.dataService.getAllData().subscribe(
+  //    (data) => {
+  //      // Verileri Excel dosyasına çevir
+  //      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+  //      // Workbook oluştur ve worksheet'i ekle
+  //      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  //      // Dosyayı kaydet
+  //      XLSX.writeFile(wb, this.fileName);
+  //    },
+  //    (error) => {
+  //      console.error('Veri alınamadı:', error);
+  //    }
+  //  );
+  //}
+
+
+
+
+  //exportExcel(): void {
+
+  //  // API'den tüm verileri al
+  //  this.dataService.getAllData().subscribe(
+  //    (data) => {
+  //      // Seçili satırdaki verileri al
+  //      const selectedRowData = this.receivedDataList[0];
+
+  //      // Sadece seçili satırdaki verileri içerecek şekilde datayı filtrele
+  //      const filteredData = data.filter((item) => item.salesOfferNumber === selectedRowData.salesOfferNumber);
+
+  //      // Verileri düzleştir
+  //      const flattenedData = this.flattenData(filteredData);
+
+  //      // Verileri Excel dosyasına çevir
+  //      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(flattenedData);
+
+  //      // Workbook oluştur ve worksheet'i ekle
+  //      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  //      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  //      // Dosyayı kaydet
+  //      XLSX.writeFile(wb, this.fileName);
+  //    },
+  //    (error) => {
+  //      console.error('Veri alınamadı:', error);
+  //    }
+  //  );
+  //}
+
+
+
+  //private flattenData(data: any[]): any[] {
+  //  const flattenedData: any[] = [];
+
+  //  data.forEach((row) => {
+  //    const flattenedRow: any = {};
+
+  //    Object.keys(row).forEach((key) => {
+  //      const value = row[key];
+
+  //      if (typeof value === 'object' && value !== null) {
+  //        // Eğer değer bir nesne ise, nesnenin içindeki özellikleri açarak ekleyelim
+  //        Object.keys(value).forEach((nestedKey) => {
+  //          flattenedRow[`${key}_${nestedKey}`] = value[nestedKey];
+  //        });
+  //      } else {
+  //        // Eğer değer bir nesne değilse, doğrudan ekleyelim
+  //        flattenedRow[key] = value;
+  //      }
+  //    });
+
+  //    flattenedData.push(flattenedRow);
+  //  });
+
+  //  return flattenedData;
+  //}
+
+
+  
+
+  
 
   mapApiDataToForm(data: any[], id: number): void {
 
@@ -769,6 +881,8 @@ export class PlannedFormComponent implements OnInit {
 
   }
 }
+
+
 
 
 

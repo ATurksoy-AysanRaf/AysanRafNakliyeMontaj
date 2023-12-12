@@ -1,31 +1,205 @@
 <div class="Constain" style="background-color: #87CEFA">
-  <mat-form-field class="example-form-field" style="margin-left:250px;width:50%">
+  <mat-form-field class="example-form-field" style="margin-left: 250px; width: 50%">
     <mat-label>SİPARİŞ NUMARASI</mat-label>
-    <input matInput type="text" #inputElement>
+    <input matInput #inputElement type="text" [(ngModel)]="salesOfferNumberFilter">
 
-    <button matSuffix mat-icon-button aria-label="Search" (click)=" onSearchClick()">
+    <button matSuffix mat-icon-button aria-label="Search" (click)="onSearchClick()">
       <mat-icon>search</mat-icon>
     </button>
   </mat-form-field>
+
+
+
+
+
+
+
+
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Sütun tanımları -->
+  <!--Sütun tanımları-->
     <ng-container matColumnDef="DATANAME">
       <mat-header-cell *matHeaderCellDef>FORM İÇERİĞİ</mat-header-cell>
-      <mat-cell *matCellDef="let item">Sipariş Numarası</mat-cell>
-      <mat-cell>  Müşteri</mat-cell>
+      <mat-cell *matCellDef="let item">
+        <!--Sipariş Numarası-->
+        <mat-list role="list">
+          <mat-list-item role="listitem" style="background-color:aliceblue">Sipariş Numarası</mat-list-item>
+          <mat-list-item role="listitem">Müşteri</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Şehir</mat-list-item>
+          <mat-list-item role="listitem">Tarih</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kur Oranı</mat-list-item>
+          <mat-list-item role="listitem">Teklif Tonajı</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Zayiat Oranı</mat-list-item>
+          <mat-list-item role="listitem">Gerçek Tonaj</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Günlük Tonaj</mat-list-item>
+          <mat-list-item role="listitem">Çalışan Sayısı</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Gün Sayısı</mat-list-item>
+          <mat-list-item role="listitem">Toplam Yevmiye Adeti</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Birim Yevmiye Tutarı</mat-list-item>
+          <mat-list-item role="listitem">İSG Maliyeti</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Saha Müh. Maliyeti</mat-list-item>
+          <mat-list-item role="listitem">Top. Yevmiye Maliyeti</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN ADI #1</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Günlük Maliyeti #1</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Aylık Maliyeti #1</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Adeti #1</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Top. Maliyeti #1</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN ADI #2</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Günlük Maliyeti #2</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Aylık Maliyeti #2</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Adeti #2</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Top. Maliyeti #2</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN ADI #3</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Günlük Maliyeti #3</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Aylık Maliyeti #3</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Adeti #3</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Top. Maliyeti #3</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN ADI #4</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Günlük Maliyeti #4</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Aylık Maliyeti #4</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Kiralanan EKİPMAN Adeti #4</mat-list-item>
+          <mat-list-item role="listitem">Kiralanan EKİPMAN Top. Maliyeti #4</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Nakliye Maliyeti</mat-list-item>
+          <mat-list-item role="listitem">Toplam EKİPMAN Maliyeti</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Konaklama Birim Maliyeti</mat-list-item>
+          <mat-list-item role="listitem">Konaklama Toplam Maliyeti</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Yemek Birim Maliyeti</mat-list-item>
+          <mat-list-item role="listitem">Yemek Toplam Maliyeti</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Araba Yakıt Maliyeti</mat-list-item>
+          <mat-list-item role="listitem">Toplam Montaj Maliyeti(TL)</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Toplam Montaj Maliyeti(USD)</mat-list-item>
+          <mat-list-item role="listitem">Tır Adeti</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Tır Birim Maliyeti</mat-list-item>
+          <mat-list-item role="listitem">Toplam Nakliye Maliyeti(TL)</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue">Toplam Nakliye Maliyeti(USD)</mat-list-item>
+          
+
+        </mat-list>
+      </mat-cell>
+
+
+     
+
     </ng-container>
 
-    <ng-container matColumnDef="DATA1">
-      <mat-header-cell *matHeaderCellDef>PLANLANAN</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.salesOfferNumber1 }}</mat-cell>
-    
+    <ng-container matColumnDef="DATA1" style="width:5px">
+      <mat-header-cell *matHeaderCellDef>PLANLANAN</mat-header-cell >
+      <mat-cell *matCellDef="let item">
+        <mat-list role="list">
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.salesOfferNumber1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.customerName1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.customerCity1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{ formatDate(item.createdDate1) }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.exchangeRate1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.offerTonnage1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.casualtyRate1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.reallyTonnage1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.dailyTonnage1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.numberEmployees1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.numberDays1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.totalWageAmount1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.dailyWageCost1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.isgexpertCost1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.fieldEngineerCost1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.wageTotalCost1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentName11  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentDailyCost11  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentMonthlyCost11  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentAmount11  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentDailyCost11  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentName21  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentDailyCost21  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentMonthlyCost21  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentAmount21  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentTotalCost21  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentName31  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentDailyCost31  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentMonthlyCost31  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentAmount31  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentTotalCost31  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentName41  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentDailyCost41  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentMonthlyCost41  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentAmount41  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentTotalCost41  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.equipmentShipmentCost1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.equipmentSumCost1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.accommodationUnitPrice1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.accommodationTotalPrice1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.staffMealUnitPrice1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.staffMealTotalPrice1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.totalCarFuelCost1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.shippingTotalCost1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.shippingTotalCostCurrency1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.numberTrucksUsed1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.truckUnitPrice1  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.shippingTotalCost1  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.shippingTotalCostCurrency1  }}</mat-list-item>
+
+
+        </mat-list>
+       
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="DATA2">
       <mat-header-cell *matHeaderCellDef>GERÇEKLEŞEN</mat-header-cell>
-      <mat-cell *matCellDef="let item">{{ item.salesOfferNumber2 }}</mat-cell>
-     
+      <mat-cell *matCellDef="let item">
+        <mat-list role="list">
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.salesOfferNumber2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.customerName2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.customerCity2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{ formatDate(item.createdDate2) }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.exchangeRate2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.offerTonnage2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.casualtyRate2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.reallyTonnage2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.dailyTonnage2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.numberEmployees2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.numberDays2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.totalWageAmount2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.dailyWageCost2 }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.isgexpertCost2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.fieldEngineerCost2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.wageTotalCost2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentName12  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentDailyCost12  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentMonthlyCost12  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentAmount12 }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentDailyCost12 }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentName22  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentDailyCost22  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentMonthlyCost22  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentAmount22  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentTotalCost22  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentName32  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentDailyCost32  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentMonthlyCost32  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentAmount32  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentTotalCost32  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentName42  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentDailyCost42  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentMonthlyCost42 }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.rentedEquipmentAmount42  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.rentedEquipmentTotalCost42  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.equipmentShipmentCost2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.equipmentSumCost2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.accommodationUnitPrice2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.accommodationTotalPrice2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.staffMealUnitPrice2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.staffMealTotalPrice2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.totalCarFuelCost2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.shippingTotalCost2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.shippingTotalCostCurrency2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.numberTrucksUsed2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.truckUnitPrice2  }}</mat-list-item>
+          <mat-list-item role="listitem"> {{item.shippingTotalCost2  }}</mat-list-item>
+          <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.shippingTotalCostCurrency2  }}</mat-list-item>
+
+
+        </mat-list>
+      </mat-cell>
     </ng-container>
+
 
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -33,9 +207,8 @@
   </mat-table>
 
 
-
-  <button mat-button aria-label="YAZDIR" style="border:double;background-color:aliceblue;width:10%;margin-left:900px">
-    <mat-icon>print</mat-icon>
+  <button mat-button aria-label="YAZDIR" style="border:double;background-color:aliceblue;width:10%;margin-left:900px; margin-top:20px">
+    <mat-icon>print</mat-icon>YAZDIR
   </button>
 
 </div>

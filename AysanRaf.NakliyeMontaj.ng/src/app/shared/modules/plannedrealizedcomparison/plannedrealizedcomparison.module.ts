@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from "@angular/material/icon";
 import { MatNativeDateModule } from "@angular/material/core";
@@ -11,7 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'; // MatDatepi
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { PlannedRealizedComparisonComponent } from "./components/list/plannedrealizedComparison.list.component";
-
+import { MatListModule } from '@angular/material/list';
 
 
 
@@ -19,6 +19,7 @@ import { PlannedRealizedComparisonComponent } from "./components/list/plannedrea
 
 
 @NgModule({
+  providers: [DatePipe],
   imports: [
     CommonModule,
     MatIconModule,
@@ -32,7 +33,7 @@ import { PlannedRealizedComparisonComponent } from "./components/list/plannedrea
     MatDatepickerModule,
     MatInputModule,
     MatButtonModule,
-
+    MatListModule,
 
 
     // ...
