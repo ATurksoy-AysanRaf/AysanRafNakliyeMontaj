@@ -10,6 +10,10 @@ import { AlertDialogComponent } from "../error/planned.error.component";
 import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUntil } from "rxjs";
 
 import * as XLSX from 'xlsx';
+import { style } from "@angular/animations";
+import { mixinColor } from "@angular/material/core";
+//import * as GC from 'grapecity-spread-sheets'; // SpreadJS kütüphanesini içe aktar
+//import * as Excel from 'grapecity-spread-excelio'; // Excel.IO modülünü içe aktar
 
 
 
@@ -29,14 +33,13 @@ export class PlannedFormComponent implements OnInit {
   PlannedOfferForm!: FormGroup;
   formBuilder: any;
   destroy$: Subject<void> = new Subject();
-    
+
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService) {
 
-
   }
 
- 
+
   onCloseButtonClick(): void {
     // this.closeWithDelay();
   }
@@ -48,7 +51,7 @@ export class PlannedFormComponent implements OnInit {
 
   }
   ngOnInit(): void {
-   // window.location.reload();
+    // window.location.reload();
     this.initializeForm();
     /*   this.subscribeToFormChanges();*/
 
@@ -343,7 +346,7 @@ export class PlannedFormComponent implements OnInit {
     // Verileri servisten al ve formu doldur
     this.dataService.getAllData().subscribe(
       (data) => {
-      //  console.log('Received Data from API:', data);
+        //  console.log('Received Data from API:', data);
         this.mapApiDataToForm(data, this.selectedRowData);
         this.PlannedOfferForm.setValue(data);
       },
@@ -354,115 +357,203 @@ export class PlannedFormComponent implements OnInit {
 
 
   }
-  fileName = 'ExcelSheet.xlsx';
+ // fileName = 'ExcelSheet.xlsx';
+
+
+  //workbookInit(args: any) {
+  //  const sheet = args.sheet;
+
+
+
+  //  sheet.getCell(0, 0).text(args.sheet.salesOfferNumber1).foreColor('blue');
+  //  // Hücrelere farklı metinleri eklemek için iki katlı döngü
+  // return sheet;
+  //}
+  exportToExcel(): void {
+    const formData = this.PlannedOfferForm.getRawValue();
+    const fileName = formData.salesOfferNumber + '-Sipariş No Planlanan Nakliye Montaj Formu.xlsx';
+
+    // Workbook oluştur
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+
+    // Worksheet oluştur
+    const ws1: XLSX.WorkSheet = XLSX.utils.json_to_sheet([]);
+
+    // Eğer ws1['!ref'] tanımlı değilse, varsayılan değeri kullan
+    const defaultRef = 'B4:F22'; // Bu değeri ihtiyaca göre değiştirebilirsiniz
+
+    // Hücre stilini belirle
+    const cellStyles = {
+      border: {
+        top: { style: 'thin' },
+        bottom: { style: 'thin' },
+        left: { style: 'thin' },
+        right: { style: 'thin' },
+      },
+      alignment: { horizontal: 'center', vertical: 'center' },
+    };
+
+    // !ref tanımlı değilse defaultRef kullan
+    const ref = ws1['!ref'] || defaultRef;
+
+    // Başlangıç ve bitiş hücrelerini ayrıştır
+    const startCell = XLSX.utils.decode_cell(ref.split(':')[0]);
+    const endCell = XLSX.utils.decode_cell(ref.split(':')[1]);
+
+    // Tüm hücrelere stil uygula
+    for (let rowIndex = startCell.r; rowIndex <= endCell.r; rowIndex++) {
+      for (let colIndex = startCell.c; colIndex <= endCell.c; colIndex++) {
+        const cellAddress = XLSX.utils.encode_cell({ r: rowIndex, c: colIndex });
+        ws1[cellAddress] = { ...cellStyles }; // Hücrenin stilini güncelle
+      }
+    }
+ 
+
+    // Diğer verileri ve stilleri ekleyerek işlemi devam ettir...
+
+    // Workbook'a worksheet'i ekle
+    XLSX.utils.book_append_sheet(wb, ws1, 'Sheet1');
+
+    // Dosyayı kaydet
+    XLSX.writeFile(wb, fileName);
+  }
+
+  //exportToExcel(): void {
+  //  const formData = this.PlannedOfferForm.getRawValue();
+  //  const fileName = formData.salesOfferNumber+'-Sipariş No Planlanan Nakliye Montaj Formu.xlsx';
+  //  console.log(formData);
+
+
+
+
+
+  //  //// Hücrelere stil uygula
+  //  //XLSX.utils.cell_set_style(ws1['A1'], cellStyles);
 
 
  
 
-exportToExcel(): void {
-  const formData = this.PlannedOfferForm.getRawValue();
-
-  // Form verilerini Excel dosyasına çevir
-  const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([formData]);
-
-  // Workbook oluştur ve worksheet'i ekle
-  const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-  // Dosyayı kaydet
-  XLSX.writeFile(wb, 'exported_data.xlsx');
-}
+  //  // Workbook oluştur
+  //  const wb: XLSX.WorkBook = XLSX.utils.book_new();
 
 
 
 
+  
+  //  // Worksheet oluştur
+
+  //  const ws1: XLSX.WorkSheet = XLSX.utils.json_to_sheet([{
+  //  //  'Sipariş Numarası': formData.salesOfferNumber
+  //    // Diğer alanları da ekleyebilirsiniz.
+  //  }]);
+ 
+  
 
 
-
-
-  //exportExcel(): void {
-
-  //  // API'den verileri al
-  //  this.dataService.getAllData().subscribe(
-  //    (data) => {
-  //      // Verileri Excel dosyasına çevir
-  //      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
-
-  //      // Workbook oluştur ve worksheet'i ekle
-  //      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  //      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-  //      // Dosyayı kaydet
-  //      XLSX.writeFile(wb, this.fileName);
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //      'Sipariş Numarası': formData.salesOfferNumber, 'Tarih': formData.createdDate, 'KUR': formData.exchangeRate, 'Müşteri': formData.customerName,
+  //      'Şehir:': formData.customerCity, 
   //    },
-  //    (error) => {
-  //      console.error('Veri alınamadı:', error);
-  //    }
-  //  );
-  //}
-
-
-
-
-  //exportExcel(): void {
-
-  //  // API'den tüm verileri al
-  //  this.dataService.getAllData().subscribe(
-  //    (data) => {
-  //      // Seçili satırdaki verileri al
-  //      const selectedRowData = this.receivedDataList[0];
-
-  //      // Sadece seçili satırdaki verileri içerecek şekilde datayı filtrele
-  //      const filteredData = data.filter((item) => item.salesOfferNumber === selectedRowData.salesOfferNumber);
-
-  //      // Verileri düzleştir
-  //      const flattenedData = this.flattenData(filteredData);
-
-  //      // Verileri Excel dosyasına çevir
-  //      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(flattenedData);
-
-  //      // Workbook oluştur ve worksheet'i ekle
-  //      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  //      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-  //      // Dosyayı kaydet
-  //      XLSX.writeFile(wb, this.fileName);
+     
+  //  ], { origin: 'B4' });
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //      'Teklif Tonajı': formData.offerTonnage, 'Gerçek Tonaj': formData.reallyTonnage, 'Günlük Tonaj': formData.dailyTonnage,
+  //        'Gün Sayısı:': formData.numberDays, 'Çalışan Sayısı': formData.numberEmployees
   //    },
-  //    (error) => {
-  //      console.error('Veri alınamadı:', error);
-  //    }
+
+  //  ], { origin: 'B6' });
+
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //        'Günlük Yevmiye': formData.dailyWageCost, 'Toplam Yevmiye': formData.totalWageAmount, 'ISG Uzmanı': formData.isgexpertCost, 'Saha Mühendisi': formData.fieldEngineerCost, 'Toplam Yevmiye Tutarı': formData.wageTotalCost,
+        
+  //    },
+
+  //  ], { origin: 'B8' });
+
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //        'Kiralanan Ekipman Adı': formData.rentedEquipmentName1, 'Günlük Maliyeti': formData.rentedEquipmentDailyCost1, 'Aylık Maliyeti': formData.rentedEquipmentMonthlyCost1, 'Adeti': formData.rentedEquipmentAmount1,
+  //        'Toplam Maliyet:': formData.rentedEquipmentTotalCost1, 
+  //    },
+
+  //  ], { origin: 'B10' });
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //      'Kiralanan Ekipman Adı': formData.rentedEquipmentName2, 'Günlük Maliyeti': formData.rentedEquipmentDailyCost2, 'Aylık Maliyeti': formData.rentedEquipmentMonthlyCost2, 'Adeti': formData.rentedEquipmentAmount2,
+  //      'Toplam Maliyet:': formData.rentedEquipmentTotalCost2,
+  //    },
+
+  //  ], { origin: 'B12' });
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //      'Kiralanan Ekipman Adı': formData.rentedEquipmentName3, 'Günlük Maliyeti': formData.rentedEquipmentDailyCost3, 'Aylık Maliyeti': formData.rentedEquipmentMonthlyCost3, 'Adeti': formData.rentedEquipmentAmount3,
+  //      'Toplam Maliyet:': formData.rentedEquipmentTotalCost3,
+  //    },
+
+  //  ], { origin: 'B14' });
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //      'Kiralanan Ekipman Adı': formData.rentedEquipmentName4, 'Günlük Maliyeti': formData.rentedEquipmentDailyCost4, 'Aylık Maliyeti': formData.rentedEquipmentMonthlyCost4, 'Adeti': formData.rentedEquipmentAmount4,
+  //      'Toplam Maliyet:': formData.rentedEquipmentTotalCost4,
+  //    },
+
+  //  ], { origin: 'B16' });
+
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //        'Ekipman Nakliye Maliyeti': formData.equipmentShipmentCost, 'Konaklama Birim Maliyeti': formData.accommodationUnitPrice, 'Konaklama Toplam Maliyeti': formData.accommodationTotalPrice, 'Yemek Birim Maliyeti': formData.staffMealUnitPrice,
+  //        'Yemek Toplam Maliyeti': formData.staffMealTotalPrice,
+  //    },
+
+  //  ], { origin: 'B18' });
+ 
+
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //        'Araba-Yakıt Maliyeti': formData.totalCarFuelCost, 'Toplam Montaj Maliyeti(TL)': formData.installationTotalCost, 'Toplam Montaj Maliyeti(USD)': formData.installationTotalCostCurrency, 
+  //    },
+
+  //  ], { origin: 'B20'},
   //  );
+
+
+  //  XLSX.utils.sheet_add_json(
+  //    ws1, [
+  //    {
+  //        'Tır  Sayısı': formData.numberTrucksUsed, 'Tır Birim Maliyeti': formData.truckUnitPrice, 'Toplam Nakliye Maliyeti(TL)': formData.shippingTotalCost, 'Toplam Nakliye Maliyeti(USD)': formData.shippingTotalCostCurrency
+  //    },
+
+  //  ], { origin: 'B22'});
+
+
+  
+
+
+  //  // Workbook'a worksheet'i ekle
+  //  XLSX.utils.book_append_sheet(wb, ws1, 'Sheet1');
+ 
+
+    
+
+
+  //  // Dosyayı kaydet
+  //  XLSX.writeFile(wb, fileName);
   //}
 
-
-
-  //private flattenData(data: any[]): any[] {
-  //  const flattenedData: any[] = [];
-
-  //  data.forEach((row) => {
-  //    const flattenedRow: any = {};
-
-  //    Object.keys(row).forEach((key) => {
-  //      const value = row[key];
-
-  //      if (typeof value === 'object' && value !== null) {
-  //        // Eğer değer bir nesne ise, nesnenin içindeki özellikleri açarak ekleyelim
-  //        Object.keys(value).forEach((nestedKey) => {
-  //          flattenedRow[`${key}_${nestedKey}`] = value[nestedKey];
-  //        });
-  //      } else {
-  //        // Eğer değer bir nesne değilse, doğrudan ekleyelim
-  //        flattenedRow[key] = value;
-  //      }
-  //    });
-
-  //    flattenedData.push(flattenedRow);
-  //  });
-
-  //  return flattenedData;
-  //}
-
-
+  
+ 
   
 
   

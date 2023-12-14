@@ -15,8 +15,9 @@ import { PlannedListComponent } from "./modules/planned/components/list/planned.
 import { RealizedListComponent } from "./modules/realized/components/list/realized.list.component";
 import { PlannedFormComponent } from "./modules/planned/components/form/planned.form.component";
 import { RealizedFormComponent } from "./modules/realized/components/form/realized.form.components";
-import { PlannedRealizedComparisonComponent } from "./modules/plannedrealizedComparison/components/list/plannedrealizedComparison.list.component";
+
 import { MatListModule } from '@angular/material/list';
+import { PlannedRealizedComparisonComponent } from "./modules/plannedrealizedComparison/components/list/plannedrealizedcomparison.list.component";
 
 
 @NgModule({
