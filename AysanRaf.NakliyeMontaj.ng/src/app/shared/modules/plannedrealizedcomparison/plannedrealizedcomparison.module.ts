@@ -10,7 +10,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatDatepickerModule } from '@angular/material/datepicker'; // MatDatepickerModule eklenmiş
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
-import { PlannedRealizedComparisonComponent } from "./components/list/plannedrealizedComparison.list.component";
+import { PlannedRealizedComparisonComponent } from "./components/list/plannedrealizedcomparison.list.component";
 import { MatListModule } from '@angular/material/list';
 
 

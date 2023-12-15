@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, SimpleChanges, ViewChild } from "@angular/core";
 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { PlannedRealizedConstainService } from "../../services/plannedrealizedComparison.service";
+import { PlannedRealizedConstainService } from "../../services/plannedrealizedcomparison.service";
 import { MatInput } from "@angular/material/input";
 import { DatePipe } from "@angular/common";
 import { AlertDialogComponent } from "../error/plannedrealizedComparison.error.component";
