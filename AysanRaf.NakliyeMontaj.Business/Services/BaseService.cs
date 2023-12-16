@@ -4,12 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace AysanRaf.NakliyeMontaj.Business.Services
 {
     public class BaseService<T> : IBaseService<T> where T : class
     {
         private readonly IBaseRepository<T> _repository;
+
+
+
+
+
+
+
 
         public BaseService(IBaseRepository<T> repository)
         {
@@ -41,5 +50,8 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
         {
             return await _repository.UpdateAsync(entity);
         }
+       
+    
+
     }
 }

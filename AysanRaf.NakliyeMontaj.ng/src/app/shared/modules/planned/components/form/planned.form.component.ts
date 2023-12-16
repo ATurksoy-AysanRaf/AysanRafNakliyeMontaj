@@ -13,6 +13,8 @@ import * as XLSX from 'xlsx';
 import { style } from "@angular/animations";
 import { mixinColor } from "@angular/material/core";
 
+
+
 //import * as GC from 'grapecity-spread-sheets'; // SpreadJS kütüphanesini içe aktar
 //import * as Excel from 'grapecity-spread-excelio'; // Excel.IO modülünü içe aktar
 
@@ -363,10 +365,10 @@ export class PlannedFormComponent implements OnInit {
   exportToExcel(): void {
     const formData = this.PlannedOfferForm.getRawValue();
     const fileName = formData.salesOfferNumber + '-Sipariş No Planlanan Nakliye Montaj Formu.xlsx';
- 
+
     // Workbook oluştur
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-  
+
     // Worksheet oluştur
     const ws1: XLSX.WorkSheet = XLSX.utils.json_to_sheet([{
     //  'Sipariş Numarası': formData.salesOfferNumber
@@ -376,9 +378,9 @@ export class PlannedFormComponent implements OnInit {
     XLSX.utils.sheet_add_json(
       ws1, [
       {'Sipariş Numarası': formData.salesOfferNumber, 'Tarih': formData.createdDate, 'KUR': formData.exchangeRate, 'Müşteri': formData.customerName,
-        'Şehir:': formData.customerCity, 
+        'Şehir:': formData.customerCity,
       },
-     
+
     ], { origin: 'B4' });
     XLSX.utils.sheet_add_json(
       ws1, [
@@ -390,14 +392,14 @@ export class PlannedFormComponent implements OnInit {
     XLSX.utils.sheet_add_json(
       ws1, [
       {'Günlük Yevmiye': formData.dailyWageCost, 'Toplam Yevmiye': formData.totalWageAmount, 'ISG Uzmanı': formData.isgexpertCost, 'Saha Mühendisi': formData.fieldEngineerCost, 'Toplam Yevmiye Tutarı': formData.wageTotalCost,
-        
+
       },
 
     ], { origin: 'B8' });
     XLSX.utils.sheet_add_json(
       ws1, [
       {'Kiralanan Ekipman Adı': formData.rentedEquipmentName1, 'Günlük Maliyeti': formData.rentedEquipmentDailyCost1, 'Aylık Maliyeti': formData.rentedEquipmentMonthlyCost1, 'Adeti': formData.rentedEquipmentAmount1,
-          'Toplam Maliyet:': formData.rentedEquipmentTotalCost1, 
+          'Toplam Maliyet:': formData.rentedEquipmentTotalCost1,
       },
 
     ], { origin: 'B10' });
@@ -432,7 +434,7 @@ export class PlannedFormComponent implements OnInit {
     ], { origin: 'B18' });
     XLSX.utils.sheet_add_json(
       ws1, [
-      { 'Araba-Yakıt Maliyeti': formData.totalCarFuelCost, 'Toplam Montaj Maliyeti(TL)': formData.installationTotalCost, 'Toplam Montaj Maliyeti(USD)': formData.installationTotalCostCurrency, 
+      { 'Araba-Yakıt Maliyeti': formData.totalCarFuelCost, 'Toplam Montaj Maliyeti(TL)': formData.installationTotalCost, 'Toplam Montaj Maliyeti(USD)': formData.installationTotalCostCurrency,
       },
 
     ], { origin: 'B20'},
@@ -443,46 +445,18 @@ export class PlannedFormComponent implements OnInit {
       },
 
     ], { origin: 'B22'});
-
-
-
-    // Hücre için bir stil nesnesi oluştur
-    const style = {
-      font: { bold: true, color: { rgb: 'FF0000' } }, // Kalın ve kırmızı renkli yazı
-      fill: { fgColor: { rgb: 'FFFF00' } }, // Sarı arka plan rengi
-      alignment: { horizontal: 'center' }, // Metni yatayda ortala
-      border: {
-        top: { style: 'thin', color: { rgb: '000000' } }, // Üst kenarlık
-        bottom: { style: 'thin', color: { rgb: '000000' } }, // Alt kenarlık
-        left: { style: 'thin', color: { rgb: '000000' } }, // Sol kenarlık
-        right: { style: 'thin', color: { rgb: '000000' } } // Sağ kenarlık
-      },
-      // alignment: { wrapText: true } // Metni hücre boyutlarına sığdır
-    };
-
-    // Başlangıç hücresinin adresini belirle (örneğin, B22)
-    const startCellAddress = 'B22';
-
-    // Hedef hücrenin adresini belirle (örneğin, B22 için bir hücre sağa ve bir hücre aşağı)
-    const endCellAddress = 'C22'; // Düzenleyebilirsiniz
-
-    // Stili hedef hücre aralığına uygula
-    for (let row = parseInt(startCellAddress.substring(1)); row <= parseInt(endCellAddress.substring(1)); row++) {
-      for (let col = startCellAddress[0].charCodeAt(0); col <= endCellAddress[0].charCodeAt(0); col++) {
-        const currentCellAddress = String.fromCharCode(col) + row;
-        ws1[currentCellAddress].s = style;
-      }
-    }
-
-
-
+   
 
     // Workbook'a worksheet'i ekle
     XLSX.utils.book_append_sheet(wb, ws1, 'Sheet1');
- 
+
+
     // Dosyayı kaydet
     XLSX.writeFile(wb, fileName);
-   
+
+
+
+
   }
 
   

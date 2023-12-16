@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
-
+using AysanRaf.NakliyeMontaj.Business.Services;
 using AysanRaf.NakliyeMontaj.Entites.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 
 namespace AysanRaf.NakliyeMontaj.app.Controllers
 {
@@ -13,13 +15,16 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
     {
         private readonly Business.Services.IBaseService<Models.PlannedOfferForm> _service;
         private readonly IMapper _mapper;
-
-
+       
         public PlannedOfferFormController(Business.Services.IBaseService<PlannedOfferForm> service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
+            
         }
+
+
+    
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
@@ -34,7 +39,8 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
             var products = await _service.GetAllAsync();
             return Ok(_mapper.Map<List<PlannedOfferFormForDetailDto>>(products));
         }
-
+        
+       
         [HttpGet("PlannedForms/List")]
         public async Task<IActionResult> GetAllList()
         {
@@ -74,6 +80,8 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
             await _service.UpdateAsync(pud);
             return Ok(pud);
         }
+
+     
     }
 }
 
