@@ -1,4 +1,5 @@
 
+using AysanRaf.NakliyeMontaj.app.Controllers;
 using AysanRaf.NakliyeMontaj.Business.Mapping;
 using AysanRaf.NakliyeMontaj.Business.Services;
 using AysanRaf.NakliyeMontaj.DataAccess.Repositories;
@@ -17,8 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<ExcelExportService>();
-
-
+builder.Services.AddScoped<RealizedExcellExportService>();
+builder.Services.AddScoped<PlannedRealizedComparisonExcellService>();
 
 builder.Services.AddCors(options =>
 {

@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace AysanRaf.NakliyeMontaj.Entites.DTOs
 {
-    public class PlannedOfferFormForUpdateDto
+    public class PlannedOfferFormForExportDto
     {
         public string? SalesOfferNumber { get; set; }
-        public string RevisionNumber { get; set; } 
+        public string RevisionNumber { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
         public float ExchangeRate { get; set; }
@@ -45,7 +45,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
         public int DailyWageAmount { get; set; }
         public float WageTotalCost { get; set; }
         public float NumberDays { get; set; }
-       public int? wageTotalAmount { get; set; }
+        public int? wageTotalAmount { get; set; }
         public int? EquipmentShipmentCost { get; set; }
         public float? EquipmentSumCost { get; set; }
         public int AccommodationUnitPrice { get; set; }
@@ -62,7 +62,5 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
         public string? CustomerName { get; set; }
         public string? CustomerCity { get; set; }
         public float? TotalWageAmount { get; set; }
-        //public string? RentedEquipmentId { get; set; }
-        //public string? RentedEquipmentName { get; set; }
     }
 }

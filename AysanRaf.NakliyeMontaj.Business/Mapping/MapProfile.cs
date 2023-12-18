@@ -25,11 +25,16 @@ namespace AysanRaf.NakliyeMontaj.Business.Mapping
             CreateMap<PlannedOfferForm, PlannedOfferFormForUpdateDto>().ReverseMap();
             CreateMap<PlannedOfferForm, PlannedOfferFormForDetailDto>().ReverseMap();
             CreateMap<PlannedOfferForm, PlannedOfferFormForListDto>().ReverseMap();
+            CreateMap<PlannedOfferForm, PlannedOfferFormForExportDto>().ReverseMap();
 
             CreateMap<RealizedOfferForm, RealizedOfferFormForPostDto>().ReverseMap();
             CreateMap<RealizedOfferForm, RealizedOfferFormForUpdateDto>().ReverseMap();
             CreateMap<RealizedOfferForm, RealizedOfferFormForDetailDto>().ReverseMap();
             CreateMap<RealizedOfferForm, RealizedOfferFormForListDto>().ReverseMap();
+            CreateMap<RealizedOfferForm, RealizedOfferFormForExportDto>().ReverseMap();
+
+            CreateMap<PlannedOfferForm, PlannedRealizedComparisonForEportDto>().ReverseMap();
+            CreateMap<RealizedOfferForm, PlannedRealizedComparisonForEportDto>().ReverseMap();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
     {
         public float? TotalWageAmount { get; set; }
         public string? SalesOfferNumber { get; set; }
-        public string RevisionNumber { get; set; } = "1";
+        public string RevisionNumber { get; set; }
 
         public DateTime? UpdatedDate { get; set; }
         public float ExchangeRate { get; set; }

@@ -10,7 +10,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
     {
         public string Id { get; set; } = null!;
         public string SalesOfferNumber { get; set; } = null!;
-        public string RevisionNumber { get; set; } = "1";
+        public string RevisionNumber { get; set; } 
         public string? CustomerName { get; set; }
         public string? CustomerCity { get; set; }
         public DateTime? CreatedDate { get; set; }

@@ -11,7 +11,7 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
         public float? TotalWageAmount { get; set; }
         public Guid Id { get; set; } = new Guid();
         public string SalesOfferNumber { get; set; } = null!;
-        public string RevisionNumber { get; set; } = "1";
+        public string RevisionNumber { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public float ExchangeRate { get; set; }

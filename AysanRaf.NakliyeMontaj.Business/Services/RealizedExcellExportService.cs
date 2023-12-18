@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Models;
-using OfficeOpenXml;
+﻿using Models;
 using OfficeOpenXml.Style;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace AysanRaf.NakliyeMontaj.Business.Services
 {
-    public class ExcelExportService
+    public class RealizedExcellExportService
     {
         private readonly aysanrafpopsepdevelopment_2023_09_10_05_45Context _context;
 
-        public ExcelExportService(aysanrafpopsepdevelopment_2023_09_10_05_45Context dbContext)
+        public RealizedExcellExportService(aysanrafpopsepdevelopment_2023_09_10_05_45Context dbContext)
         {
             _context = dbContext;
         }
@@ -24,7 +23,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // veya LicenseContext.Commercial
 
             // ID'ye göre nesne listesini al
-            var objectList = _context.PlannedOfferForms.Where(obj => obj.Id == objectId).ToList();
+            var objectList = _context.RealizedOfferForms.Where(obj => obj.Id == objectId).ToList();
 
             using (var package = new ExcelPackage())
             {
@@ -41,7 +40,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
                 worksheet.Cells[startRow, startColumn, endRow, endColumn].Merge = true;
 
                 // Başlık metni
-                worksheet.Cells[startRow, startColumn].Value = " PLANLANAN ";
+                worksheet.Cells[startRow, startColumn].Value = " GERÇEKLEŞEN ";
 
                 // Başlık hücrenin stilini düzenleme
                 worksheet.Cells[startRow, startColumn].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -124,64 +123,64 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
                     worksheet.Cells[i + 4, 2].Style.Numberformat.Format = "yyyy-mm-dd";
                     worksheet.Cells[i + 4, 3].Value = objectList[i].ExchangeRate;
                     worksheet.Cells[i + 4, 4].Value = objectList[i].CustomerName.ToUpper();
-                    worksheet.Cells[i + 4, 5].Value = objectList[i].CustomerCity.ToUpper(); 
+                    worksheet.Cells[i + 4, 5].Value = objectList[i].CustomerCity.ToUpper();
 
-                    worksheet.Cells[i + 6, 1].Value = objectList[i].OfferTonnage; 
-                    worksheet.Cells[i + 6, 2].Value = objectList[i].ReallyTonnage; 
-                    worksheet.Cells[i + 6, 3].Value = objectList[i].DailyTonnage; 
-                   
+                    worksheet.Cells[i + 6, 1].Value = objectList[i].OfferTonnage;
+                    worksheet.Cells[i + 6, 2].Value = objectList[i].ReallyTonnage;
+                    worksheet.Cells[i + 6, 3].Value = objectList[i].DailyTonnage;
+
                     worksheet.Cells[i + 6, 4].Value = Math.Ceiling(objectList[i].NumberDays);
 
-                    worksheet.Cells[i + 6, 5].Value = objectList[i].NumberEmployees; 
+                    worksheet.Cells[i + 6, 5].Value = objectList[i].NumberEmployees;
 
 
-                    worksheet.Cells[i + 8, 1].Value = objectList[i].DailyWageCost; 
-                    worksheet.Cells[i + 8, 2].Value = objectList[i].TotalWageAmount; 
-                    worksheet.Cells[i + 8, 3].Value = objectList[i].IsgexpertCost; 
+                    worksheet.Cells[i + 8, 1].Value = objectList[i].DailyWageCost;
+                    worksheet.Cells[i + 8, 2].Value = objectList[i].TotalWageAmount;
+                    worksheet.Cells[i + 8, 3].Value = objectList[i].IsgexpertCost;
                     worksheet.Cells[i + 8, 4].Value = objectList[i].FieldEngineerCost;
-                    worksheet.Cells[i + 8, 5].Value = objectList[i].WageTotalCost; 
+                    worksheet.Cells[i + 8, 5].Value = objectList[i].WageTotalCost;
 
 
-                    worksheet.Cells[i + 10, 1].Value = objectList[i].RentedEquipmentName1.ToUpper(); 
-                    worksheet.Cells[i + 10, 2].Value = objectList[i].RentedEquipmentDailyCost1; 
-                    worksheet.Cells[i + 10, 3].Value = objectList[i].RentedEquipmentMonthlyCost1; 
-                    worksheet.Cells[i + 10, 4].Value = objectList[i].RentedEquipmentAmount1; 
-                    worksheet.Cells[i + 10, 5].Value = objectList[i].RentedEquipmentTotalCost1; 
+                    worksheet.Cells[i + 10, 1].Value = objectList[i].RentedEquipmentName1.ToUpper();
+                    worksheet.Cells[i + 10, 2].Value = objectList[i].RentedEquipmentDailyCost1;
+                    worksheet.Cells[i + 10, 3].Value = objectList[i].RentedEquipmentMonthlyCost1;
+                    worksheet.Cells[i + 10, 4].Value = objectList[i].RentedEquipmentAmount1;
+                    worksheet.Cells[i + 10, 5].Value = objectList[i].RentedEquipmentTotalCost1;
 
 
-                    worksheet.Cells[i + 12, 1].Value = objectList[i].RentedEquipmentName2.ToUpper(); 
-                    worksheet.Cells[i + 12, 2].Value = objectList[i].RentedEquipmentDailyCost2; 
-                    worksheet.Cells[i + 12, 2].Value = objectList[i].RentedEquipmentDailyCost2; 
-                    worksheet.Cells[i + 12, 3].Value = objectList[i].RentedEquipmentMonthlyCost2; 
-                    worksheet.Cells[i + 12, 4].Value = objectList[i].RentedEquipmentAmount2; 
-                    worksheet.Cells[i + 12, 5].Value = objectList[i].RentedEquipmentTotalCost2; 
+                    worksheet.Cells[i + 12, 1].Value = objectList[i].RentedEquipmentName2.ToUpper();
+                    worksheet.Cells[i + 12, 2].Value = objectList[i].RentedEquipmentDailyCost2;
+                    worksheet.Cells[i + 12, 2].Value = objectList[i].RentedEquipmentDailyCost2;
+                    worksheet.Cells[i + 12, 3].Value = objectList[i].RentedEquipmentMonthlyCost2;
+                    worksheet.Cells[i + 12, 4].Value = objectList[i].RentedEquipmentAmount2;
+                    worksheet.Cells[i + 12, 5].Value = objectList[i].RentedEquipmentTotalCost2;
 
 
-                    worksheet.Cells[i + 14, 1].Value = objectList[i].RentedEquipmentName3.ToUpper(); 
-                    worksheet.Cells[i + 14, 2].Value = objectList[i].RentedEquipmentDailyCost3; 
-                    worksheet.Cells[i + 14, 3].Value = objectList[i].RentedEquipmentMonthlyCost3; 
-                    worksheet.Cells[i + 14, 4].Value = objectList[i].RentedEquipmentAmount3; 
-                    worksheet.Cells[i + 14, 5].Value = objectList[i].RentedEquipmentTotalCost3; 
+                    worksheet.Cells[i + 14, 1].Value = objectList[i].RentedEquipmentName3.ToUpper();
+                    worksheet.Cells[i + 14, 2].Value = objectList[i].RentedEquipmentDailyCost3;
+                    worksheet.Cells[i + 14, 3].Value = objectList[i].RentedEquipmentMonthlyCost3;
+                    worksheet.Cells[i + 14, 4].Value = objectList[i].RentedEquipmentAmount3;
+                    worksheet.Cells[i + 14, 5].Value = objectList[i].RentedEquipmentTotalCost3;
 
 
-                    worksheet.Cells[i + 16, 1].Value = objectList[i].RentedEquipmentName4.ToUpper(); 
-                    worksheet.Cells[i + 16, 2].Value = objectList[i].RentedEquipmentDailyCost4; 
-                    worksheet.Cells[i + 16, 3].Value = objectList[i].RentedEquipmentMonthlyCost4; 
-                    worksheet.Cells[i + 16, 4].Value = objectList[i].RentedEquipmentAmount4; 
-                    worksheet.Cells[i + 16, 5].Value = objectList[i].RentedEquipmentTotalCost4; 
+                    worksheet.Cells[i + 16, 1].Value = objectList[i].RentedEquipmentName4.ToUpper();
+                    worksheet.Cells[i + 16, 2].Value = objectList[i].RentedEquipmentDailyCost4;
+                    worksheet.Cells[i + 16, 3].Value = objectList[i].RentedEquipmentMonthlyCost4;
+                    worksheet.Cells[i + 16, 4].Value = objectList[i].RentedEquipmentAmount4;
+                    worksheet.Cells[i + 16, 5].Value = objectList[i].RentedEquipmentTotalCost4;
 
 
 
-                    worksheet.Cells[i + 18, 1].Value = objectList[i].EquipmentShipmentCost; 
-                    worksheet.Cells[i + 18, 2].Value = objectList[i].AccommodationUnitPrice; 
-                    worksheet.Cells[i + 18, 3].Value = objectList[i].AccommodationTotalPrice; 
+                    worksheet.Cells[i + 18, 1].Value = objectList[i].EquipmentShipmentCost;
+                    worksheet.Cells[i + 18, 2].Value = objectList[i].AccommodationUnitPrice;
+                    worksheet.Cells[i + 18, 3].Value = objectList[i].AccommodationTotalPrice;
                     worksheet.Cells[i + 18, 4].Value = objectList[i].StaffMealUnitPrice;
                     worksheet.Cells[i + 18, 5].Value = objectList[i].StaffMealTotalPrice;
 
                     worksheet.Cells[i + 20, 1].Value = objectList[i].TotalCarFuelCost;
                     worksheet.Cells[i + 20, 2].Value = objectList[i].InstallationTotalCost;
                     worksheet.Cells[i + 20, 3].Value = objectList[i].InstallationTotalCostCurrency;
-                   
+
 
                     worksheet.Cells[i + 22, 1].Value = objectList[i].NumberTrucksUsed;
                     worksheet.Cells[i + 22, 2].Value = objectList[i].TruckUnitPrice;
@@ -189,7 +188,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
                     worksheet.Cells[i + 22, 4].Value = objectList[i].ShippingTotalCostCurrency;
 
 
-              
+
 
                     // Diğer özellikleri ekleyin
 
@@ -214,14 +213,13 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
                             range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
                             range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
                         }
+                        for (int b = 0; b < 5; b++)
+                        {
+                            worksheet.Cells[a + 1, b + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                            worksheet.Cells[a + 1, b + 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                        }
 
-                    //    for (int b = 0; b < 5; b++)
-                    //    {
-                    //        worksheet.Cells[a + 1, b+1].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                    //        worksheet.Cells[a + 1, b+1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
-                    //}
-
-                }
+                    }
 
 
                 }
@@ -238,6 +236,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
 
 
 
-          
-        }
+
+    }
 }
+
