@@ -32,21 +32,23 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
 
 
 
-                int startRow = 1;
-                int endRow = 2;
-                int startColumn = 1;
-                int endColumn = 5;
+                // Sayfa düzeni ve baskı seçeneklerini ayarlayın
+                worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
+                worksheet.PrinterSettings.FitToPage = true;
+                worksheet.PrinterSettings.FitToWidth = 1;
+                worksheet.PrinterSettings.FitToHeight = 1;
+
+
+                int startRow1 = 1;
+                int endRow1 = 1;
+                int startColumn1 = 1;
+                int endColumn1 = 5;
 
                 // Belirtilen hücre aralığını birleştir
-                worksheet.Cells[startRow, startColumn, endRow, endColumn].Merge = true;
+                worksheet.Cells[startRow1, startColumn1, endRow1, endColumn1].Merge = true;
 
                 // Başlık metni
-                worksheet.Cells[startRow, startColumn].Value = " PLANLANAN ";
-
-                // Başlık hücrenin stilini düzenleme
-                worksheet.Cells[startRow, startColumn].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                worksheet.Cells[startRow, startColumn].Style.VerticalAlignment = ExcelVerticalAlignment.Center;
-                worksheet.Cells[startRow, startColumn].Style.Font.Bold = true;
+                worksheet.Cells[startRow1, startColumn1].Value = " PLANLANAN TEKLİF FORMU ";
 
 
 
@@ -57,74 +59,76 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
 
 
                 // Başlık ekleyin
-                worksheet.Cells[3, 1].Value = "Sipariş Numarası";
-                worksheet.Cells[3, 2].Value = "Tarih";
-                worksheet.Cells[3, 3].Value = "Kur";
-                worksheet.Cells[3, 4].Value = "Müşteri";
-                worksheet.Cells[3, 5].Value = "Şehir";
+                //Planlanan
+                worksheet.Cells[2, 1].Value = "Sipariş Numarası";
+                worksheet.Cells[2, 2].Value = "Tarih";
+                worksheet.Cells[2, 3].Value = "Kur";
+                worksheet.Cells[2, 4].Value = "Müşteri";
+                worksheet.Cells[2, 5].Value = "Şehir";
 
-                worksheet.Cells[5, 1].Value = "Teklif Tonaj";
-                worksheet.Cells[5, 2].Value = "Gerçek Tonaj";
-                worksheet.Cells[5, 3].Value = "Günlük Tonaj";
-                worksheet.Cells[5, 4].Value = "Gün Sayısı";
-                worksheet.Cells[5, 5].Value = "Çalışan Sayısı";
+                worksheet.Cells[4, 1].Value = "Teklif Tonaj";
+                worksheet.Cells[4, 2].Value = "Gerçek Tonaj";
+                worksheet.Cells[4, 3].Value = "Günlük Tonaj";
+                worksheet.Cells[4, 4].Value = "Gün Sayısı";
+                worksheet.Cells[4, 5].Value = "Çalışan Sayısı";
 
-                worksheet.Cells[7, 1].Value = "Günlük Yevmiye";
-                worksheet.Cells[7, 2].Value = "Toplam Yevmiye";
-                worksheet.Cells[7, 3].Value = "ISG Uzmanı";
-                worksheet.Cells[7, 4].Value = "Saha Mühendisi";
-                worksheet.Cells[7, 5].Value = "Toplam Yevmiye Tutarı";
+                worksheet.Cells[6, 1].Value = "Günlük Yevmiye";
+                worksheet.Cells[6, 2].Value = "Toplam Yevmiye";
+                worksheet.Cells[6, 3].Value = "ISG Uzmanı";
+                worksheet.Cells[6, 4].Value = "Saha Mühendisi";
+                worksheet.Cells[6, 5].Value = "(1) Toplam Yevmiye Tutarı";
 
-                worksheet.Cells[9, 1].Value = "Kiralanan Ekipman Adı";
-                worksheet.Cells[9, 2].Value = "Günlük Maliyeti";
-                worksheet.Cells[9, 3].Value = "Aylık Maliyeti";
-                worksheet.Cells[9, 4].Value = "Adeti";
-                worksheet.Cells[9, 5].Value = "Toplam Maliyeti";
+                worksheet.Cells[8, 1].Value = "Kiralanan Ekipman Adı";
+                worksheet.Cells[8, 2].Value = "Günlük Maliyeti";
+                worksheet.Cells[8, 3].Value = "Aylık Maliyeti";
+                worksheet.Cells[8, 4].Value = "Adeti";
+                worksheet.Cells[8, 5].Value = "Toplam Maliyeti";
 
-                worksheet.Cells[11, 1].Value = "Kiralanan Ekipman Adı";
-                worksheet.Cells[11, 2].Value = "Günlük Maliyeti";
-                worksheet.Cells[11, 3].Value = "Aylık Maliyeti";
-                worksheet.Cells[11, 4].Value = "Adeti";
-                worksheet.Cells[11, 5].Value = "Toplam Maliyeti";
+                worksheet.Cells[10, 1].Value = "Kiralanan Ekipman Adı";
+                worksheet.Cells[10, 2].Value = "Günlük Maliyeti";
+                worksheet.Cells[10, 3].Value = "Aylık Maliyeti";
+                worksheet.Cells[10, 4].Value = "Adeti";
+                worksheet.Cells[10, 5].Value = "Toplam Maliyeti";
 
-                worksheet.Cells[13, 1].Value = "Kiralanan Ekipman Adı";
-                worksheet.Cells[13, 2].Value = "Günlük Maliyeti";
-                worksheet.Cells[13, 3].Value = "Aylık Maliyeti";
-                worksheet.Cells[13, 4].Value = "Adeti";
-                worksheet.Cells[13, 5].Value = "Toplam Maliyeti";
+                worksheet.Cells[12, 1].Value = "Kiralanan Ekipman Adı";
+                worksheet.Cells[12, 2].Value = "Günlük Maliyeti";
+                worksheet.Cells[12, 3].Value = "Aylık Maliyeti";
+                worksheet.Cells[12, 4].Value = "Adeti";
+                worksheet.Cells[12, 5].Value = "Toplam Maliyeti";
 
-                worksheet.Cells[15, 1].Value = "Kiralanan Ekipman Adı";
-                worksheet.Cells[15, 2].Value = "Günlük Maliyeti";
-                worksheet.Cells[15, 3].Value = "Aylık Maliyeti";
-                worksheet.Cells[15, 4].Value = "Adeti";
-                worksheet.Cells[15, 5].Value = "Toplam Maliyeti";
-
-
-                worksheet.Cells[17, 1].Value = "Ekipman Nakliye Maliyeti";
-                worksheet.Cells[17, 2].Value = "Konaklama Birim Maliyeti";
-                worksheet.Cells[17, 3].Value = "Konaklama Toplam Maliyeti";
-                worksheet.Cells[17, 4].Value = "Yemek Birim Maliyeti";
-                worksheet.Cells[17, 5].Value = "Yemek Toplam Maliyeti";
+                worksheet.Cells[14, 1].Value = "Kiralanan Ekipman Adı";
+                worksheet.Cells[14, 2].Value = "Günlük Maliyeti";
+                worksheet.Cells[14, 3].Value = "Aylık Maliyeti";
+                worksheet.Cells[14, 4].Value = "Adeti";
+                worksheet.Cells[14, 5].Value = "Toplam Maliyeti";
 
 
-                worksheet.Cells[19, 1].Value = "Araba-Yakıt Maliyeti";
-                worksheet.Cells[19, 2].Value = "Toplam Montaj Maliyeti(TL)";
-                worksheet.Cells[19, 3].Value = "Toplam Montaj Maliyeti(USD)";
 
-                worksheet.Cells[21, 1].Value = "Tır Sayısı";
-                worksheet.Cells[21, 2].Value = "Tır Birim Maliyeti";
-                worksheet.Cells[21, 3].Value = "Toplam Nakliye Maliyeti(TL)";
-                worksheet.Cells[21, 4].Value = "Toplam Nakliye Maliyeti(USD)";
+                worksheet.Cells[16, 1].Value = "Ekipman Nakliye Maliyeti";
+                worksheet.Cells[16, 2].Value = "Konaklama Birim Maliyeti";
+                worksheet.Cells[16, 3].Value = "Yemek Birim Maliyeti";
+                worksheet.Cells[16, 5].Value = "(2) Araba-Yakıt Maliyeti";
+
+                worksheet.Cells[18, 1].Value = "(3) Ekipman Toplam Maliyeti";
+                worksheet.Cells[18, 2].Value = "(4) Konaklama Toplam Maliyeti";
+                worksheet.Cells[18, 3].Value = "(5) Yemek Toplam Maliyeti";
+                worksheet.Cells[18, 4].Value = "(1+2+3+4+5)    Toplam Montaj Maliyeti(TL)";
+                worksheet.Cells[18, 5].Value = "Toplam Montaj Maliyeti(USD)";
+
+                worksheet.Cells[20, 1].Value = "Tır Sayısı";
+                worksheet.Cells[20, 2].Value = "Tır Birim Maliyeti";
+                worksheet.Cells[20, 4].Value = "Toplam Nakliye Maliyeti(TL)";
+                worksheet.Cells[20, 5].Value = "Toplam Nakliye Maliyeti(USD)";
 
                 // Verileri ekleyin
                 for (int i = 0; i < objectList.Count; i++)
                 {
-                    worksheet.Cells[i + 4, 1].Value = objectList[i].SalesOfferNumber; // Property1 yerine gerçek özellik adını yazın
-                    worksheet.Cells[i + 4, 2].Value = objectList[i].CreatedDate;
-                    worksheet.Cells[i + 4, 2].Style.Numberformat.Format = "yyyy-mm-dd";
-                    worksheet.Cells[i + 4, 3].Value = objectList[i].ExchangeRate;
-                    worksheet.Cells[i + 4, 4].Value = objectList[i].CustomerName.ToUpper();
-                    worksheet.Cells[i + 4, 5].Value = objectList[i].CustomerCity.ToUpper(); 
+                    worksheet.Cells[i + 3, 1].Value = objectList[i].SalesOfferNumber; // Property1 yerine gerçek özellik adını yazın
+                    worksheet.Cells[i + 3, 2].Value = objectList[i].CreatedDate;
+                    worksheet.Cells[i + 3, 3].Style.Numberformat.Format = "yyyy-mm-dd";
+                    worksheet.Cells[i + 3, 4].Value = objectList[i].ExchangeRate;
+                    worksheet.Cells[i + 3, 5].Value = objectList[i].CustomerName.ToUpper();
+                    worksheet.Cells[i + 3, 6].Value = objectList[i].CustomerCity.ToUpper(); 
 
                     worksheet.Cells[i + 6, 1].Value = objectList[i].OfferTonnage; 
                     worksheet.Cells[i + 6, 2].Value = objectList[i].ReallyTonnage; 
