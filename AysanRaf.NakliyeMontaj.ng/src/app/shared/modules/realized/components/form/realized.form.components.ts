@@ -81,7 +81,7 @@ export class RealizedFormComponent implements OnInit {
   initializeForm(): void {
     this.RealizedOfferForm = this.fb.group({
       // Formunuzdaki alanları buraya ekleyin
-      customerCity: [''],
+      customerCity: ['--'],
       accommodationTotalPrice: ['0'],
       accommodationUnitPrice: ['0'],
       casualtyRate: ['96'],
@@ -288,10 +288,6 @@ export class RealizedFormComponent implements OnInit {
           console.log('ID found:', result);
 
 
-
-
-
-
           const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
 
 
@@ -300,17 +296,6 @@ export class RealizedFormComponent implements OnInit {
           // Kayıt var, updateData fonksiyonunu çağır
 
           this.dataService.getAllData()
-
-        //  this.dataService.deleteData(result).subscribe(
-        //    (response) => {
-        //      console.log('Entity updated successfully:', response);
-        //    },
-        //    (error) => {
-        //      console.error('Error updating entity:', error);
-        //    }
-        //  );
-
-        //} else {
           console.log('ID not found');
         }
       }
@@ -549,8 +534,8 @@ export class RealizedFormComponent implements OnInit {
       //Döviz değeri değişince
 
       ExchangeRateControl.valueChanges.subscribe((value) => {
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
-        shippingTotalCostCurrencyControl.setValue(shippingTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
+        shippingTotalCostCurrencyControl.setValue(shippingTotalCostControl.value / ExchangeRateControl.value);
       });
 
     }
@@ -567,7 +552,7 @@ export class RealizedFormComponent implements OnInit {
         totalWageAmountControl.setValue(Math.ceil(numberDaysControl.value) * numberEmployeesControl.value);
         wageTotalCostControl.setValue((totalWageAmountControl.value * dailyWageCostControl.value) + (((fieldEngineerCostControl.value + isgexpertCostControl.value) * Math.ceil(numberDaysControl.value))));
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       }); casualtyRateControl.valueChanges.subscribe((value) => {
 
         reallyTonnageControl.setValue((offerTonnageControl.value * casualtyRateControl.value) / 100);
@@ -575,7 +560,7 @@ export class RealizedFormComponent implements OnInit {
         totalWageAmountControl.setValue(Math.ceil(numberDaysControl.value) * numberEmployeesControl.value);
         wageTotalCostControl.setValue((totalWageAmountControl.value * dailyWageCostControl.value) + (((fieldEngineerCostControl.value + isgexpertCostControl.value) * Math.ceil(numberDaysControl.value))));
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }
 
@@ -591,13 +576,13 @@ export class RealizedFormComponent implements OnInit {
         totalWageAmountControl.setValue(Math.ceil(numberDaysControl.value) * numberEmployeesControl.value);
         wageTotalCostControl.setValue((totalWageAmountControl.value * dailyWageCostControl.value) + (((fieldEngineerCostControl.value * Math.ceil(numberDaysControl.value) + (Math.ceil(numberDaysControl.value) * isgexpertCostControl.value)))));
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       }); numberEmployeesControl.valueChanges.subscribe((value) => {
         numberDaysControl.setValue((reallyTonnageControl.value / dailyTonnageControl.value) / numberEmployeesControl.value);
         totalWageAmountControl.setValue(Math.ceil(numberDaysControl.value) * numberEmployeesControl.value);
         wageTotalCostControl.setValue((totalWageAmountControl.value * dailyWageCostControl.value) + (((fieldEngineerCostControl.value * Math.ceil(numberDaysControl.value) + (Math.ceil(numberDaysControl.value) * isgexpertCostControl.value)))));
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }
     //Saha Mühendis maliyeti değişirse
@@ -608,12 +593,12 @@ export class RealizedFormComponent implements OnInit {
       fieldEngineerCostControl.valueChanges.subscribe((value) => {
         wageTotalCostControl.setValue((totalWageAmountControl.value * dailyWageCostControl.value) + (((fieldEngineerCostControl.value * Math.ceil(numberDaysControl.value) + (Math.ceil(numberDaysControl.value) * isgexpertCostControl.value)))));
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
       isgexpertCostControl.valueChanges.subscribe((value) => {
         wageTotalCostControl.setValue((totalWageAmountControl.value * dailyWageCostControl.value) + (((fieldEngineerCostControl.value * Math.ceil(numberDaysControl.value) + (Math.ceil(numberDaysControl.value) * isgexpertCostControl.value)))));
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
 
@@ -624,7 +609,7 @@ export class RealizedFormComponent implements OnInit {
       dailyWageCostControl.valueChanges.subscribe((value) => {
         wageTotalCostControl.setValue((totalWageAmountControl.value * dailyWageCostControl.value) + (((fieldEngineerCostControl.value * Math.ceil(numberDaysControl.value) + (Math.ceil(numberDaysControl.value) * isgexpertCostControl.value)))));
         installationTotalCostControl.setValue(wageTotalCostControl.value + equipmentSumCostControl.value + accommodationTotalPriceControl.value + staffMealTotalPriceControl.value + totalCarFuelCostControl.value);
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       })
     }
 
@@ -636,14 +621,14 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
       rentedEquipmentDailyCost1Control.valueChanges.subscribe((value) => {
         rentedEquipmentTotalCost1Control.setValue(rentedEquipmentDailyCost1Control.value * rentedEquipmentAmount1Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }//EkipmanAdet#1 DEĞİŞİRSE
     if (rentedEquipmentTotalCost4Control && rentedEquipmentAmount1Control && rentedEquipmentTotalCost1Control && equipmentSumCostControl && installationTotalCostControl && installationTotalCostCurrencyControl && rentedEquipmentDailyCost1Control &&
@@ -652,14 +637,14 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
       rentedEquipmentAmount1Control.valueChanges.subscribe((value) => {
         rentedEquipmentTotalCost1Control.setValue(rentedEquipmentDailyCost1Control.value * rentedEquipmentAmount1Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }//EkipmanGünlükMaliyet#2 DEĞİŞİRSE
     if (rentedEquipmentDailyCost2Control && rentedEquipmentTotalCost2Control && equipmentSumCostControl && installationTotalCostControl && installationTotalCostCurrencyControl && rentedEquipmentTotalCost1Control && wageTotalCostControl && rentedEquipmentAmount2Control && ExchangeRateControl && accommodationTotalPriceControl &&
@@ -668,14 +653,14 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
       rentedEquipmentDailyCost2Control.valueChanges.subscribe((value) => {
         rentedEquipmentTotalCost2Control.setValue(rentedEquipmentDailyCost2Control.value * rentedEquipmentAmount2Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }
 
@@ -686,14 +671,14 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
       rentedEquipmentAmount2Control.valueChanges.subscribe((value) => {
         rentedEquipmentTotalCost2Control.setValue(rentedEquipmentDailyCost2Control.value * rentedEquipmentAmount2Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }//EkipmanGünlükMaliyet#3 DEĞİŞİRSE
     if (rentedEquipmentDailyCost3Control && rentedEquipmentTotalCost3Control && equipmentSumCostControl && installationTotalCostControl && installationTotalCostCurrencyControl && rentedEquipmentTotalCost1Control && wageTotalCostControl && rentedEquipmentTotalCost2Control && rentedEquipmentAmount3Control &&
@@ -702,14 +687,14 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
       rentedEquipmentDailyCost3Control.valueChanges.subscribe((value) => {
         rentedEquipmentTotalCost3Control.setValue(rentedEquipmentDailyCost3Control.value * rentedEquipmentAmount3Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }//EkipmanAdet#3 DEĞİŞİRSE
     if (rentedEquipmentAmount3Control && rentedEquipmentTotalCost3Control && equipmentSumCostControl && installationTotalCostControl && installationTotalCostCurrencyControl && rentedEquipmentDailyCost3Control && rentedEquipmentTotalCost1Control && rentedEquipmentTotalCost2Control &&
@@ -718,13 +703,13 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
       rentedEquipmentAmount3Control.valueChanges.subscribe((value) => {
         rentedEquipmentTotalCost3Control.setValue(rentedEquipmentDailyCost3Control.value * rentedEquipmentAmount3Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }//EkipmanGünlükMaliyet#4 DEĞİŞİRSE
     if (rentedEquipmentDailyCost4Control && rentedEquipmentTotalCost4Control && equipmentSumCostControl && installationTotalCostControl && installationTotalCostCurrencyControl && rentedEquipmentTotalCost1Control && wageTotalCostControl &&
@@ -733,14 +718,14 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
       rentedEquipmentDailyCost4Control.valueChanges.subscribe((value) => {
         rentedEquipmentTotalCost4Control.setValue(rentedEquipmentDailyCost4Control.value * rentedEquipmentAmount4Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }//EkipmanAdet#4 DEĞİŞİRSE
     if (rentedEquipmentAmount4Control && rentedEquipmentTotalCost4Control && equipmentSumCostControl && installationTotalCostControl && installationTotalCostCurrencyControl && rentedEquipmentDailyCost4Control && rentedEquipmentTotalCost1Control &&
@@ -749,7 +734,7 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
 
 
@@ -757,7 +742,7 @@ export class RealizedFormComponent implements OnInit {
         rentedEquipmentTotalCost4Control.setValue(rentedEquipmentDailyCost4Control.value * rentedEquipmentAmount4Control.value * Math.ceil(numberDaysControl.value));
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }
 
@@ -769,7 +754,7 @@ export class RealizedFormComponent implements OnInit {
 
         equipmentSumCostControl.setValue(parseFloat(rentedEquipmentTotalCost1Control.value) + parseFloat(rentedEquipmentTotalCost2Control.value) + parseFloat(rentedEquipmentTotalCost3Control.value) + parseFloat(rentedEquipmentTotalCost4Control.value) + parseFloat(equipmentShipmentCostControl.value))
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }
 
@@ -783,17 +768,17 @@ export class RealizedFormComponent implements OnInit {
 
       totalCarFuelCostControl.valueChanges.subscribe((value) => {
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
       staffMealUnitPriceControl.valueChanges.subscribe((value) => {
         staffMealTotalPriceControl.setValue(staffMealUnitPriceControl.value * totalWageAmountControl.value);
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
       accommodationUnitPriceControl.valueChanges.subscribe((value) => {
         accommodationTotalPriceControl.setValue(accommodationUnitPriceControl.value * totalWageAmountControl.value);
         installationTotalCostControl.setValue(parseFloat(wageTotalCostControl.value) + parseFloat(equipmentSumCostControl.value) + parseFloat(accommodationTotalPriceControl.value) + parseFloat(staffMealTotalPriceControl.value) + parseFloat(totalCarFuelCostControl.value));
-        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value * ExchangeRateControl.value);
+        installationTotalCostCurrencyControl.setValue(installationTotalCostControl.value / ExchangeRateControl.value);
       });
     }
 
@@ -802,10 +787,10 @@ export class RealizedFormComponent implements OnInit {
     if (numberTrucksUsedControl && shippingTotalCostControl && shippingTotalCostCurrencyControl && truckUnitPriceControl && ExchangeRateControl) {
       numberTrucksUsedControl.valueChanges.subscribe((value) => {
         shippingTotalCostControl.setValue(numberTrucksUsedControl.value * truckUnitPriceControl.value);
-        shippingTotalCostCurrencyControl.setValue(shippingTotalCostControl.value * ExchangeRateControl.value)
+        shippingTotalCostCurrencyControl.setValue(shippingTotalCostControl.value / ExchangeRateControl.value)
         truckUnitPriceControl.valueChanges.subscribe((value) => {
           shippingTotalCostControl.setValue(numberTrucksUsedControl.value * truckUnitPriceControl.value);
-          shippingTotalCostCurrencyControl.setValue(shippingTotalCostControl.value * ExchangeRateControl.value)
+          shippingTotalCostCurrencyControl.setValue(shippingTotalCostControl.value / ExchangeRateControl.value)
         });
       });
     }
