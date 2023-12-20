@@ -16,7 +16,7 @@
 
 
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <!--Sütun tanımları-->
+    <!--Sütun tanımları-->
     <ng-container matColumnDef="DATANAME">
       <mat-header-cell *matHeaderCellDef>FORM İÇERİĞİ</mat-header-cell>
       <mat-cell *matCellDef="let item">
@@ -71,18 +71,18 @@
           <mat-list-item role="listitem" style="background-color:aliceblue">Tır Birim Maliyeti</mat-list-item>
           <mat-list-item role="listitem">Toplam Nakliye Maliyeti(TL)</mat-list-item>
           <mat-list-item role="listitem" style="background-color:aliceblue">Toplam Nakliye Maliyeti(USD)</mat-list-item>
-          
+
 
         </mat-list>
       </mat-cell>
 
 
-     
+
 
     </ng-container>
 
     <ng-container matColumnDef="DATA1" style="width:5px">
-      <mat-header-cell *matHeaderCellDef>PLANLANAN</mat-header-cell >
+      <mat-header-cell *matHeaderCellDef>PLANLANAN</mat-header-cell>
       <mat-cell *matCellDef="let item">
         <mat-list role="list">
           <mat-list-item role="listitem" style="background-color:aliceblue"> {{item.salesOfferNumber1  }}</mat-list-item>
@@ -137,7 +137,7 @@
 
 
         </mat-list>
-       
+
       </mat-cell>
     </ng-container>
 
@@ -207,9 +207,10 @@
   </mat-table>
 
 
-  <button mat-button aria-label="YAZDIR" style="border:double;background-color:aliceblue;width:10%;margin-left:900px; margin-top:20px">
-    <mat-icon>print</mat-icon>YAZDIR
+  <button mat-button aria-label="YAZDIR" style="border: double; background-color: aliceblue; width: 10%; margin-left: 900px; margin-top: 20px" (click)="exportToExcel()">
+    <mat-icon>print</mat-icon> YAZDIR
   </button>
+
 
 </div>
 

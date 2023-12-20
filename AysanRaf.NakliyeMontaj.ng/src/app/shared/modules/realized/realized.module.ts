@@ -12,7 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker'; // MatDatepi
 import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { RealizedListComponent } from "./components/list/realized.list.component";
-import { AlertDialogComponent } from "../planned/components/error/planned.error.component";
+import { AlertDialogComponent } from "../planned/components/alerts/error/planned.error.component";
 import { RealizedFormComponent } from "./components/form/realized.form.components";
 
 

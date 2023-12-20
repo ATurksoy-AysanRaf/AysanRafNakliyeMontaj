@@ -43,6 +43,9 @@ export class RealizedService {
     return this.http.delete<any>(`${this.apiUrl}/api/RealizedOfferForm/${id}`);
   }
 
+  getExportExcell(Id: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/realized-export-to-excel/${Id}`, { responseType: 'blob' });
+  }
 
 
 }

@@ -7,7 +7,7 @@ namespace Models
     {
         public Guid Id { get; set; }
         public string SalesOfferNumber { get; set; } = null!;
-        public string RevisionNumber { get; set; } = null!;
+        public string RevisionNumber { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public float ExchangeRate { get; set; }

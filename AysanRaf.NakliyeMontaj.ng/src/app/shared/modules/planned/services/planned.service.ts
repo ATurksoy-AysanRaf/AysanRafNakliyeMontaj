@@ -27,9 +27,7 @@ export class PlannedService {
 
   constructor(private http: HttpClient) { }
 
-  getExportExcell(id: string,): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/planned-export-to-excel/${id}`);
-  }
+  
 
   
 
@@ -47,7 +45,11 @@ export class PlannedService {
   }
 
   updateData(id: string, data: any): Observable<any> {
+
     return this.http.put<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`, data);
+  }
+  getExportExcell(Id: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/planned-export-to-excel/${Id}`, { responseType: 'blob' });
   }
 
   deleteData(id: string): Observable<any> {

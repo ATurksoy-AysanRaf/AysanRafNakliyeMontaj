@@ -62,6 +62,10 @@ export class PlannedRealizedConstainService {
   deleteDataP(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`);
   }
+
+  getExportExcell(salesOfferNumber: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/comparison-export-to-excel/${salesOfferNumber}`, { responseType: 'blob' });
+  }
 }
 
 

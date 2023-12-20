@@ -164,12 +164,11 @@ export class RealizedListComponent implements OnInit {
     });
   }
   applyFilters(): void {
-
     this.dataList = [];
-    const offerNumber = this.filterForm.get('offerNumber').value;
-    const customer = this.filterForm.get('customer').value;
-    const city = this.filterForm.get('city').value;
-    const history = this.filterForm.get('history').value;
+    const offerNumber = this.filterForm.get('offerNumber').value.toLocaleLowerCase('tr-TR');
+    const customer = this.filterForm.get('customer').value.toLocaleLowerCase('tr-TR');
+    const city = this.filterForm.get('city').value.toLocaleLowerCase('tr-TR');
+    const history = this.filterForm.get('history').value.toLocaleLowerCase('tr-TR');
     const startDate = this.filterForm.get('startDate').value;
     const endDate = this.filterForm.get('endDate').value;
 
@@ -183,29 +182,22 @@ export class RealizedListComponent implements OnInit {
 
         //// Tüm uyan verileri bul
         const matchedItems = this.dataList.filter(dataItem =>
-          dataItem.salesOfferNumber === offerNumber ||
-          dataItem.customerName === customer ||
-          dataItem.customerCity === city
+          dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+          dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+          dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
         );
-
-
 
         if (matchedItems.length > 0) {
           // Eşleşen veri bulundu
           console.log('Matches found:', matchedItems);
           // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
 
-
           // Sadece listede olmayan öğeleri filteredDataList'e ekle
           const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
           this.filteredDataList.push(...newMatches);
-
-
         } else {
-
+          // Eşleşen veri bulunamadı
         }
-
-
 
         // Kullanıcıya tüm eşleşen verileri göster
         this.dataSource.data = this.filteredDataList;
@@ -224,7 +216,6 @@ export class RealizedListComponent implements OnInit {
         console.log("burası okey");
         console.log(this.dataSource.data);
         this.filteredDataList.splice(0, this.filteredDataList.length);
-
       } else {
         this.filteredDataList.splice(0, this.filteredDataList.length);
 
@@ -236,34 +227,27 @@ export class RealizedListComponent implements OnInit {
           return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
         });
 
-        if (history == "oneMon") {
+        if (history == "onemon") {
           this.dataSource.data = this.items
             .filter(item => this.isWithinLastMonth(item.createdDate));
-        }
-        else if (history == "threeMon") {
+        } else if (history == "threemon") {
           this.dataSource.data = this.items
             .filter(item => this.isWithinThreMonth(item.createdDate));
-        }
-        else if (history == "sixMon") {
+        } else if (history == "sixmon") {
           this.dataSource.data = this.items
             .filter(item => this.isWithinSixMonth(item.createdDate));
-        }
-        else if (history == "oneYear") {
+        } else if (history == "oneyear") {
           this.dataSource.data = this.items
             .filter(item => this.isWithinLastYear(item.createdDate));
         } else {
-
+          // Diğer durumlar
         }
-
-
-
 
         console.log("burası nnokey", this.filteredDataList);
       }
     });
-
-
   }
+
 
 
 }

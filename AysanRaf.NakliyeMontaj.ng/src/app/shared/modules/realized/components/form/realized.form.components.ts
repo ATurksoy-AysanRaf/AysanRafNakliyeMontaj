@@ -3,11 +3,12 @@ import { ViewChild } from '@angular/core';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { AlertDialogComponent } from "../../../planned/components/error/planned.error.component";
+
 import { Observable, Subject, catchError, map, of, switchMap, takeUntil } from "rxjs";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { RealizedService } from "../../services/realized.service";
-
+import { AlertDialogComponent } from "../../../planned/components/alerts/error/planned.error.component";
+import { AlertDialogComponent2 } from "../../../planned/components/alerts/succeeded/planned.succeeded.component";
 
 @Component({
   selector: 'aysanraf-realized-form',
@@ -81,7 +82,7 @@ export class RealizedFormComponent implements OnInit {
   initializeForm(): void {
     this.RealizedOfferForm = this.fb.group({
       // Formunuzdaki alanları buraya ekleyin
-      customerCity: ['--'],
+      customerCity: [''],
       accommodationTotalPrice: ['0'],
       accommodationUnitPrice: ['0'],
       casualtyRate: ['96'],
@@ -135,7 +136,7 @@ export class RealizedFormComponent implements OnInit {
 
 
 
-
+      revisionNumber:[' '],
       salesOfferNumber: [''],
       shippingTotalCost: ['0'],
       shippingTotalCostCurrency: ['0'],
@@ -203,6 +204,17 @@ export class RealizedFormComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+  openAlertDialog2(title: string, message: string): void {
+    const dialogRef = this.dialog.open(AlertDialogComponent2, {
+      data: { title, message },
+      width: '600px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
@@ -220,6 +232,7 @@ export class RealizedFormComponent implements OnInit {
           this.dataService.createData(formData).subscribe(
             (response) => {
               console.log('Entity added successfully:', response);
+              this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
             },
             (error) => {
               console.error('Error adding entity:', error);
@@ -262,6 +275,7 @@ export class RealizedFormComponent implements OnInit {
           this.dataService.updateData(result, formData).subscribe(
             (response) => {
               console.log('Entity updated successfully:', response);
+              this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
             },
             (error) => {
               console.error('Error updating entity:', error);
@@ -304,6 +318,24 @@ export class RealizedFormComponent implements OnInit {
 
 
     this.onCloseButtonClick();
+  }
+  exportToExcel() {
+    const formData = this.RealizedOfferForm.getRawValue();
+
+    this.findIdBySalesOfferNumber(formData.salesOfferNumber).subscribe(result => {
+      if (result !== null) {
+        console.log('ID found:', result);
+
+        this.dataService.getExportExcell(result).subscribe((blob: Blob) => {
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = formData.salesOfferNumber + ' - Sipariş Numaralı Gerçekleşen Teklif Formu.xlsx';
+          link.click();
+          URL.revokeObjectURL(blobUrl);
+        });
+      }
+    });
   }
 
   private areDatesEqual(date1: Date, date2: Date): boolean {

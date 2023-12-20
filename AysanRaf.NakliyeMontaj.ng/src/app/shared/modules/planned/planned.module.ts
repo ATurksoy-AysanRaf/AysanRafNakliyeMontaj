@@ -13,7 +13,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatButtonModule } from "@angular/material/button";
 import { RealizedListComponent } from "../realized/components/list/realized.list.component";
 import { PlannedFormComponent } from "./components/form/planned.form.component";
-import { AlertDialogComponent } from "./components/error/planned.error.component";
+import { AlertDialogComponent } from "./components/alerts/error/planned.error.component";
 
 
 

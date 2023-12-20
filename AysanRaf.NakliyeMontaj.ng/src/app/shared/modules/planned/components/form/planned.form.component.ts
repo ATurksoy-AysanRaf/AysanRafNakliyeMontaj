@@ -6,7 +6,8 @@ import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PlannedService } from "../../services/planned.service";
 import { DataSource } from "@angular/cdk/collections";
-import { AlertDialogComponent } from "../error/planned.error.component";
+import { AlertDialogComponent } from "../alerts/error/planned.error.component";
+import { AlertDialogComponent2 } from "../alerts/succeeded/planned.succeeded.component";
 import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUntil } from "rxjs";
 
 import * as XLSX from 'xlsx';
@@ -93,7 +94,7 @@ export class PlannedFormComponent implements OnInit {
   initializeForm(): void {
     this.PlannedOfferForm = this.fb.group({
       // Formunuzdaki alanları buraya ekleyin
-      revisionNumber:['-'],
+      revisionNumber: ['-'],
       customerCity: [''],
       accommodationTotalPrice: ['0'],
       accommodationUnitPrice: ['0'],
@@ -217,6 +218,19 @@ export class PlannedFormComponent implements OnInit {
     });
   }
 
+
+  openAlertDialog2(title: string, message: string): void {
+    const dialogRef = this.dialog.open(AlertDialogComponent2, {
+      data: { title, message },
+      width: '600px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
     const formData = this.PlannedOfferForm.getRawValue();
@@ -233,6 +247,10 @@ export class PlannedFormComponent implements OnInit {
           this.dataService.createData(formData).subscribe(
             (response) => {
               console.log('Entity added successfully:', response);
+
+              this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
+
+
             },
             (error) => {
               console.error('Error adding entity:', error);
@@ -259,12 +277,7 @@ export class PlannedFormComponent implements OnInit {
           console.log('ID found:', result);
 
 
-
-
-
-
           const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
-
 
           console.log(formData.salesOfferNumber);
           console.log(ids);
@@ -275,6 +288,7 @@ export class PlannedFormComponent implements OnInit {
           this.dataService.updateData(result, formData).subscribe(
             (response) => {
               console.log('Entity updated successfully:', response);
+               this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
             },
             (error) => {
               console.error('Error updating entity:', error);
@@ -287,8 +301,6 @@ export class PlannedFormComponent implements OnInit {
       }
     );
 
-
-
     this.onCloseButtonClick();
   }
 
@@ -300,13 +312,7 @@ export class PlannedFormComponent implements OnInit {
         if (result !== null) {
           console.log('ID found:', result);
 
-
-
-
-
-
           const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
-
 
           console.log(formData.salesOfferNumber);
           console.log(ids);
@@ -358,28 +364,28 @@ export class PlannedFormComponent implements OnInit {
 
 
   }
-
-
-  exportToExcel(): void {
-
+  exportToExcel() {
     const formData = this.PlannedOfferForm.getRawValue();
 
-    this.findIdBySalesOfferNumber(formData.salesOfferNumber).subscribe(
-      result => {
-        if (result !== null) {
-          console.log('ID found:', result);
+    this.findIdBySalesOfferNumber(formData.salesOfferNumber).subscribe(result => {
+      if (result !== null) {
+        console.log('ID found:', result);
+
+        this.dataService.getExportExcell(result).subscribe((blob: Blob) => {
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = formData.salesOfferNumber +' - Sipariş Numaralı Planlanan Teklif Formu.xlsx';
+          link.click();
+          URL.revokeObjectURL(blobUrl);
+        });
+      }
+    });
+  }
+
+     
 
 
-          const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
-
-
-          this.dataService.getExportExcell(ids);
-
-
-        }
-      })
- }
-  
 
   
 
