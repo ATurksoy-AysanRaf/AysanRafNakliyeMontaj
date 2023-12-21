@@ -178,13 +178,18 @@ export class RealizedListComponent implements OnInit {
         // Gelen veriyi listeye ekle
         this.dataList.splice(0, this.dataList.length);
         this.dataList = [...this.dataList, ...data];
-        // console.log('Data List:', this.dataList);
+
+        // Tarih aralığı kontrolü
+        const isDateRangeValid = startDate && endDate && startDate <= endDate;
 
         //// Tüm uyan verileri bul
         const matchedItems = this.dataList.filter(dataItem =>
           dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
           dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
-          dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+          dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city) &&
+          (!isDateRangeValid || (isDateRangeValid &&
+            new Date(dataItem.createdDate) >= new Date(startDate) &&
+            new Date(dataItem.createdDate) <= new Date(endDate)))
         );
 
         if (matchedItems.length > 0) {

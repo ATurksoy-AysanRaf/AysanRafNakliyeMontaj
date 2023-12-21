@@ -11,6 +11,7 @@ import { AlertDialogComponent2 } from "../alerts/succeeded/planned.succeeded.com
 import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUntil } from "rxjs";
 
 import * as XLSX from 'xlsx';
+import { MatDateFormats } from "@angular/material/core";
 
 
 
@@ -18,14 +19,28 @@ import * as XLSX from 'xlsx';
 
 
 
-
-
+export const MY_DATE_FORMATS: MatDateFormats = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 @Component({
   selector: 'aysanraf-planned-form',
   templateUrl: './planned.form.component.html',
   styleUrls: ['./planned.form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+
+
+// ...
+
 
 export class PlannedFormComponent implements OnInit {
   receivedDataList: any[] = []; // receivedDataList adında bir dizi tanımlanıyor
@@ -34,10 +49,11 @@ export class PlannedFormComponent implements OnInit {
   PlannedOfferForm!: FormGroup;
   formBuilder: any;
   destroy$: Subject<void> = new Subject();
+    formData: any;
 
 
   constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService) {
-
+   
   }
 
 
@@ -51,6 +67,10 @@ export class PlannedFormComponent implements OnInit {
     this.dialogRef.close();
 
   }
+
+
+  // Diğer bileşenlerden bu metod çağrıldığında formData'yı güncelle
+ 
   ngOnInit(): void {
     // window.location.reload();
     this.initializeForm();

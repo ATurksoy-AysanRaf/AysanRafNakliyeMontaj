@@ -14,9 +14,6 @@ export interface PeriodicElement {
   CreateDate: string;
   UpdatedDate: string;
 }
-
-
-
 /**
  * @title Basic use of `<table mat-table>`
  */
@@ -53,31 +50,12 @@ export class PlannedListComponent implements OnInit {
   dataSource: MatTableDataSource<any>;
   filteredDataList: any[] = [];
   displayedColumns: string[] = ['SalesOfferNumber', 'CustomerName', 'City', 'CreatedDate', 'UpdatedDate'];
-
   clickedRows = new Set<PeriodicElement>();
   selectedItem: any;
-
-
-
+  clickedRowData = new Set<PeriodicElement>();
   constructor(private dialog: MatDialog, private apiService: PlannedService, private formBuilder: FormBuilder) {
 
     this.dataSource = new MatTableDataSource<any>();
-  }
-
-
-  onRowClick(item: any): void {
-    this.selectedItem = { ...item }; // Örnek olarak nesne kopyalama kullanabilirsiniz
-    // Forma verileri doldurma işlemini burada da çağırabilirsiniz
-    this.fillForm();
-  }
-  fillForm(): void {
-    // selectedItem'daki verileri forma doldur
-    this.filterForm.patchValue({
-      offerNumber: this.selectedItem.salesOfferNumber,
-      customer: this.selectedItem.customerName,
-      city: this.selectedItem.customerCity,
-      // Diğer alanlar
-    });
   }
 
   openAddDialog() {
@@ -88,7 +66,49 @@ export class PlannedListComponent implements OnInit {
       height: '3000px', // Yükseklik
     });
   }
-  openEditDialog(dataArray: any[], rowIndex: number): number {
+
+
+  //// openEditDialog fonksiyonu içinde
+  //async openEditDialog(dataArray: any[], rowIndex: number): Promise<number> {
+  //  const ids: number[] = [];
+
+  //  // ... (Diğer kodlar)
+
+  //  try {
+  //    const dialogRef = this.dialog.open(PlannedFormComponent, {
+  //      width: '4000px',
+  //      height: '3000px',
+  //      data: { ids: ids, clickedRowData: this.clickedRowData, rowIndex: rowIndex },
+  //    });
+
+  //    dialogRef.afterClosed().subscribe(async result => {
+  //      if (result) {
+  //        // Kullanıcı bir şeyler seçti ve result içinde tıklanan satırın salesOfferNumber değeri bulunuyor.
+  //        const selectedSalesOfferNumber = result.salesOfferNumber;
+
+  //        // salesOfferNumber'a göre veriyi bul
+  //        const selectedData = dataArray.find(item => item.salesOfferNumber === selectedSalesOfferNumber);
+
+  //        // Bulunan veriyi kullanarak formu doldur
+  //        if (selectedData) {
+  //          // Örneğin, bu veriyi bir servise göndererek diğer bileşenle paylaşabilirsiniz.
+  //           //this.dataService.setPlannedFormData(selectedData);
+
+  //          // Ya da doğrudan PlannedFormComponent'a bir metod aracılığıyla gönderebilirsiniz.
+  //          const plannedFormComponentInstance = dialogRef.componentInstance as PlannedFormComponent;
+  //          plannedFormComponentInstance.loadData();
+  //        }
+  //      }
+  //    });
+
+  //    return ids[rowIndex];
+  //  } catch (error) {
+  //    console.error(error);
+  //    throw error;
+  //  }
+  //}
+
+  async openEditDialog(dataArray: any[], rowIndex: number): Promise<number> {
     const ids: number[] = [];
     const clickedRowData = dataArray[rowIndex];
 
@@ -96,17 +116,23 @@ export class PlannedListComponent implements OnInit {
       const id = data.id;
       ids.push(id);
     }
+
     this.apiService.setSelectedRowData(ids[rowIndex]);
-    this.dialog.open(PlannedFormComponent, {
-      width: '4000px',
-      height: '3000px',
-      data: { ids: ids, clickedRowData: clickedRowData, rowIndex: rowIndex },
-    });
 
+    try {
+      await this.dialog.open(PlannedFormComponent, {
+        width: '4000px',
+        height: '3000px',
+        data: { ids: ids, clickedRowData: clickedRowData, rowIndex: rowIndex },
+      }).afterClosed().toPromise();
 
-    // console.log(ids[rowIndex]);
-
-    return ids[rowIndex];
+      // Dialog başarıyla kapatıldığında ids[rowIndex]'i döndür
+      return ids[rowIndex];
+    } catch (error) {
+      // Hata durumunda ilgili hata yönetimini yap
+      console.error(error);
+      throw error;
+    }
   }
   ngOnInit() {
 
@@ -119,13 +145,17 @@ export class PlannedListComponent implements OnInit {
       endDate: ['']
     });
 
-    this.applyFilters();
+  this.applyFilters();
 
 
 
 
 
 
+  }
+  isWithinDateRange(itemDate: string, startDate: Date, endDate: Date): boolean {
+    const date = new Date(itemDate);
+    return date >= startDate && date <= endDate;
   }
   isWithinLastMonth(dateString: string): boolean {
     const currentDate = new Date();
@@ -172,7 +202,6 @@ export class PlannedListComponent implements OnInit {
       return existingSalesOfferNumber === itemSalesOfferNumber;
     });
   }
-
   applyFilters(): void {
     this.dataList = [];
     const offerNumber = this.filterForm.get('offerNumber').value.toLocaleLowerCase('tr-TR');
@@ -183,6 +212,51 @@ export class PlannedListComponent implements OnInit {
     const endDate = this.filterForm.get('endDate').value;
 
     // ApiService içindeki bir metod ile veri filtreleme işlemini gerçekleştir
+ 
+    this.apiService.getListData().subscribe(data => {
+      if (this.filteredDataList.length > 0) {
+     
+        // Eğer filteredDataList doluysa, onu kullan
+        this.dataSource.data = this.filteredDataList.filter(item => this.isWithinLastMonth(item.createdDate));
+        this.filteredDataList.splice(0, this.filteredDataList.length - this.dataSource.data.length);
+       
+      } else {
+        this.filteredDataList.splice(0, this.filteredDataList.length);
+
+        // Eğer filteredDataList boşsa, items'ı kullan
+        this.items = data;
+        console.log(history);
+        this.dataSource.data = this.items.sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
+         
+
+        if (history.toString() == "onemon") {
+          console.log("zaman", history.toString());
+          this.dataSource.data = this.items
+            .filter(item => this.isWithinLastMonth(item.createdDate.toString()))
+            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
+        } else if (history.toString() == "thremon") {
+          console.log("zaman", history.toString());
+          this.dataSource.data = this.items
+            .filter(item => this.isWithinThreMonth(item.createdDate.toString()))
+            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
+        } else if (history.toString() == "sixmon") {
+          console.log("zaman", history.toString());
+          this.dataSource.data = this.items
+            .filter(item => this.isWithinSixMonth(item.createdDate.toString()))
+            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
+        } else if (history.toString() == "oneyear") {
+          console.log("zaman", history.toString());
+          this.dataSource.data = this.items.filter(item => this.isWithinLastYear(item.createdDate)).sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate.toString()).getTime());
+        } else {
+          // Diğer durumlar
+        }
+
+        console.log("burası nnokey", this.filteredDataList);
+
+      }
+
+    });
+
     this.apiService.getListData().subscribe(
       (data: any[]) => {
         // Gelen veriyi listeye ekle
@@ -198,7 +272,7 @@ export class PlannedListComponent implements OnInit {
 
         if (matchedItems.length > 0) {
           // Eşleşen veri bulundu
-          console.log('Matches found:', matchedItems);
+          console.log('Matches found:1', matchedItems);
           // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
 
           // Sadece listede olmayan öğeleri filteredDataList'e ekle
@@ -216,207 +290,14 @@ export class PlannedListComponent implements OnInit {
       }
     );
 
-    this.apiService.getListData().subscribe(data => {
-      if (this.filteredDataList.length > 0) {
-        // Eğer filteredDataList doluysa, onu kullan
-        this.dataSource.data = this.filteredDataList
-          .filter(item => this.isWithinLastMonth(item.createdDate));
 
-        console.log("burası okey");
-        console.log(this.dataSource.data);
-        this.filteredDataList.splice(0, this.filteredDataList.length);
-      } else {
-        this.filteredDataList.splice(0, this.filteredDataList.length);
-
-       // Eğer filteredDataList boşsa, items'ı kullan
-        this.items = data;
-        console.log(history);
-        this.dataSource.data = this.items
-          .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-
-        if (history.toString() == "onemon") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinLastMonth(item.createdDate))
-            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-        } else if (history.toString() == "thremon") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinThreMonth(item.createdDate))
-            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-        } else if (history.toString() == "sixmon") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinSixMonth(item.createdDate))
-            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-        } else if (history.toString() == "oneyear") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinLastYear(item.createdDate))
-            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-        } else {
-          // Diğer durumlar
-        }
-
-        console.log("burası nnokey", this.filteredDataList);
-      }
-    });
+ 
+   
   }
-
-
-
-
+    
 
 }
-  //applyFilters(): void {
-  //  // ... Diğer kodlar ...
-
-  //  this.apiService.getListData().subscribe(data => {
-  //    if (this.filteredDataList.length > 0) {
-  //      // Eğer filteredDataList doluysa, onu kullan
-  //      this.dataSource.data = this.filteredDataList
-  //        .filter(item => this.isWithinLastMonth(item.createdDate))
-  //        .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-
-  //      console.log("burası okey");
-  //      console.log(this.dataSource.data);
-  //      this.filteredDataList.splice(0, this.filteredDataList.length);
-  //    } else {
-  //      this.filteredDataList.splice(0, this.filteredDataList.length);
-
-  //      // Eğer filteredDataList boşsa, items'ı kullan
-  //      this.items = data;
-  //      console.log(history);
-  //      this.dataSource.data = this.items
-  //        .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-
-  //      if (history.toString() == "onemon") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinLastMonth(item.createdDate))
-  //          .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-  //      } else if (history.toString() == "thremon") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinThreMonth(item.createdDate))
-  //          .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-  //      } else if (history.toString() == "sixmon") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinSixMonth(item.createdDate))
-  //          .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-  //      } else if (history.toString() == "oneyear") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinLastYear(item.createdDate))
-  //          .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-  //      } else {
-  //        // Diğer durumlar
-  //      }
-
-  //      console.log("burası nnokey", this.filteredDataList);
-  //    }
-  //  });
-  //}
-
-
-  //applyFilters(): void {
-
-
-  //  const offerNumber = this.filterForm.get('offerNumber').value;
-  //  const customer = this.filterForm.get('customer').value;
-  //  const city = this.filterForm.get('city').value;
-  //  const history = this.filterForm.get('history').value;
-  //  const startDate = this.filterForm.get('startDate').value;
-  //  const endDate = this.filterForm.get('endDate').value;
-
-  //  // ApiService içindeki bir metod ile veri filtreleme işlemini gerçekleştir
-  //  this.apiService.getListData().subscribe(
-  //    (data: any[]) => {
-  //      // Gelen veriyi listeye ekle
-  //      this.dataList.splice(0, this.dataList.length);
-  //      this.dataList = [...this.dataList, ...data];
-  //      // console.log('Data List:', this.dataList);
-
-  //      //// Tüm uyan verileri bul
-  //      const matchedItems = this.dataList.filter(dataItem =>
-  //        dataItem.salesOfferNumber === offerNumber ||
-  //        dataItem.customerName === customer ||
-  //        dataItem.customerCity === city
-  //      );
-
-
-
-  //      if (matchedItems.length > 0) {
-  //        // Eşleşen veri bulundu
-  //        console.log('Matches found:', matchedItems);
-  //        // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
-
-
-  //        // Sadece listede olmayan öğeleri filteredDataList'e ekle
-  //        const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
-  //        this.filteredDataList.push(...newMatches);
-
-
-  //      } else {
-
-  //      }
-
-
-
-  //      // Kullanıcıya tüm eşleşen verileri göster
-  //      this.dataSource.data = this.filteredDataList;
-  //    },
-  //    (error) => {
-  //      console.error('Error fetching data:', error);
-  //    }
-  //  );
-
-  //  this.apiService.getListData().subscribe(data => {
-  //    if (this.filteredDataList.length > 0) {
-  //      // Eğer filteredDataList doluysa, onu kullan
-  //      this.dataSource.data = this.filteredDataList
-  //        .filter(item => this.isWithinLastMonth(item.createdDate));
-
-  //      console.log("burası okey");
-  //      console.log(this.dataSource.data);
-  //      this.filteredDataList.splice(0, this.filteredDataList.length);
-
-  //    } else {
-  //      this.filteredDataList.splice(0, this.filteredDataList.length);
-
-  //      // Eğer filteredDataList boşsa, items'ı kullan
-  //      this.items = data;
-  //      console.log(history);
-  //      this.dataSource.data = this.items.sort((a, b) => {
-  //        // createDate özelliğine göre sıralama yap
-  //        return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
-  //      });
-
-  //      if (history == "oneMon") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinLastMonth(item.createdDate));
-  //      }
-  //      else if (history == "threeMon") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinThreMonth(item.createdDate));
-  //      }
-  //      else if (history == "sixMon") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinSixMonth(item.createdDate));
-  //      }
-  //      else if (history == "oneYear") {
-  //        this.dataSource.data = this.items
-  //          .filter(item => this.isWithinLastYear(item.createdDate));
-  //      } else {
-         
-  //      }
-
-
-
-
-  //      console.log("burası nnokey", this.filteredDataList);
-  //    }
-  //  });
-
-
-  //}
-
-
-
-
+ 
 
 
 
