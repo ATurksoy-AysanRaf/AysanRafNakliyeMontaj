@@ -480,7 +480,8 @@ export class RealizedFormComponent implements OnInit {
         dailyWageAmount: formData.dailyWageAmount,
         dailyWageCost: formData.dailyWageCost,
         equipmentShipmentCost: formData.equipmentShipmentCost,
-        equipmentSumtCost: typeof formData.equipmentSumtCost === 'number' ? formData.equipmentSumtCost : null,
+        /*equipmentSumtCost: typeof formData.equipmentSumtCost === 'number' ? formData.equipmentSumtCost : null,*/
+        equipmentSumtCost: formData.equipmentSumtCost,
         exchangeRate: formData.exchangeRate,
         fieldEngineerCost: formData.fieldEngineerCost,
         installationTotalCost: formData.installationTotalCost,

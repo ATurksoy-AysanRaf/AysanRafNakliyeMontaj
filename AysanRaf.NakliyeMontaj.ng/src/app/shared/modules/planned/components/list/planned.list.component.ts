@@ -6,6 +6,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { PlannedFormComponent } from "../form/planned.form.component";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DATE_FORMATS, MatDateFormats } from "@angular/material/core";
+import { map, switchMap } from 'rxjs/operators';
 export interface PeriodicElement {
   SalesOfferNumber: number;
   RevisionNumber: string;
@@ -145,7 +146,7 @@ export class PlannedListComponent implements OnInit {
       endDate: ['']
     });
 
-  this.applyFilters();
+    this.applyFilters();
 
 
 
@@ -202,102 +203,226 @@ export class PlannedListComponent implements OnInit {
       return existingSalesOfferNumber === itemSalesOfferNumber;
     });
   }
+
+
+
+
+
+
+
+
   applyFilters(): void {
     this.dataList = [];
     const offerNumber = this.filterForm.get('offerNumber').value.toLocaleLowerCase('tr-TR');
     const customer = this.filterForm.get('customer').value.toLocaleLowerCase('tr-TR');
     const city = this.filterForm.get('city').value.toLocaleLowerCase('tr-TR');
     const history = this.filterForm.get('history').value.toLocaleLowerCase('tr-TR');
+    // ...
     const startDate = this.filterForm.get('startDate').value;
     const endDate = this.filterForm.get('endDate').value;
 
-    // ApiService içindeki bir metod ile veri filtreleme işlemini gerçekleştir
- 
+    
+      // ApiService içindeki bir metod ile veri filtreleme işlemini gerçekleştir
+
     this.apiService.getListData().subscribe(data => {
-      if (this.filteredDataList.length > 0) {
-     
-        // Eğer filteredDataList doluysa, onu kullan
-        this.dataSource.data = this.filteredDataList.filter(item => this.isWithinLastMonth(item.createdDate));
-        this.filteredDataList.splice(0, this.filteredDataList.length - this.dataSource.data.length);
-       
-      } else {
+    
+   /*   if (this.filteredDataList.length > 0) {*/
+
+        ////   Eğer filteredDataList doluysa, onu kullan
+        //  this.dataSource.data = this.filteredDataList.filter(item => this.isWithinLastMonth(item.createdDate));
+        this.dataSource.data = this.filteredDataList;
+        // this.filteredDataList.splice(0, this.filteredDataList.length);
+
         this.filteredDataList.splice(0, this.filteredDataList.length);
 
-        // Eğer filteredDataList boşsa, items'ı kullan
+        //   Eğer filteredDataList boşsa, items'ı kullan
         this.items = data;
         console.log(history);
-        this.dataSource.data = this.items.sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-         
+        this.dataSource.data = this.items.sort((b, a) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
 
-        if (history.toString() == "onemon") {
-          console.log("zaman", history.toString());
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinLastMonth(item.createdDate.toString()))
-            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-        } else if (history.toString() == "thremon") {
-          console.log("zaman", history.toString());
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinThreMonth(item.createdDate.toString()))
-            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-        } else if (history.toString() == "sixmon") {
-          console.log("zaman", history.toString());
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinSixMonth(item.createdDate.toString()))
-            .sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
-        } else if (history.toString() == "oneyear") {
-          console.log("zaman", history.toString());
-          this.dataSource.data = this.items.filter(item => this.isWithinLastYear(item.createdDate)).sort((a, b) => new Date(a.createdDate).getTime() - new Date(b.createdDate.toString()).getTime());
-        } else {
-          // Diğer durumlar
-        }
-
-        console.log("burası nnokey", this.filteredDataList);
-
-      }
-
-    });
-
-    this.apiService.getListData().subscribe(
-      (data: any[]) => {
-        // Gelen veriyi listeye ekle
-        this.dataList.splice(0, this.dataList.length);
-        this.dataList = [...this.dataList, ...data];
-
-        //// Tüm uyan verileri bul
-        const matchedItems = this.dataList.filter(dataItem =>
-          dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
-          dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
-          dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
-        );
-
-        if (matchedItems.length > 0) {
-          // Eşleşen veri bulundu
-          console.log('Matches found:1', matchedItems);
-          // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
-
-          // Sadece listede olmayan öğeleri filteredDataList'e ekle
-          const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
-          this.filteredDataList.push(...newMatches);
-        } else {
-          // Eşleşen veri bulunamadı
-        }
-
-        // Kullanıcıya tüm eşleşen verileri göster
-        this.dataSource.data = this.filteredDataList;
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-      }
-    );
-
-
- 
    
-  }
+
     
 
-}
- 
+        if (history.toString() == "onemon") {
+          //    Gelen veriyi listeye ekle
+         // this.dataList.splice(0, this.dataList.length);
+          this.dataList = [...this.dataList, ...data];
 
+          //  Tüm uyan verileri bul
+          const matchedItems = this.dataList
+            .filter(item => this.isWithinLastMonth(item.createdDate.toString()))
+            .filter(dataItem =>
+              dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+              dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+              dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+            );
+
+          if (matchedItems.length > 0) {
+            //   Eşleşen veri bulundu
+            console.log('Matches found:', matchedItems);
+            //  Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+            //   Sadece listede olmayan öğeleri filteredDataList'e ekle
+            const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+            this.filteredDataList.push(...newMatches);
+
+            //   Kullanıcıya tüm eşleşen verileri göster
+            this.dataSource.data = this.filteredDataList;
+          } else {
+            //  Eşleşen veri bulunamadı
+            console.log("No matches found.");
+          }
+        }
+        else if (history.toString() == "threemon") {
+          //    Gelen veriyi listeye ekle
+          this.dataList.splice(0, this.dataList.length);
+          this.dataList = [...this.dataList, ...data];
+          console.log("3 ay");
+
+          //   Tüm uyan verileri bul
+          const matchedItems = this.dataList
+            .filter(item => this.isWithinThreMonth(item.createdDate.toString()))
+            .filter(dataItem =>
+              dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+              dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+              dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+            );
+
+          if (matchedItems.length > 0) {
+            // Eşleşen veri bulundu
+            console.log('Matches found:', matchedItems);
+            // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+            // Sadece listede olmayan öğeleri filteredDataList'e ekle
+            const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+            this.filteredDataList.push(...newMatches);
+
+            //  Kullanıcıya tüm eşleşen verileri göster
+            this.dataSource.data = this.filteredDataList;
+          } else {
+            // Eşleşen veri bulunamadı
+            console.log("No matches found.");
+          }
+
+        }
+        else if (history.toString() == "sixmon") {
+          // Gelen veriyi listeye ekle
+          this.dataList.splice(0, this.dataList.length);
+          this.dataList = [...this.dataList, ...data];
+
+          //   Tüm uyan verileri bul
+          const matchedItems = this.dataList
+            .filter(item => this.isWithinSixMonth(item.createdDate.toString()))
+            .filter(dataItem =>
+              dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+              dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+              dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+            );
+
+          if (matchedItems.length > 0) {
+            //   Eşleşen veri bulundu
+            console.log('Matches found:', matchedItems);
+            //  Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+            //   Sadece listede olmayan öğeleri filteredDataList'e ekle
+            const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+            this.filteredDataList.push(...newMatches);
+
+            //   Kullanıcıya tüm eşleşen verileri göster
+            this.dataSource.data = this.filteredDataList;
+          } else {
+            //   Eşleşen veri bulunamadı
+            console.log("No matches found.");
+          }
+
+        }
+        else if (history.toString() == "oneyear") {
+          //  Gelen veriyi listeye ekle
+          this.dataList.splice(0, this.dataList.length);
+          this.dataList = [...this.dataList, ...data];
+
+          //  Tüm uyan verileri bul
+          const matchedItems = this.dataList
+            .filter(item => this.isWithinLastYear(item.createdDate.toString()))
+            .filter(dataItem =>
+              dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+              dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+              dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+            );
+
+          if (matchedItems.length > 0) {
+            // Eşleşen veri bulundu
+            console.log('Matches found:', matchedItems);
+            //   Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+            //  Sadece listede olmayan öğeleri filteredDataList'e ekle
+            const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+            this.filteredDataList.push(...newMatches);
+
+            // Kullanıcıya tüm eşleşen verileri göster
+            this.dataSource.data = this.filteredDataList;
+          } else {
+            //   Eşleşen veri bulunamadı
+            console.log("No matches found.");
+          }
+
+        }
+
+        //piiii
+        // ...
+        else if (history.toString() == "noon") {
+          // Gelen veriyi listeye ekle
+          this.dataList.splice(0, this.dataList.length);
+          this.dataList = [...this.dataList, ...data];
+
+          // Tüm uyan verileri bul
+          const matchedItems = this.dataList
+            .filter(dataItem =>
+              dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+              dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+              dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+            );
+
+          if (matchedItems.length > 0) {
+            // Eşleşen veri bulundu
+            console.log('Matches found:', matchedItems);
+            // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+            // Sadece listede olmayan öğeleri filteredDataList'e ekle
+            const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+            this.filteredDataList.push(...newMatches);
+
+            // Kullanıcıya tüm eşleşen verileri göster
+            this.dataSource.data = this.filteredDataList;
+          } else {
+            // Eşleşen veri bulunamadı
+            console.log("No matches found.");
+          }
+        }
+        // ...
+
+        else { //  Gelen veriyi listeye ekle
+            //pooooooooooooo}
+      }
+
+
+     
+     
+
+     /* } */
+
+      })
+
+    }
+
+
+
+  }
+   
+
+
+
+  
 
 

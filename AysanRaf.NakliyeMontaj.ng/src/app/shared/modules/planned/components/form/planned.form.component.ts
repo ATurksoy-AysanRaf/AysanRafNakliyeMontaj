@@ -269,7 +269,7 @@ export class PlannedFormComponent implements OnInit {
               console.log('Entity added successfully:', response);
 
               this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
-
+             
 
             },
             (error) => {
@@ -424,19 +424,19 @@ export class PlannedFormComponent implements OnInit {
 
     
         
-         numberDays: (matchedData.numberDays),
+        numberDays: (matchedData.numberDays),
         reallyTonnage: matchedData.reallyTonnage,
         totalWageAmount: matchedData.totalWageAmount,
-         wageTotalCost: matchedData.wageTotalCost,
+        wageTotalCost: matchedData.wageTotalCost,
         rentedEquipmentTotalCost1: matchedData.rentedEquipmentTotalCost1,
         rentedEquipmentTotalCost2: matchedData.rentedEquipmentTotalCost2,
         rentedEquipmentTotalCost3: matchedData.rentedEquipmentTotalCost3, 
         rentedEquipmentTotalCost4: matchedData.rentedEquipmentTotalCost4,
         equipmentSumCost: matchedData.equipmentSumCost,
         accommodationTotalPrice: matchedData.accommodationTotalPrice,
-          staffMealTotalPrice: matchedData.staffMealTotalPrice,
+        staffMealTotalPrice: matchedData.staffMealTotalPrice,
         installationTotalCost: matchedData.installationTotalCost,
-         installationTotalCostCurrency: matchedData.installationTotalCostCurrency,
+        installationTotalCostCurrency: matchedData.installationTotalCostCurrency,
         shippingTotalCost: matchedData.shippingTotalCost,
         shippingTotalCostCurrency: matchedData.shippingTotalCostCurrency,
         staffMealUnitPrice: matchedData.staffMealUnitPrice,
@@ -526,7 +526,8 @@ export class PlannedFormComponent implements OnInit {
         dailyWageAmount: formData.dailyWageAmount,
         dailyWageCost: formData.dailyWageCost,
         equipmentShipmentCost: formData.equipmentShipmentCost,
-        equipmentSumtCost: typeof formData.equipmentSumtCost === 'number' ? formData.equipmentSumtCost : null,
+        /*equipmentSumtCost: typeof formData.equipmentSumtCost === 'number' ? formData.equipmentSumtCost : null,*/
+        equipmentSumtCost: formData.equipmentSumtCost,
         exchangeRate: formData.exchangeRate,
         fieldEngineerCost: formData.fieldEngineerCost,
         installationTotalCost: formData.installationTotalCost,

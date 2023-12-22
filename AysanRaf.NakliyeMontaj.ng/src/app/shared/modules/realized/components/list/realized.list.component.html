@@ -62,12 +62,12 @@
 
     <ng-container matColumnDef="CustomerName">
       <th mat-header-cell *matHeaderCellDef>MÜŞTERİ</th>
-      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">  {{item.customerName}}</td>
+      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">  {{item.customerName.toUpperCase()}}</td>
     </ng-container>
 
     <ng-container matColumnDef="City">
       <th mat-header-cell *matHeaderCellDef>ŞEHİR</th>
-      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">  {{item.customerCity}}</td>
+      <td mat-cell *matCellDef="let item" style="background-color: #66CC99;">  {{item.customerCity.toUpperCase()}}</td>
     </ng-container>
 
     <ng-container matColumnDef="CreatedDate">

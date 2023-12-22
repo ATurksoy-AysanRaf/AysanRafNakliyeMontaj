@@ -68,7 +68,10 @@ export class RealizedListComponent implements OnInit {
 
 
 
-
+  isWithinDateRange(itemDate: string, startDate: Date, endDate: Date): boolean {
+    const date = new Date(itemDate);
+    return date >= startDate && date <= endDate;
+  }
   openAddDialog() {
 
     this.dialog.open(RealizedFormComponent, {
@@ -169,28 +172,77 @@ export class RealizedListComponent implements OnInit {
     const customer = this.filterForm.get('customer').value.toLocaleLowerCase('tr-TR');
     const city = this.filterForm.get('city').value.toLocaleLowerCase('tr-TR');
     const history = this.filterForm.get('history').value.toLocaleLowerCase('tr-TR');
+    // ...
     const startDate = this.filterForm.get('startDate').value;
     const endDate = this.filterForm.get('endDate').value;
 
+
     // ApiService içindeki bir metod ile veri filtreleme işlemini gerçekleştir
-    this.apiService.getListData().subscribe(
-      (data: any[]) => {
-        // Gelen veriyi listeye ekle
-        this.dataList.splice(0, this.dataList.length);
+
+    this.apiService.getListData().subscribe(data => {
+
+      /*   if (this.filteredDataList.length > 0) {*/
+
+      ////   Eğer filteredDataList doluysa, onu kullan
+      //  this.dataSource.data = this.filteredDataList.filter(item => this.isWithinLastMonth(item.createdDate));
+      this.dataSource.data = this.filteredDataList;
+      // this.filteredDataList.splice(0, this.filteredDataList.length);
+
+      this.filteredDataList.splice(0, this.filteredDataList.length);
+
+      //   Eğer filteredDataList boşsa, items'ı kullan
+      this.items = data;
+      console.log(history);
+      this.dataSource.data = this.items.sort((b, a) => new Date(a.createdDate).getTime() - new Date(b.createdDate).getTime());
+
+
+
+
+
+      if (history.toString() == "onemon") {
+        //    Gelen veriyi listeye ekle
+        // this.dataList.splice(0, this.dataList.length);
         this.dataList = [...this.dataList, ...data];
 
-        // Tarih aralığı kontrolü
-        const isDateRangeValid = startDate && endDate && startDate <= endDate;
+        //  Tüm uyan verileri bul
+        const matchedItems = this.dataList
+          .filter(item => this.isWithinLastMonth(item.createdDate.toString()))
+          .filter(dataItem =>
+            dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+            dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+            dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+          );
 
-        //// Tüm uyan verileri bul
-        const matchedItems = this.dataList.filter(dataItem =>
-          dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
-          dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
-          dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city) &&
-          (!isDateRangeValid || (isDateRangeValid &&
-            new Date(dataItem.createdDate) >= new Date(startDate) &&
-            new Date(dataItem.createdDate) <= new Date(endDate)))
-        );
+        if (matchedItems.length > 0) {
+          //   Eşleşen veri bulundu
+          console.log('Matches found:', matchedItems);
+          //  Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+          //   Sadece listede olmayan öğeleri filteredDataList'e ekle
+          const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+          this.filteredDataList.push(...newMatches);
+
+          //   Kullanıcıya tüm eşleşen verileri göster
+          this.dataSource.data = this.filteredDataList;
+        } else {
+          //  Eşleşen veri bulunamadı
+          console.log("No matches found.");
+        }
+      }
+      else if (history.toString() == "threemon") {
+        //    Gelen veriyi listeye ekle
+        this.dataList.splice(0, this.dataList.length);
+        this.dataList = [...this.dataList, ...data];
+        console.log("3 ay");
+
+        //   Tüm uyan verileri bul
+        const matchedItems = this.dataList
+          .filter(item => this.isWithinThreMonth(item.createdDate.toString()))
+          .filter(dataItem =>
+            dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+            dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+            dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+          );
 
         if (matchedItems.length > 0) {
           // Eşleşen veri bulundu
@@ -200,57 +252,124 @@ export class RealizedListComponent implements OnInit {
           // Sadece listede olmayan öğeleri filteredDataList'e ekle
           const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
           this.filteredDataList.push(...newMatches);
+
+          //  Kullanıcıya tüm eşleşen verileri göster
+          this.dataSource.data = this.filteredDataList;
         } else {
           // Eşleşen veri bulunamadı
+          console.log("No matches found.");
         }
 
-        // Kullanıcıya tüm eşleşen verileri göster
-        this.dataSource.data = this.filteredDataList;
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
       }
-    );
+      else if (history.toString() == "sixmon") {
+        // Gelen veriyi listeye ekle
+        this.dataList.splice(0, this.dataList.length);
+        this.dataList = [...this.dataList, ...data];
 
-    this.apiService.getListData().subscribe(data => {
-      if (this.filteredDataList.length > 0) {
-        // Eğer filteredDataList doluysa, onu kullan
-        this.dataSource.data = this.filteredDataList
-          .filter(item => this.isWithinLastMonth(item.createdDate));
+        //   Tüm uyan verileri bul
+        const matchedItems = this.dataList
+          .filter(item => this.isWithinSixMonth(item.createdDate.toString()))
+          .filter(dataItem =>
+            dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+            dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+            dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+          );
 
-        console.log("burası okey");
-        console.log(this.dataSource.data);
-        this.filteredDataList.splice(0, this.filteredDataList.length);
-      } else {
-        this.filteredDataList.splice(0, this.filteredDataList.length);
+        if (matchedItems.length > 0) {
+          //   Eşleşen veri bulundu
+          console.log('Matches found:', matchedItems);
+          //  Burada istediğiniz işlemleri gerçekleştirebilirsiniz
 
-        // Eğer filteredDataList boşsa, items'ı kullan
-        this.items = data;
-        console.log(history);
-        this.dataSource.data = this.items.sort((a, b) => {
-          // createDate özelliğine göre sıralama yap
-          return new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime();
-        });
+          //   Sadece listede olmayan öğeleri filteredDataList'e ekle
+          const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+          this.filteredDataList.push(...newMatches);
 
-        if (history == "onemon") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinLastMonth(item.createdDate));
-        } else if (history == "threemon") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinThreMonth(item.createdDate));
-        } else if (history == "sixmon") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinSixMonth(item.createdDate));
-        } else if (history == "oneyear") {
-          this.dataSource.data = this.items
-            .filter(item => this.isWithinLastYear(item.createdDate));
+          //   Kullanıcıya tüm eşleşen verileri göster
+          this.dataSource.data = this.filteredDataList;
         } else {
-          // Diğer durumlar
+          //   Eşleşen veri bulunamadı
+          console.log("No matches found.");
         }
 
-        console.log("burası nnokey", this.filteredDataList);
       }
-    });
+      
+      else if (history.toString() == "oneyear") {
+        //  Gelen veriyi listeye ekle
+        this.dataList.splice(0, this.dataList.length);
+        this.dataList = [...this.dataList, ...data];
+
+        //  Tüm uyan verileri bul
+        const matchedItems = this.dataList
+          .filter(item => this.isWithinLastYear(item.createdDate.toString()))
+          .filter(dataItem =>
+            dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+            dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+            dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+          );
+
+        if (matchedItems.length > 0) {
+          // Eşleşen veri bulundu
+          console.log('Matches found:', matchedItems);
+          //   Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+          //  Sadece listede olmayan öğeleri filteredDataList'e ekle
+          const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+          this.filteredDataList.push(...newMatches);
+
+          // Kullanıcıya tüm eşleşen verileri göster
+          this.dataSource.data = this.filteredDataList;
+        } else {
+          //   Eşleşen veri bulunamadı
+          console.log("No matches found.");
+        }
+
+      }
+
+      //piiii
+      // ...
+      else if (history.toString() == "noon") {
+        // Gelen veriyi listeye ekle
+        this.dataList.splice(0, this.dataList.length);
+        this.dataList = [...this.dataList, ...data];
+
+        // Tüm uyan verileri bul
+        const matchedItems = this.dataList
+          .filter(dataItem =>
+            dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
+            dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
+            dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
+          );
+
+        if (matchedItems.length > 0) {
+          // Eşleşen veri bulundu
+          console.log('Matches found:', matchedItems);
+          // Burada istediğiniz işlemleri gerçekleştirebilirsiniz
+
+          // Sadece listede olmayan öğeleri filteredDataList'e ekle
+          const newMatches = matchedItems.filter(item => !this.isItemInFilteredList(item));
+          this.filteredDataList.push(...newMatches);
+
+          // Kullanıcıya tüm eşleşen verileri göster
+          this.dataSource.data = this.filteredDataList;
+        } else {
+          // Eşleşen veri bulunamadı
+          console.log("No matches found.");
+        }
+      }
+      // ...
+
+      else { //  Gelen veriyi listeye ekle
+        //pooooooooooooo}
+      }
+
+
+
+
+
+       //} 
+
+    })
+
   }
 
 
