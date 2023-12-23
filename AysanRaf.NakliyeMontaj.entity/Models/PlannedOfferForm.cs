@@ -7,7 +7,7 @@ namespace Models
     {
         public Guid Id { get; set; }
         public string SalesOfferNumber { get; set; } = null!;
-        public string RevisionNumber { get; set; }
+        public string RevisionNumber { get; set; } = null!;
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public float ExchangeRate { get; set; }
@@ -40,24 +40,24 @@ namespace Models
         public string? CustomerCity { get; set; }
         public string? RentedEquipmentName1 { get; set; }
         public int? RentedEquipmentDailyCost1 { get; set; }
-        public int? RentedEquipmentMonthlyCost1 { get; set; }
         public int? RentedEquipmentAmount1 { get; set; }
         public float? RentedEquipmentTotalCost1 { get; set; }
         public string? RentedEquipmentName2 { get; set; }
         public int? RentedEquipmentDailyCost2 { get; set; }
-        public int? RentedEquipmentMonthlyCost2 { get; set; }
         public int? RentedEquipmentAmount2 { get; set; }
         public float? RentedEquipmentTotalCost2 { get; set; }
         public string? RentedEquipmentName3 { get; set; }
         public int? RentedEquipmentDailyCost3 { get; set; }
-        public int? RentedEquipmentMonthlyCost3 { get; set; }
         public int? RentedEquipmentAmount3 { get; set; }
         public float? RentedEquipmentTotalCost3 { get; set; }
         public string? RentedEquipmentName4 { get; set; }
         public int? RentedEquipmentDailyCost4 { get; set; }
-        public int? RentedEquipmentMonthlyCost4 { get; set; }
         public int? RentedEquipmentAmount4 { get; set; }
         public float? RentedEquipmentTotalCost4 { get; set; }
         public float? TotalWageAmount { get; set; }
+        public int? RentedEquipmentMonthlyCost1 { get; set; }
+        public int? RentedEquipmentMonthlyCost2 { get; set; }
+        public int? RentedEquipmentMonthlyCost3 { get; set; }
+        public int? RentedEquipmentMonthlyCost4 { get; set; }
     }
 }

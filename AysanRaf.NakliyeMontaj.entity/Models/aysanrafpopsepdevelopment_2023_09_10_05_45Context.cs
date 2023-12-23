@@ -1626,21 +1626,13 @@ namespace Models
                     .HasColumnName("rentedEquipmentDailyCost4")
                     .HasDefaultValueSql("0");
 
-                entity.Property(e => e.RentedEquipmentMonthlyCost1)
-                    .HasColumnName("rentedEquipmentMonthlyCost1")
-                    .HasDefaultValueSql("0");
+                entity.Property(e => e.RentedEquipmentMonthlyCost1).HasColumnName("rentedEquipmentMonthlyCost1");
 
-                entity.Property(e => e.RentedEquipmentMonthlyCost2)
-                    .HasColumnName("rentedEquipmentMonthlyCost2")
-                    .HasDefaultValueSql("0");
+                entity.Property(e => e.RentedEquipmentMonthlyCost2).HasColumnName("rentedEquipmentMonthlyCost2");
 
-                entity.Property(e => e.RentedEquipmentMonthlyCost3)
-                    .HasColumnName("rentedEquipmentMonthlyCost3")
-                    .HasDefaultValueSql("0");
+                entity.Property(e => e.RentedEquipmentMonthlyCost3).HasColumnName("rentedEquipmentMonthlyCost3");
 
-                entity.Property(e => e.RentedEquipmentMonthlyCost4)
-                    .HasColumnName("rentedEquipmentMonthlyCost4")
-                    .HasDefaultValueSql("0");
+                entity.Property(e => e.RentedEquipmentMonthlyCost4).HasColumnName("rentedEquipmentMonthlyCost4");
 
                 entity.Property(e => e.RentedEquipmentName1)
                     .HasMaxLength(36)

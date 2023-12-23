@@ -24,22 +24,22 @@ namespace AysanRaf.NakliyeMontaj.Entites.DTOs
         public int FieldEngineerCost { get; set; }
         public string rentedEquipmentName1 { get; set; }
         public int rentedEquipmentDailyCost1 { get; set; }
-        public int rentedEquipmentMonthlyCost1 { get; set; }
+        public int rentedEquipmentMonthlyCost1 { get; set; } 
         public int rentedEquipmentAmount1 { get; set; }
         public float rentedEquipmentTotalCost1 { get; set; }
         public string rentedEquipmentName2 { get; set; }
         public int rentedEquipmentDailyCost2 { get; set; }
-        public int rentedEquipmentMonthlyCost2 { get; set; }
+        public int rentedEquipmentMonthlyCost2 { get; set; } 
         public int rentedEquipmentAmount2 { get; set; }
         public float rentedEquipmentTotalCost2 { get; set; }
         public string rentedEquipmentName3 { get; set; }
         public int rentedEquipmentDailyCost3 { get; set; }
-        public int rentedEquipmentMonthlyCost3 { get; set; }
+        public int rentedEquipmentMonthlyCost3 { get; set; } 
         public int rentedEquipmentAmount3 { get; set; }
         public float rentedEquipmentTotalCost3 { get; set; }
         public string rentedEquipmentName4 { get; set; }
         public int rentedEquipmentDailyCost4 { get; set; }
-        public int rentedEquipmentMonthlyCost4 { get; set; }
+        public int rentedEquipmentMonthlyCost4 { get; set; } 
         public int rentedEquipmentAmount4 { get; set; }
         public float rentedEquipmentTotalCost4 { get; set; }
         public int DailyWageAmount { get; set; }

@@ -8,6 +8,7 @@ import { PlannedService } from "../../services/planned.service";
 import { DataSource } from "@angular/cdk/collections";
 import { AlertDialogComponent } from "../alerts/error/planned.error.component";
 import { AlertDialogComponent2 } from "../alerts/succeeded/planned.succeeded.component";
+import { AlertDialogComponent3 } from "../alerts/failed/planned.failed.component";
 import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUntil } from "rxjs";
 
 import * as XLSX from 'xlsx';
@@ -122,9 +123,9 @@ export class PlannedFormComponent implements OnInit {
       createdDate: [''],
       customerId: [''],
       customerName: [''],
-      dailyTonnage: ['0'],
+      dailyTonnage: [''],
       dailyWageAmount: ['0'],
-      dailyWageCost: ['0'],
+      dailyWageCost: [''],
       equipmentShipmentCost: ['0'],
       equipmentSumCost: ['0'],
       exchangeRate: ['1'],
@@ -133,7 +134,7 @@ export class PlannedFormComponent implements OnInit {
       installationTotalCostCurrency: ['0'],
       isgexpertCost: ['0'],
       numberDays: ['0'],
-      numberEmployees: ['0'],
+      numberEmployees: [''],
       numberTrucksUsed: ['0'],
       offerTonnage: ['0'],
       reallyTonnage: ['0'],
@@ -250,6 +251,17 @@ export class PlannedFormComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+  openAlertDialog3(title: string, message: string): void {
+    const dialogRef = this.dialog.open(AlertDialogComponent3, {
+      data: { title, message },
+      width: '600px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
@@ -274,6 +286,7 @@ export class PlannedFormComponent implements OnInit {
             },
             (error) => {
               console.error('Error adding entity:', error);
+              this.openAlertDialog3('Başarısız', `Kayıt Yapılamadı.`);
             }
           );
         }

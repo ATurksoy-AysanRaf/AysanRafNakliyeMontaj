@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup } from "@angular/forms";
 import { RealizedService } from "../../services/realized.service";
 import { AlertDialogComponent } from "../../../planned/components/alerts/error/planned.error.component";
 import { AlertDialogComponent2 } from "../../../planned/components/alerts/succeeded/planned.succeeded.component";
-
+import { AlertDialogComponent3 } from "../../../planned/components/alerts/failed/planned.failed.component";
 @Component({
   selector: 'aysanraf-realized-form',
   templateUrl: './realized.form.component.html',
@@ -89,9 +89,9 @@ export class RealizedFormComponent implements OnInit {
       createdDate: [''],
       customerId: [''],
       customerName: [''],
-      dailyTonnage: ['0'],
+      dailyTonnage: [''],
       dailyWageAmount: ['0'],
-      dailyWageCost: ['0'],
+      dailyWageCost: [''],
       equipmentShipmentCost: ['0'],
       equipmentSumCost: ['0'],
       exchangeRate: ['1'],
@@ -100,9 +100,9 @@ export class RealizedFormComponent implements OnInit {
       installationTotalCostCurrency: ['0'],
       isgexpertCost: ['0'],
       numberDays: ['0'],
-      numberEmployees: ['0'],
+      numberEmployees: [''],
       numberTrucksUsed: ['0'],
-      offerTonnage: ['0'],
+      offerTonnage: [''],
       reallyTonnage: ['0'],
       totalWageAmount: ['0'],
 
@@ -216,6 +216,18 @@ export class RealizedFormComponent implements OnInit {
     });
   }
 
+  openAlertDialog3(title: string, message: string): void {
+    const dialogRef = this.dialog.open(AlertDialogComponent3, {
+      data: { title, message },
+      width: '600px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
     const formData = this.RealizedOfferForm.getRawValue();
@@ -236,6 +248,7 @@ export class RealizedFormComponent implements OnInit {
             },
             (error) => {
               console.error('Error adding entity:', error);
+              this.openAlertDialog2('Başarısız', `Kayıt Yapılamadı.`);
             }
           );
         }

@@ -12,19 +12,19 @@
       <td>
         <mat-form-field style="">
           <mat-label>TEKLİF NO</mat-label>
-          <input matInput formControlName="salesOfferNumber">
+          <input matInput formControlName="salesOfferNumber"required>
         </mat-form-field>
       </td>
       <td>
         <mat-form-field style=" ">
           <mat-label>MÜŞTERİ</mat-label>
-          <input matInput formControlName="customerName" uppercaseOnly>
+          <input matInput formControlName="customerName" uppercaseOnly required>
         </mat-form-field>
       </td>
       <td>
         <mat-form-field style="">
           <mat-label>ŞEHİR</mat-label>
-          <input matInput formControlName="customerCity" uppercaseOnly>
+          <input matInput formControlName="customerCity" uppercaseOnly required>
         </mat-form-field>
       </td>
       <td>
@@ -56,7 +56,7 @@
         <td>
           <mat-form-field style="">
             <mat-label>TEKLİF TONAJI</mat-label>
-            <input matInput formControlName="offerTonnage">
+            <input matInput formControlName="offerTonnage" required>
           </mat-form-field>
         </td>
         <td>
@@ -69,13 +69,13 @@
         <td>
           <mat-form-field style="margin:0px;">
             <mat-label>GERÇEK TONAJ</mat-label>
-            <input matInput formControlName="reallyTonnage"readonly>
+            <input matInput formControlName="reallyTonnage" readonly>
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="margin:0;">
             <mat-label>GÜNLÜK TONAJ</mat-label>
-            <input matInput formControlName="dailyTonnage">
+            <input matInput formControlName="dailyTonnage" required>
           </mat-form-field>
         </td>
 
@@ -95,19 +95,19 @@
         <td>
           <mat-form-field style="">
             <mat-label>BİRİM YEVMİYE TUTARI </mat-label>
-            <input matInput formControlName="dailyWageCost">
+            <input matInput formControlName="dailyWageCost" required>
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>ÇALIŞAN SAYISI</mat-label>
-            <input matInput formControlName="numberEmployees">
+            <input matInput formControlName="numberEmployees" required>
           </mat-form-field>
         </td>
         <td>
           <mat-form-field style="">
             <mat-label>GÜN SAYISI</mat-label>
-            <input matInput formControlName="numberDays"readonly>
+            <input matInput formControlName="numberDays"readonly required>
           </mat-form-field>
         </td>
         <td>
@@ -169,7 +169,7 @@
   <td>
     <mat-form-field style="">
       <mat-label>AYLIK MALİYETİ</mat-label>
-      <input matInput formControlName="rentedEquipmentMonthlyCost1">
+      <input matInput formControlName="rentedEquipmentMonthlyCost1"readonly>
     </mat-form-field>
   </td>
   <td>
@@ -214,7 +214,7 @@
    <td>
      <mat-form-field style="">
        <mat-label>AYLIK MALİYETİ</mat-label>
-       <input matInput formControlName="rentedEquipmentMonthlyCost2">
+       <input matInput formControlName="rentedEquipmentMonthlyCost2"readonly>
      </mat-form-field>
    </td>
    <td>
@@ -257,7 +257,7 @@
   <td>
     <mat-form-field style="">
       <mat-label>AYLIK MALİYETİ</mat-label>
-      <input matInput formControlName="rentedEquipmentMonthlyCost3">
+      <input matInput formControlName="rentedEquipmentMonthlyCost3"readonly>
     </mat-form-field>
   </td>
   <td>
@@ -301,7 +301,7 @@
   <td>
     <mat-form-field style="">
       <mat-label>AYLIK MALİYETİ</mat-label>
-      <input matInput formControlName="rentedEquipmentMonthlyCost4">
+      <input matInput formControlName="rentedEquipmentMonthlyCost4"readonly>
     </mat-form-field>
   </td>
   <td>

@@ -38,11 +38,14 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
             {
                 var worksheet = package.Workbook.Worksheets.Add("Sheet1");
 
-                // Sayfa düzeni ve baskı seçeneklerini ayarlayın
+                // Sayfa düzeni ve baskı seçeneklerini ayarla
                 worksheet.PrinterSettings.Orientation = eOrientation.Landscape;
                 worksheet.PrinterSettings.FitToPage = true;
                 worksheet.PrinterSettings.FitToWidth = 1;
                 worksheet.PrinterSettings.FitToHeight = 1;
+
+              
+
 
 
                 int startRow1 =1;
@@ -556,7 +559,13 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
                     worksheet.Column(8).Width = 20;
                     worksheet.Column(10).Width = 15;
                     worksheet.Row(19).Height = 40;
-                   
+
+
+                    //SIĞDIRMA
+                    worksheet.Column(12).Width = 5;
+                    worksheet.Column(13).Width = 5;
+                    worksheet.Column(14).Width = 5;
+                    worksheet.Column(15).Width = 5;
 
                 }
 
