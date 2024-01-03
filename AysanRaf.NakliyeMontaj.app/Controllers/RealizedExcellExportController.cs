@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AysanRaf.NakliyeMontaj.app.Controllers
 {
+    [Route("api/[controller]")]
+    [ApiController]
     public class RealizedExcellExportController : Controller
     {
         private readonly RealizedExcellExportService _excelExportService;
@@ -16,7 +18,10 @@ namespace AysanRaf.NakliyeMontaj.app.Controllers
 
         [HttpGet("realized-export-to-excel/{Id}")]
         public IActionResult ExportToExcel(Guid Id)
-        {
+        { // İsteği gönderen kaynağa (origin) izin veren CORS başlıklarını ayarla
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://192.168.1.32:8010");
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
             // ExcelExportService sınıfını kullanarak Excel dosyasını oluşturun
             var excelFileStream = _excelExportService.ExportToExcel(Id);
 

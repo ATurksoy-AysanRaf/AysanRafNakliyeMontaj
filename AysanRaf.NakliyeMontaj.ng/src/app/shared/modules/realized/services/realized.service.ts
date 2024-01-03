@@ -8,7 +8,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RealizedService {
-  private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin
+  private apiUrl = 'http://192.168.1.32:8020'; // API'nizin gerçek URL'sini buraya ekleyin
 
   private selectedRowData = new BehaviorSubject<any>(null);
   selectedRowData$ = this.selectedRowData.asObservable();
@@ -29,7 +29,7 @@ export class RealizedService {
     return this.http.get<any>(`${this.apiUrl}/api/RealizedOfferForm`);
   }
   getListData(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/RealizedForms/List`);
+    return this.http.get<any>(`${this.apiUrl}/api/RealizedForms/List`);
   }
   createData(data: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/api/RealizedOfferForm`, data);
@@ -44,7 +44,7 @@ export class RealizedService {
   }
 
   getExportExcell(Id: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/realized-export-to-excel/${Id}`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/api/realized-export-to-excel/${Id}`, { responseType: 'blob' });
   }
 
 
