@@ -22,25 +22,25 @@ builder.Services.AddScoped<ExcelExportService>();
 builder.Services.AddScoped<RealizedExcellExportService>();
 builder.Services.AddScoped<PlannedRealizedComparisonExcellService>();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigin", builder =>
-        builder.WithOrigins("http://192.168.1.32:8010")
-               .AllowAnyHeader()
-               .AllowAnyMethod()
-    );
-});
-////CORS
-
 //builder.Services.AddCors(options =>
 //{
 //    options.AddPolicy("AllowOrigin", builder =>
-//        builder.WithOrigins("http://localhost:4200")
+//        builder.WithOrigins("http://192.168.1.32:8010")
 //               .AllowAnyHeader()
 //               .AllowAnyMethod()
 //    );
 //});
-////CORS
+//////CORS
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+        builder.WithOrigins("http://localhost:4200")
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+    );
+});
+//CORS
 
 
 builder.Services.AddAutoMapper(typeof(MapProfile));

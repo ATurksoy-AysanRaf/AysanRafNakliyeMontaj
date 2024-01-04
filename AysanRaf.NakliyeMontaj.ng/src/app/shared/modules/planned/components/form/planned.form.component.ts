@@ -5,6 +5,7 @@ import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { PlannedService } from "../../services/planned.service";
+
 import { DataSource } from "@angular/cdk/collections";
 import { AlertDialogComponent } from "../alerts/error/planned.error.component";
 import { AlertDialogComponent2 } from "../alerts/succeeded/planned.succeeded.component";
@@ -14,6 +15,7 @@ import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUnti
 
 import * as XLSX from 'xlsx';
 import { MatDateFormats } from "@angular/material/core";
+import { RealizedService } from "../../../realized/services/realized.service";
 
 
 
@@ -54,7 +56,7 @@ export class PlannedFormComponent implements OnInit {
     formData: any;
 
 
-  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService) {
+  constructor(private dialog: MatDialog, private dialogRef: MatDialogRef<PlannedFormComponent>, private fb: FormBuilder, private dataService: PlannedService, private dataService2: RealizedService) {
    
   }
 
@@ -78,13 +80,11 @@ export class PlannedFormComponent implements OnInit {
     this.initializeForm();
     /*   this.subscribeToFormChanges();*/
 
-
     this.loadData();
     this.dataService.selectedRowData$.subscribe((data) => {
       this.selectedRowData = data;
-
     });
-
+   
   }
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -208,6 +208,29 @@ export class PlannedFormComponent implements OnInit {
       })
     );
   }
+  checkData2(): Observable<number> {
+    const formSalesOfferNumber = this.PlannedOfferForm.get('salesOfferNumber')?.value;
+
+    // Verileri servisten al ve formu doldur
+    return this.dataService2.getAllData().pipe(
+      map((data: any[]) => {
+        const isSalesOfferNumberExists = data.some((item: any) => item.salesOfferNumber === formSalesOfferNumber);
+
+        if (isSalesOfferNumberExists) {
+          this.openAlertDialog('Hata', `SalesOfferNumber "${formSalesOfferNumber}" zaten var.`);
+          return 1; // Eğer kayıt varsa 1 döndür
+        } else {
+           //SalesOfferNumber değeri benzersiz, formu doldurabilirsiniz
+          this.mapApiDataToForm(data, this.selectedRowData);
+          return 0; // Eğer kayıt yoksa 0 döndür
+        }
+      }),
+      catchError((error) => {
+        console.error('Veri alınamadı:', error);
+        return of(-1); // Hata durumunda -1 döndür
+      })
+    );
+  }
 
   findIdBySalesOfferNumber(salesOfferNumber: number): Observable<string | null> {
     return this.dataService.getAllData().pipe(
@@ -309,6 +332,46 @@ export class PlannedFormComponent implements OnInit {
 
     this.onCloseButtonClick();
   }
+  onSubmit2(): void {
+    // FormGroup'u düz JavaScript nesnesine dönüştür
+    const formData = this.PlannedOfferForm.getRawValue();
+
+    // CreatedDate ve UpdatedDate özelliklerini UTC'ye dönüştür
+    formData.CreatedDate = this.convertToUtc(formData.CreatedDate);
+    formData.UpdatedDate = this.convertToUtc(formData.UpdatedDate);
+
+    // checkData fonksiyonunu çağır ve dönüş değerine göre işlem yap
+    //this.checkData().subscribe(
+    //  (result) => {
+    //    if (result === 0) {
+    //      // Kayıt yok, createData fonksiyonunu çağır
+    //      this.dataService2.createData(formData).subscribe(
+    //        (response) => {
+    //          console.log('Entity added successfully:', response);
+
+    //          this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
+
+
+    //        },
+    //        (error) => {
+    //          console.error('Error adding entity:', error);
+    //          this.openAlertDialog3('Başarısız', `Kayıt Yapılamadı.`);
+    //        }
+    //      );
+    //    }
+
+    //  }
+    //);
+
+    // Kayıt yok, createData fonksiyonunu çağır
+    this.dataService2.createData(formData).subscribe(
+      (response) => {
+        console.log('Entity added successfully:', response);
+
+        this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
+
+        this.onCloseButtonClick();
+      })}
 
   onEdit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
@@ -349,7 +412,40 @@ export class PlannedFormComponent implements OnInit {
 
     this.onCloseButtonClick();
   }
+  onEdit2(): void {
+    // FormGroup'u düz JavaScript nesnesine dönüştür
+    const formData = this.PlannedOfferForm.getRawValue();
+    // CreatedDate ve UpdatedDate özelliklerini UTC'ye dönüştür
+    formData.CreatedDate = this.convertToUtc(formData.CreatedDate);
+    formData.UpdatedDate = this.convertToUtc(formData.UpdatedDate);
 
+    this.findIdBySalesOfferNumber(formData.salesOfferNumber).subscribe(
+      result => {
+        if (result !== null) {
+          console.log('ID found:', result);
+
+          const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
+          console.log(formData.salesOfferNumber);
+          console.log(ids);
+          // Kayıt var, updateData fonksiyonunu çağır
+          this.dataService2.getAllData()
+          this.dataService2.updateData(result, formData).subscribe(
+            (response) => {
+              console.log('Entity updated successfully:', response);
+              this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
+            },
+            (error) => {
+              console.error('Error updating entity:', error);
+            }
+          );
+        } else {
+          console.log('ID not found');
+        }
+      }
+    );
+
+    this.onCloseButtonClick();
+  }
   onDelete(): void {
     const formData = this.PlannedOfferForm.getRawValue();
 
