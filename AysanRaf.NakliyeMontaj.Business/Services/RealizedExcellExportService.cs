@@ -31,12 +31,20 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
 
 
 
-                // Sayfa düzeni ve baskı seçeneklerini ayarlayın
-                worksheet.PrinterSettings.Orientation = eOrientation.Portrait; // eOrientation.Landscape yerine eOrientation.Portrait kullanılır
+                //// Sayfa düzeni ve baskı seçeneklerini ayarlayın
+                //worksheet.PrinterSettings.Orientation = eOrientation.Portrait; // eOrientation.Landscape yerine eOrientation.Portrait kullanılır
+                //worksheet.PrinterSettings.FitToPage = true;
+                //worksheet.PrinterSettings.FitToWidth = 1;
+                //worksheet.PrinterSettings.FitToHeight = 0; // 0 olarak ayarlanması sayfaya sığdırma yapar
+
+                // Kağıt boyutunu ve sayfa düzenini belirleyin
+                worksheet.PrinterSettings.PaperSize = ePaperSize.A4;
+                worksheet.PrinterSettings.Orientation = eOrientation.Portrait;
+
+                // Kağıt boyutuna sığdırmak için baskı ölçülerini ayarlayın
                 worksheet.PrinterSettings.FitToPage = true;
                 worksheet.PrinterSettings.FitToWidth = 1;
-                worksheet.PrinterSettings.FitToHeight = 0; // 0 olarak ayarlanması sayfaya sığdırma yapar
-
+                worksheet.PrinterSettings.FitToHeight = 0;
 
 
                 int startRow1 = 1;
@@ -258,16 +266,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
 
 
 
-
                     // Diğer özellikleri ekleyin
-
-
-
-
-
-
-
-
 
 
                     for (int a = 0; a < 22; a++)
@@ -304,7 +303,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
 
                         // Tüm hücre boyutlarını eşitle
 
-                        worksheet.Row(currentRow).Height = 38;
+                        worksheet.Row(currentRow).Height = 35;
                     }
 
                     worksheet.Column(2).Width = 20;

@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 })
 export class PlannedService {
   private apiUrl = "http://192.168.1.32:8020"; // API'nizin gerçek URL'sini buraya ekleyin
+ /* private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin*/
 
   private selectedRowData = new BehaviorSubject<any>(null);
   selectedRowData$ = this.selectedRowData.asObservable();
@@ -43,7 +44,7 @@ export class PlannedService {
     return this.http.put<any>(`${this.apiUrl}/api/PlannedOfferForm/${id}`, data);
   }
   getExportExcell(Id: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/api/planned-export-to-excel/${Id}`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/api/Excel/planned-export-to-excel/${Id}`, { responseType: 'blob' });
   }
 
   deleteData(id: string): Observable<any> {

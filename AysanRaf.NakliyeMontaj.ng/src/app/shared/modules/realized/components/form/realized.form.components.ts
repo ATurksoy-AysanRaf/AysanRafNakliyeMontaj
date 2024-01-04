@@ -10,6 +10,7 @@ import { RealizedService } from "../../services/realized.service";
 import { AlertDialogComponent } from "../../../planned/components/alerts/error/planned.error.component";
 import { AlertDialogComponent2 } from "../../../planned/components/alerts/succeeded/planned.succeeded.component";
 import { AlertDialogComponent3 } from "../../../planned/components/alerts/failed/planned.failed.component";
+import { AlertDialogComponent4 } from "../../../planned/components/alerts/deleted/planned.deleted.component";
 @Component({
   selector: 'aysanraf-realized-form',
   templateUrl: './realized.form.component.html',
@@ -227,7 +228,17 @@ export class RealizedFormComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+  openAlertDialog4(title: string, message: string): void {
+    const dialogRef = this.dialog.open(AlertDialogComponent4, {
+      data: { title, message },
+      width: '600px',
 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
     const formData = this.RealizedOfferForm.getRawValue();
@@ -306,6 +317,7 @@ export class RealizedFormComponent implements OnInit {
     this.onCloseButtonClick();
   }
 
+
   onDelete(): void {
     const formData = this.RealizedOfferForm.getRawValue();
 
@@ -314,15 +326,26 @@ export class RealizedFormComponent implements OnInit {
         if (result !== null) {
           console.log('ID found:', result);
 
-
           const ids = this.findIdBySalesOfferNumber(formData.salesOfferNumber).toString();
-
 
           console.log(formData.salesOfferNumber);
           console.log(ids);
           // Kayıt var, updateData fonksiyonunu çağır
 
           this.dataService.getAllData()
+
+          this.dataService.deleteData(result).subscribe(
+            (response) => {
+              console.log('Entity updated successfully:', response);
+              this.openAlertDialog4('Başarılı', `Kayıt Silindi.`);
+            },
+            (error) => {
+              console.error('Error updating entity:', error);
+
+            }
+          );
+
+        } else {
           console.log('ID not found');
         }
       }
@@ -332,6 +355,8 @@ export class RealizedFormComponent implements OnInit {
 
     this.onCloseButtonClick();
   }
+
+
   exportToExcel() {
     const formData = this.RealizedOfferForm.getRawValue();
 

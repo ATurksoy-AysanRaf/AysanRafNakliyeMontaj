@@ -32,6 +32,16 @@ builder.Services.AddCors(options =>
 });
 ////CORS
 
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowOrigin", builder =>
+//        builder.WithOrigins("http://localhost:4200")
+//               .AllowAnyHeader()
+//               .AllowAnyMethod()
+//    );
+//});
+////CORS
+
 
 builder.Services.AddAutoMapper(typeof(MapProfile));
 

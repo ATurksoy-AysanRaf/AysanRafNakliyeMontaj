@@ -9,6 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class PlannedRealizedConstainService {
   private apiUrl = 'http://192.168.1.32:8020'; // API'nizin gerçek URL'sini buraya ekleyin
+  /*private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin*/
 
   private selectedRowData = new BehaviorSubject<any>(null);
   selectedRowData$ = this.selectedRowData.asObservable();
@@ -64,7 +65,7 @@ export class PlannedRealizedConstainService {
   }
 
   getExportExcell(salesOfferNumber: string): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}/api/comparison-export-to-excel/${salesOfferNumber}`, { responseType: 'blob' });
+    return this.http.get(`${this.apiUrl}/api/PlannedRealizedComparisonExcell/comparison-export-to-excel/${salesOfferNumber}`, { responseType: 'blob' });
   }
 }
 

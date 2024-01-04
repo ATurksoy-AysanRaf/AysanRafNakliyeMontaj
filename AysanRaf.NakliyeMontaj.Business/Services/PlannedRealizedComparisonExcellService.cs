@@ -44,7 +44,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
                 worksheet.PrinterSettings.FitToWidth = 1;
                 worksheet.PrinterSettings.FitToHeight = 1;
 
-              
+
 
 
 

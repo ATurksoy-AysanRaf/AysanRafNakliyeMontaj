@@ -9,6 +9,7 @@ import { DataSource } from "@angular/cdk/collections";
 import { AlertDialogComponent } from "../alerts/error/planned.error.component";
 import { AlertDialogComponent2 } from "../alerts/succeeded/planned.succeeded.component";
 import { AlertDialogComponent3 } from "../alerts/failed/planned.failed.component";
+import { AlertDialogComponent4 } from "../alerts/deleted/planned.deleted.component";
 import { Observable, Subject, catchError, forkJoin, map, of, switchMap, takeUntil } from "rxjs";
 
 import * as XLSX from 'xlsx';
@@ -263,6 +264,18 @@ export class PlannedFormComponent implements OnInit {
     });
   }
 
+  openAlertDialog4(title: string, message: string): void {
+    const dialogRef = this.dialog.open(AlertDialogComponent4, {
+      data: { title, message },
+      width: '600px',
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
     const formData = this.PlannedOfferForm.getRawValue();
@@ -356,9 +369,11 @@ export class PlannedFormComponent implements OnInit {
           this.dataService.deleteData(result).subscribe(
             (response) => {
               console.log('Entity updated successfully:', response);
+              this.openAlertDialog4('Başarılı', `Kayıt Yapıldı.`);
             },
             (error) => {
               console.error('Error updating entity:', error);
+              
             }
           );
 
