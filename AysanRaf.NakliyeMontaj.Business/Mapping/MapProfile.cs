@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 
 using AysanRaf.NakliyeMontaj.Entites.DTOs;
+using AysanRaf.NakliyeMontaj.Entites.Models;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace AysanRaf.NakliyeMontaj.Business.Mapping
     public class MapProfile:Profile
     {
         public MapProfile() {
-        
+
 
 
             CreateMap<RentedEquipment, RentedEquipmentForPostDto>().ReverseMap();

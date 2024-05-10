@@ -43,7 +43,7 @@ export const MY_DATE_FORMATS: MatDateFormats = {
 
 
 
-// ...
+
 
 
 export class PlannedFormComponent implements OnInit {
@@ -301,7 +301,7 @@ export class PlannedFormComponent implements OnInit {
 
   onSubmit(): void {
     // FormGroup'u düz JavaScript nesnesine dönüştür
-    const formData = this.PlannedOfferForm.getRawValue();
+    let formData = this.PlannedOfferForm.getRawValue();
 
     // CreatedDate ve UpdatedDate özelliklerini UTC'ye dönüştür
     formData.CreatedDate = this.convertToUtc(formData.CreatedDate);
@@ -340,28 +340,7 @@ export class PlannedFormComponent implements OnInit {
     formData.CreatedDate = this.convertToUtc(formData.CreatedDate);
     formData.UpdatedDate = this.convertToUtc(formData.UpdatedDate);
 
-    // checkData fonksiyonunu çağır ve dönüş değerine göre işlem yap
-    //this.checkData().subscribe(
-    //  (result) => {
-    //    if (result === 0) {
-    //      // Kayıt yok, createData fonksiyonunu çağır
-    //      this.dataService2.createData(formData).subscribe(
-    //        (response) => {
-    //          console.log('Entity added successfully:', response);
 
-    //          this.openAlertDialog2('Başarılı', `Kayıt Yapıldı.`);
-
-
-    //        },
-    //        (error) => {
-    //          console.error('Error adding entity:', error);
-    //          this.openAlertDialog3('Başarısız', `Kayıt Yapılamadı.`);
-    //        }
-    //      );
-    //    }
-
-    //  }
-    //);
 
     // Kayıt yok, createData fonksiyonunu çağır
     this.dataService2.createData(formData).subscribe(
@@ -545,9 +524,6 @@ export class PlannedFormComponent implements OnInit {
 
       this.PlannedOfferForm.patchValue({
        
-
-    
-        
         numberDays: (matchedData.numberDays),
         reallyTonnage: matchedData.reallyTonnage,
         totalWageAmount: matchedData.totalWageAmount,

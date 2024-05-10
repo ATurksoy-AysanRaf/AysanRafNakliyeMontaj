@@ -12,10 +12,10 @@ namespace AysanRaf.NakliyeMontaj.DataAccess.Repositories
 {
     public class BaseRepository<T>: IBaseRepository<T> where T : class
     {
-        private readonly aysanrafpopsepdevelopment_2023_09_10_05_45Context _context;
+        private readonly AysanRafContext _context;
         private readonly DbSet<T> _dbSet;
 
-        public BaseRepository(aysanrafpopsepdevelopment_2023_09_10_05_45Context context)
+        public BaseRepository(AysanRafContext context)
         {
             _context = context;
             _dbSet = _context.Set<T>();

@@ -10,8 +10,8 @@ import * as XLSX from 'xlsx';
   providedIn: 'root',
 })
 export class PlannedService {
- /* private apiUrl = "http://192.168.1.32:8020"; // API'nizin gerçek URL'sini buraya ekleyin*/
-  private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin
+   private apiUrl = "http://192.168.1.32:8020"; // API'nizin gerçek URL'sini buraya ekleyin
+  /*private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin*/
 
   private selectedRowData = new BehaviorSubject<any>(null);
   selectedRowData$ = this.selectedRowData.asObservable();

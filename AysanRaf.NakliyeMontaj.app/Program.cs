@@ -3,11 +3,14 @@ using AysanRaf.NakliyeMontaj.app.Controllers;
 using AysanRaf.NakliyeMontaj.Business.Mapping;
 using AysanRaf.NakliyeMontaj.Business.Services;
 using AysanRaf.NakliyeMontaj.DataAccess.Repositories;
-
+using AysanRaf.NakliyeMontaj.Entites.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Models;
 using OfficeOpenXml;
 using System.ComponentModel;
 using LicenseContext = OfficeOpenXml.LicenseContext;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,15 +25,7 @@ builder.Services.AddScoped<ExcelExportService>();
 builder.Services.AddScoped<RealizedExcellExportService>();
 builder.Services.AddScoped<PlannedRealizedComparisonExcellService>();
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowOrigin", builder =>
-//        builder.WithOrigins("http://192.168.1.32:8010")
-//               .AllowAnyHeader()
-//               .AllowAnyMethod()
-//    );
-//});
-//////CORS
+
 
 builder.Services.AddCors(options =>
 {
@@ -59,9 +54,17 @@ builder.Services.AddScoped<IBaseRepository<RealizedOfferForm>, BaseRepository<Re
 builder.Services.AddScoped<IBaseService<RealizedOfferForm>, BaseService<RealizedOfferForm>>();
 
 
+var configuration = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
 
 
-builder.Services.AddDbContext<aysanrafpopsepdevelopment_2023_09_10_05_45Context>();
+//builder.Services.AddDbContext<AysanRafContext>();
+
+builder.Services.AddDbContext<AysanRafContext>(options =>
+{
+    options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+});
 
 
 

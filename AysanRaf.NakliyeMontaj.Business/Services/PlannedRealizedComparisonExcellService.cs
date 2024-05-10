@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AysanRaf.NakliyeMontaj.DataAccess.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
@@ -14,9 +15,9 @@ namespace AysanRaf.NakliyeMontaj.Business.Services
 
     public class PlannedRealizedComparisonExcellService
     {
-        private readonly aysanrafpopsepdevelopment_2023_09_10_05_45Context _context;
+        private readonly AysanRafContext _context;
 
-        public PlannedRealizedComparisonExcellService(aysanrafpopsepdevelopment_2023_09_10_05_45Context dbContext)
+        public PlannedRealizedComparisonExcellService(AysanRafContext dbContext)
         {
             _context = dbContext;
         }

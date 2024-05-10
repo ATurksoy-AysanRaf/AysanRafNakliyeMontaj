@@ -8,8 +8,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PlannedRealizedConstainService {
- /* private apiUrl = 'http://192.168.1.32:8020'; // API'nizin gerçek URL'sini buraya ekleyin*/
-  private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin
+  private apiUrl = 'http://192.168.1.32:8020'; // API'nizin gerçek URL'sini buraya ekleyin
+/*  private apiUrl = 'https://localhost:7203'; // API'nizin gerçek URL'sini buraya ekleyin*/
 
   private selectedRowData = new BehaviorSubject<any>(null);
   selectedRowData$ = this.selectedRowData.asObservable();

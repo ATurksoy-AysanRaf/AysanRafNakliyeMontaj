@@ -7,14 +7,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AysanRaf.NakliyeMontaj.DataAccess.Repositories;
 
 namespace AysanRaf.NakliyeMontaj.Business.Services
 {
     public class RealizedExcellExportService
     {
-        private readonly aysanrafpopsepdevelopment_2023_09_10_05_45Context _context;
+        private readonly AysanRafContext _context;
 
-        public RealizedExcellExportService(aysanrafpopsepdevelopment_2023_09_10_05_45Context dbContext)
+        public RealizedExcellExportService(AysanRafContext dbContext)
         {
             _context = dbContext;
         }

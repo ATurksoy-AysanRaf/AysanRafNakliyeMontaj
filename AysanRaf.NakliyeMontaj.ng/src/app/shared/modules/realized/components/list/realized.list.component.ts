@@ -199,9 +199,9 @@ export class RealizedListComponent implements OnInit {
 
 
 
-      if (history.toString() == "onemon") {
+      if (history.toString() == "oneMon") {
         //    Gelen veriyi listeye ekle
-        // this.dataList.splice(0, this.dataList.length);
+        this.dataList.splice(0, this.dataList.length);
         this.dataList = [...this.dataList, ...data];
 
         //  Tüm uyan verileri bul
@@ -211,7 +211,7 @@ export class RealizedListComponent implements OnInit {
             dataItem.salesOfferNumber.toLocaleLowerCase('tr-TR').includes(offerNumber) &&
             dataItem.customerName.toLocaleLowerCase('tr-TR').includes(customer) &&
             dataItem.customerCity.toLocaleLowerCase('tr-TR').includes(city)
-          );
+        );
 
         if (matchedItems.length > 0) {
           //   Eşleşen veri bulundu
